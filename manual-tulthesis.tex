@@ -218,15 +218,12 @@
 		\chapter{Neuronové sítě} \label{nns}
 		\section{Základní pojmy}
 		Neuronová síť je složena z neuronů. Propojení mezi neurony mají danou váhu a doplněk (bias). Celá struktura si bere inspiraci z lidského mozku, který sám obsahuje miliardy propojených biologických neuronů \cite{general}. Neuron je tvořen vstupy $x_i$, aktivační funkci a výstupem. Vstupy $x_i$ jsou násobeny vahou $w_i$, která udává důležitost vstupu. Celý výstup lze ještě upravit doplňkem $b$. Výstup neuronu je definován následující rovnicí.
+
+		\begin{equation}
+			\sum_{i=1}^{n} w_i x_i + b
+		\end{equation}
 		
-
-			\begin{equation}
-				\sum_{i=1}^{n} w_i x_i + b
-			\end{equation}
-
-
-		
-		Výstup je poslán dále, do aktivační funkce $\phi(v)$ . Ta může, ale nemusí, upravit hodnotu výstupu. Výstup může poté putovat buď do dalšího neuronu, nebo rovnou na výstup celé neuronové sítě. Tento proces je vykonán napříč všemi neurony v síti. Nazývá se také dopředná propagace (forward pass) \cite{general}.
+		Výstup je poslán dále, do aktivační funkce $\phi(v)$ . Ta může, ale nemusí, upravit hodnotu výstupu. Výstup může poté putovat buď do dalšího neuronu, nebo rovnou na výstup celé neuronové sítě. Tento proces je vykonán napříč všemi neurony v síti. Nazývá se také dopředná propagace \cite{general}.
 		
 		\begin{figure}[H]
 			\centering
@@ -237,27 +234,17 @@
 		
 		\subsection{Aktivační funkce}
 		Jedná se o matematickou funkci, která upravuje výstup neuronu \cite{deepai_act}. Příkladem může být pravděpodobnost. Pokud výstup z neuronu bude v řádu tisíců, nelze bez aktivační funkce ze sítě dostat hodnotu mezi 0 a 1. Aktivačních funkcí máme několik, např. ReLU která vrací hodnotu pouze, pokud je kladná, záporné hodnoty jsou nulovány.
-		
 
-			\begin{equation}
-				f(x) = max(0,x)
-			\end{equation}
-
-	
-		Pokud bychom určovali pravděpodobnost, použili bychom již zmíněnou funkci sigmoid \cite{act_func}. Ta výstup přizpůsobí na hodnoty mezi 0 a 1.
-
-			\begin{equation}\label{eq:sig}
-				\sigma(z) = \frac{1}{1 + e^{‑z}}
-			\end{equation}
-
+		\begin{equation}
+			f(x) = max(0,x)
+		\end{equation}
 	
 		Pokud bychom měli určit pravděpodobnost více než dvou událostí, použili bychom funkci softmax, která převádí vektor hodnot na pravděpodobnostní distribuci \ref{eq:sig} \cite{neuralnetwork101_act}.
 
-			\begin{equation}
-				\sigma(z)_j = \frac{e^{z_j}}{\sum_{k=1}^K e^{z_k}}
-			\end{equation}
+		\begin{equation}
+			\sigma(z)_j = \frac{e^{z_j}}{\sum_{k=1}^K e^{z_k}}
+		\end{equation}
 
-		
 		\subsection{Vícevrstvé perceptrony (MLP)}
 		Neurony jsou seskupeny do vrstev. Neuronová síť se skládá z libovolného množství skrytých vrstev, které se nachází mezi vstupní a výstupní vrstvou \cite{neuralnetwork101}. Příkladem může být rozpoznávání číslic na datasetu MNIST. 
 		
@@ -272,8 +259,6 @@
 			\label{fig:mnist}
 		\end{figure}
 		
-		Vrstvy se ale nedělí pouze podle jejich pozice uvnitř sítě, ale také podle funkce. Krom plně propojených vrstev, obsahujících navzájem propojené neurony, lze použít i vrstvy s libovolnou operací, např. konvolucí, čehož se využívá hlavně v konvolučních neuronových sítích, používaných např. k rozpoznání obrázků. Dále vrstvy rekurentní, které nám poskytují schopnost si „pamatovat“ hodnoty napříč iteracemi, nacházejí využití hlavně při sekvenčních datech \cite{projectpro} \cite{general}, jako např. ceny akcií nebo text.
-		
 		\section{Učení neuronové sítě} \label{training}
 		V učení neuronových sítí hrají klíčovou roli data, která již obsahují správnou odpověď na to, co se snažíme neuronovou sítí předpovědět. Jedná se tedy o typ učení s učitelem. Kvalita dat tedy přímo limituje kvalitu konečné předpovědi od neuronové sítě. 
 		
@@ -286,29 +271,19 @@
 		
 		Chybovou funkcí může být např. odmocnina střední kvadratické odchylky, definována tímto vzorcem \cite{RMSE}.
 		
-
-			\begin{equation}
-				RMSE = \sqrt{\frac{1}{n}\sum_{i=1}^{n}(y_i ‑ \hat{y_i})^2}
-			\end{equation}
-
+		\begin{equation}
+			RMSE = \sqrt{\frac{1}{n}\sum_{i=1}^{n}(y_i ‑ \hat{y_i})^2}
+		\end{equation}
 		
 		Kdy $n$ značí počet dat, $\hat{y_i}$ značí předpovězenou hodnotu a $y_i$ značí cílovou hodnotu.
 		
-		U pravděpodobností se používá křížová entropie \cite{cross_entropy}. 
-
-			\begin{equation}
-				H(y, \hat{y}) = - \sum_{i} y_i \cdot \log(\hat{y}_i)
-			\end{equation}
-
-		Kdy $i$ značí počet kategorií, $\hat{y_i}$ značí předpovězenou pravděpodobnostní distribuci a $y_i$ značí cílovou pravděpodobnostní distribuci.
-		
 		\subsection{Optimizéry}
-		Jak ale neuronová síť hledá minimum dané chybové funkce? Metod pro hledání minima existuje mnoho, ale v oblasti strojového učení jsou nejčastěji používány varianty metody největšího spádu. Ta využívá gradientu, který udává změnu funkce. Algoritmus se pohybuje ve směru největšího záporného gradientu a konverguje k minimu funkce \cite{gradient_descent}. V terminologii neuronových sítí se tyto algoritmy značí jako optimizéry. % TODO: youtube
+		Jak ale neuronová síť hledá minimum dané chybové funkce? Metod pro hledání minima existuje mnoho, ale v oblasti strojového učení jsou nejčastěji používány varianty metody největšího spádu. Ta využívá gradientu, který udává změnu funkce. Algoritmus se pohybuje ve směru největšího záporného gradientu a konverguje k minimu funkce \cite{gradient_descent}. V terminologii neuronových sítí se tyto algoritmy značí jako optimizéry.
 		
 
-			\begin{equation}
-				\theta_{j+1} = \theta_j ‑ \alpha \frac{\partial J(\theta)}{\partial \theta}
-			\end{equation}
+		\begin{equation}
+			\theta_{j+1} = \theta_j ‑ \alpha \frac{\partial J(\theta)}{\partial \theta}
+		\end{equation}
 
 	
 		\begin{figure}[H]
@@ -317,24 +292,6 @@
 			\caption{Metoda největšího spádu \cite{general}}
 			\label{fig:sgd}
 		\end{figure}
-		
-		Pro správnou funkci optimizérů je důležité správně nastavit parametr $\alpha$, který značí míru učení (learning rate) algoritmu. Míra učení je velikostí jednoho kroku algoritmu, pokud bude velikost kroku moc malá, bude hledání minima trvat zbytečně dlouho. Pokud bude moc velká, může se nám stát, že minimum „přeskočíme“, a budeme se od něj pouze vzdalovat \cite{gradient_descent}.
-		
-		\begin{figure}[H]
-			\centering
-			\includegraphics[width=0.5\linewidth]{img/epoch_loss.png}
-			\caption{Vliv nastavení míry učení na chybovou funkci v čase \cite{general}}
-			\label{fig:loss_time}
-		\end{figure}
-		
-		\subsection{Zpětná propagace}
-		Jedná se o metodu k vypočítávání derivací chybové funkce vzhledem k vahám $w_i$ jednotlivých propojení v síti \cite{nielsen2015neural} \cite{brilliant}. K tomuto je využito pravidlo o derivaci složené funkce \cite{profoundqa}. % TODO: youtube
-		
-
-			\begin{equation}
-				\frac{\delta J}{\delta w_n}
-			\end{equation}
-
 		
 		\subsection{Trénování neuronové sítě}
 		Zmíněný proces je ale pouze jedním krokem při trénování jednoho neuronu uvnitř neuronové sítě. Kroků je ale potřeba tisíce, na miliardách neuronů, než se neuronová síť naučí správně předpovídat. Jedná se také o proces „trénování“ neuronové sítě \cite{tds_train}.
@@ -348,9 +305,6 @@
 		Jedna „epocha“ trénování značí bod, kdy síť využila všechna trénovací data. Trénink se může pohybovat od pár epoch po několik stovek. Trénovací data jsou s každou epochou náhodně rozdělena, aby se síť nenaučila předpovídat pouze pořadí dat. Jak moc je potřeba síť trénovat se odvíjí od nastavených náhodných hodnot \cite{tds_train}. 
 		
 		Hodnoty vah lze uložit do binárního formátu, to vede k metodě „přenášeného učení“. Myšlenkou je využití existující neuronové sítě s natrénovanými vahami pro podobný úkol \cite{wiki:transfer}. Síť tak akorát v tréninku „doladíme“ na našich datech a tím zlepšíme kvalitu pro náš úkol \cite{hgf:finetune}. Tato metoda je obzvláště využívaná u velkých jazykových modelů, jenž jsou velice finančně náročné na trénink, ale ne tak moc na odladění.
-		
-		\subsection{Přeučení sítě} \label{overfit}
-		Pokud je síť schopna perfektně předpovědět trénovací data, ale na neznámých datech je její rozpoznávací schopnost podstatně horší, značí to „přeučení sítě“. Síť se naučí data „nazpaměť“, ale nezná jejich obecný význam. Nastává při nadměrném množství vah, nebo nedostatku dat \cite{overfitting_wiki}. Přeučení sítě lze řešit několika způsoby. Prvním způsobem je přerušit určitá spojení mezi vrstvami, a tím pádem snížit její počet vah. Poté nemá síť tolik „kapacity pro memorování“ a musí se naučit obecnější vlastnosti. Případně je nutné získat více dat \cite{overfitting_ml}.
 		
 		\chapter{Zpracování jazyka}
 		Doména zpracování jazyka (NLP) s pomocí strojového učení, případně neuronových sítí je o mnoho starší, než velké jazykové modely jako GPT nebo LLaMA. Pro pochopení LLM potřebujeme znalost „embedding“ a „transformer“ modelů, spolu s procesem „tokenizace“. Při tom si i vysvětlíme proces od předání vstupu LLM, až po výslednou odpověď.
@@ -376,9 +330,9 @@
 		
 		Pomocí vzdálenosti tenzorů lze určit podobná slova. Slovo „král“ a „muž“ mají podobnou vzdálenost po zakódování do vektorů jako slova „žena“ a „královna“. To je dáno právě tím, že vektory zachycují význam slov, tím pádem vzdálenost mezi vektory, ať už kosinová, nebo euklidovská, poskytuje informaci o rozdílu významů slov, kterou lze přenést i na jinou slovní dvojici. Velké jazykové modely používají pro převod ze slov do tenzorů právě embedding modely \cite{embeddings} \cite{embeddings2}.
 		
-		Úkolem neuronové sítě je předpovědět slovo na základě jeho okolí. Dělí se na dva typy, a to CBOW a Skip-gram \cite{embeddings}. Znalost slov je dána slovníkem. Slovník obsahuje všechna známá slova pro neuronovou síť, také speciální tokeny, např. \verb|</EOS>|, který určuje konec textového řetězce \cite{embeddings2}.
+		Úkolem neuronové sítě je předpovědět slovo na základě jeho okolí. Znalost slov je dána slovníkem. Slovník obsahuje všechna známá slova pro neuronovou síť, také speciální tokeny, např. \verb|</EOS>|, který určuje konec textového řetězce \cite{embeddings2}. 
 		
-		Jak ale takový model funguje? Uveďme si příklad na CBOW variantě Word2Vec. Nejdříve je text předzpracován. To zahrnuje převedení na malá nebo velká písmena, vyloučení nepotřebné interpunkce a tokenizaci. Cílem neuronové sítě je na základě kontextového okna tokenů velikosti $w$ předpovědět slovo uprostřed kontextového okna. Každému tokenu, v našem příkladě slovu, jsou ve slovníku přiřazeny váhy, které jsou v počátečním stavu náhodné \cite{ytb:word2vec}. 
+		Jak ale takový model funguje? Nejdříve je text předzpracován. To zahrnuje převedení na malá nebo velká písmena, vyloučení nepotřebné interpunkce a tokenizaci. Cílem neuronové sítě je na základě kontextového okna tokenů velikosti $w$ předpovědět slovo uprostřed kontextového okna. Každému tokenu, v našem příkladě slovu, jsou ve slovníku přiřazeny váhy, které jsou v počátečním stavu náhodné \cite{ytb:word2vec}. 
 		
 		Slova se převedou na „one hot“ vektory, o velikosti celého slovníku. Každé číslo představuje výskyt jednoho slova ze slovníku v binární formě. Hodnota pro dané slovo bude tedy jedna, a pro ostatní slova ve slovníku hodnotu nula. Pokud bychom měli velikost slovníku pět, a pět slov v našem vstupu, budeme mít pět vektorů, které budou mít jedničku vždy na jiné pozici. Průměrem hodnot těchto pěti vektorů pro dané kontextové okno dostaneme vektor $x$, který bude vstupem do neuronové sítě \cite{ytb:word2vec}.
 		
@@ -416,8 +370,6 @@
 		Slabinou LLM jsou hlavně matematické výpočty. Zde se nám poté hodí různé nástroje. Jedná se o funkce, které si AI sama zavolá v procesu vytváření odpovědi, pokud je potřebuje. U výpočtů se často používá funkce, která umí spustit skript v Pythonu. LLM vygeneruje kód pro výpočet, který Python vyhodnotí. Další funkce zahrnují např. hledání v prohlížeči \cite{PEG}.
 		
 		V kontextu naší práce, hlavně fáze implementace, nebudeme ale naše otázky intenzivně optimalizovat. Proč? Nepředpokládám, že by se programátorovi chtělo ladit prompt např. půl hodiny za cílem dostat ideální odpověď. Textové vstupy budou různé kvality, v závislosti na tom, jestli zrovna chceme ukázat určitou slabinu AI nebo ne. 
-		
-		Určitě by šlo vstupy více optimalizovat \cite{PEG}. Důležitost znalostí samotného strukturování promptů pro co nejlepší výsledky ale postupně odeznívá, díky platformám, které sdílí nejefektivnější prompty pro dané použití \cite{langchainhub}. Nebo adaptérech před samotným LLM, které se snaží prompt „vyladit“, které se používají při generování obrázků, například \cite{leonardoai}.
 		
 		\subsection{Hledání v dokumentech}
 		Vzhledem k tomu, že se naše práce v implementační fázi zaměřuje také na vyhledávání napříč několika soubory kódu, je důležité zmínit, jak toho může AI dosáhnout. Metoda RAG (Retrieval Augmented Generation) je v současné době populární technika, která nám umožňuje snížit úroveň halucinací u LLM tím, že obohacuje odpovědi o informace z dokumentů. Princip této metody je relativně jednoduchý - spolu s otázkou poskytneme AI relevantní kontext a explicitně ji „nasměrujeme“ k použití tohoto kontextu v daném promptu. Kontext je nalezen jiným modelem, který hledá pomocí zakódovaných vektorů významu nejpodobnější kontext položené otázce \cite{paper:RAG}.
