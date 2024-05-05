@@ -1,0 +1,1447 @@
+\documentclass[FM,DP]{tulthesis}
+% tento dokument používá balíky specifické pro XeLaTeX a lze jej přeložit
+% jen XeLaTeXem, nemáte-li instalována použitá (komerční) písma, změňte
+% nebo vymažte příkazy \set...font na následujících řádcích
+
+% Autor šablony: Pavel Satrapa: http://www.nti.tul.cz/~satrapa/vyuka/latex-tul/
+
+% Autor komentářů, jejich překladů do EN, nastavení BibLaTeXu a aplikace ČSN ISO 690: Jan Koprnický
+% http://www.fm.tul.cz/personal/jan.koprnicky
+
+% ENGLISH EXPLANATION
+% \documentclass[FM,Dis,EN,fonts,bw]{tulthesis} % black and white typing, dissertation thesis at FM, written in English with using of TUL Mono font
+% this document uses packages specific for XeLaTeX and it is possible to 
+% compile it by XeLaTeX only, if you haven't installed used (commercial) fonts
+% change them or erase commands \set...font in following rows
+% settings: FM (faculty: FS, FT, FP, EF, FA, FM, FZS a CXI), Dis (type of thesis: BP, DP, Teze, Autoref, Hab, SP, Proj), EN (written in English language), fonts (activation of TUL fonts), bw (black and white)
+
+% Autor of the template tulthesis: Pavel Satrapa: http://www.nti.tul.cz/~satrapa/vyuka/latex-tul/
+
+% Autor of several comments and their translation into English, BibLaTeX settings and CSN ISO 960 citation standard setting: Jan Koprnický
+% http://www.fm.tul.cz/personal/jan.koprnicky
+
+% poslední změna / last modification 19. 9. 2022
+
+\newcommand{\verze}{2.0}
+
+\usepackage{polyglossia}
+\usepackage{pdfpages}
+\usepackage{hyperref}
+\usepackage{svg}
+\usepackage[most]{tcolorbox}
+\setdefaultlanguage{czech} % comment when English is preferred
+%\setdefaultlanguage{english} % comment when Czech is preferred
+
+
+\usepackage{makeidx}
+\makeindex
+\usepackage{float}
+\usepackage{xunicode}
+\usepackage{xltxtra}
+
+% příkazy specifické pro tento dokument / specific commands for this document
+\newcommand{\argument}[1]{{\ttfamily\color{\tulcolor}#1}}
+\newcommand{\argumentindex}[1]{\argument{#1}\index{#1}}
+\newcommand{\prostredi}[1]{\argumentindex{#1}}
+\newcommand{\prikazneindex}[1]{\argument{\textbackslash #1}}
+\newcommand{\prikaz}[1]{\prikazneindex{#1}\index{#1@\textbackslash #1}}
+\newenvironment{myquote}{\begin{list}{}{\setlength\leftmargin\parindent}\item[]}{\end{list}}
+\newenvironment{listing}{\begin{myquote}\color{\tulcolor}}{\end{myquote}}
+\sloppy
+
+\TULauthor{Daniel Dominko}
+\TULtitle{Využití AI v softwarovém inženýrství}{Usage of AI in software engineering}
+
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{mdframed,lipsum,calc}
+
+\setlist[enumerate]{noitemsep}
+\setlist[itemize]{noitemsep}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinelanguage{JavaScript}{
+	keywords={break, case, catch, continue, debugger, default, delete, do, else, false, finally, for, function, if, in, instanceof, new, null, return, switch, this, throw, true, try, typeof, var, void, while, with},
+	morecomment=[l]{//},
+	morecomment=[s]{/*}{*/},
+	morestring=[b]',
+	morestring=[b]",
+	ndkeywords={class, export, boolean, throw, implements, import, this},
+	keywordstyle=\color{blue}\bfseries,
+	ndkeywordstyle=\color{darkgray}\bfseries,
+	identifierstyle=\color{black},
+	commentstyle=\color{purple}\ttfamily,
+	stringstyle=\color{red}\ttfamily,
+	sensitive=true
+}
+
+\lstdefinestyle{mystyle}{
+	backgroundcolor=\color{backcolour},   
+	commentstyle=\color{codegreen},
+	keywordstyle=\color{magenta},
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{codepurple},
+	basicstyle=\ttfamily\footnotesize,
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbers=left,                    
+	numbersep=5pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=2
+}
+
+\lstset{style=mystyle}
+
+% pro bakalářské, diplomové a disertační práce
+\TULprogramme{N0714A270010}{Mechatronika}{Mechatronics}
+\TULsupervisor{Ing. Roman Špánek Ph.D.}
+% \TULconsultant{Ing. Jan Koprnický PhD.}
+\TULyear{2024}
+% pro bakalářské, diplomové a disertační práce / for bachelor, master theses and dissertation
+%\TULconsultant{doc. RNDr. Druhý Konzultant, Ph.D.}
+%\TULconsultant{doc. RNDr. Třetí Konzultant, Ph.D
+	
+	% pro habilitační práce / habilitation thesis
+	%\TULbranch{}{Technická kybernetika}{Technical cybernetics}
+	%\TULyear{2022}
+	
+	% Použití bibLateXu, pracuje s ISO stylem
+	% BibLaTeX settings, works with ISO style
+	\usepackage[ 
+	backend=biber
+	% ,style=iso-authoryear % styl vyžaduje FZS TUL , místo příkazu \cite{} je potřeba využít \parencite{} (sazba kulatých závorek) / style required by FZS TUL use \parencite{} instead of \cite{}
+	,style=iso-numeric
+	%,style=numeric
+	%,sortlocale=cs_CZ
+	,autolang=other
+	,bibencoding=UTF8
+	%,urldate=edtf
+	,maxcitenames=2 %maximum v textu citovaných jmen
+	,maxbibnames=3 %maximum v seznamu vyjmenovaných autorů
+	]{biblatex}
+	\addbibresource{refTULTHESIS.bib}% vložení seznamu literárních zdrojů v bib formátu / input of references in bib format
+	
+	% Úprava iso-numeric.bbx v souladu s požadavky TUL hranaté závorky v číslovaném seznamu / Modification of iso-numeric.bbx in accordance with TUL requirements of square brackets in a numbered list
+	\DeclareFieldFormat{labelnumberwidth}{\mkbibbrackets{#1}}
+	
+	% Formátování podle pokynů FZS, při využití stylu iso-authoryear, čárka mezi jmény a poslední jméno se spojkou a / special requirements of FZS TUL 
+	\DeclareDelimFormat{multinamedelim}{\addcomma\space}
+	
+	\DeclareDelimFormat{finalnamedelim}{%
+		\ifnumgreater{\value{liststop}}{2}{\finalandcomma}{}%
+		\addspace\bibstring{and}\space}
+	
+	\DeclareNameAlias{author}{family-given/given-family} 
+	%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\usepackage{csquotes} %užití biblatexu hlasí warnings, důvodem může být použití českých uvozovek v citacích! / solving of problems with Czech quotations
+	\urlstyle{same} %sazba url odkazů stejným fontem jako ostatní text, řešení problémů v zalamování hypertextových odkazů v citacích / url in references setting into the same form as text 
+	
+	
+	\begin{document}
+		
+		\ThesisStart{male}
+		
+		\begin{abstractCZ}
+			Práce se zaměří na využití AI v prostředí softwarového inženýrství. Nejdříve uvede problematiku neuronových sítí, kódování slov do vektorů a architektury transformerů. Dále se zaměří na techniky ladění daných sítí. Poté porovná použití této technologie na vývoji softwaru, a to ve fázích analýzy, návrhu, implementace, testování a CI/CD. Nakonec shrne výhody a nevýhody používání takových technologií.
+		\end{abstractCZ}
+		\begin{keywordsCZ}
+			Umělá inteligence, AI, Softwarové inženýrství, Neuronové sítě, Kódování slov do vektorů, Transformeři
+		\end{keywordsCZ}
+		\vspace{1cm}
+		
+		\begin{abstractEN}
+			This thesis will focus on using AI in software engineering. First, it will focus on neural networks, word embeddings, and transformer models, along with fine-tuning said networks. Then, it will evaluate the usage of this technology throughout the software development lifecycle, mainly in analysis, design, implementation, testing, and CI/CD. In the end, we will evaluate the benefits of using said technologies.
+		\end{abstractEN}
+		
+		\begin{keywordsEN}
+			Artifical intelligence, AI, Neural networks, Word embeddings, Software engineering, Transformers
+		\end{keywordsEN}
+		
+		\clearpage
+		
+		\tableofcontents
+		
+		\clearpage
+		
+		\begin{abbrList}
+			SDLC - Software Development Life Cycle \\
+			AI - Artificial Intelligence \\
+			CI/CD - Continuous Integration / Continuous Development \\
+			API - Application Programming Interface \\
+			IDE - Integrated Development Environment \\
+			JSON - JavaScript Object Notation \\
+			HTML - Hyper Text Markup Language \\
+			CSRF - Cross Site Request Forgery \\
+			UX - User Experience \\
+			UML - Unified Modeling Language \\
+			CBOW - Continuous Bag Of Words \\
+			RAG - Retrieval Augmented Generation \\
+			EOS - End Of Sequence \\
+			NLP - Natural Language Processing \\
+			MNIST - Modified National Institute of Standards and Technology database \\
+			LLM - Large Language Model \\
+			LRU - Least Recently Used \\
+			PaLM - Pathways Language Model \\
+			GPT - Generative pre-trained transformer \\
+			LLaMA - Large Language Model Meta AI \\
+			CoT - Chain of Thoughts \\
+			ToT - Tree of Thoughts \\
+			BPE - Byte Pair Encoding \\
+			WCAG - Web Content Accessibility Guidelines \\
+		\end{abbrList}
+	
+		\clearpage
+		\phantomsection
+		\listoffigures
+		\addcontentsline{toc}{section}{Seznam obrázků}
+		\clearpage 
+		
+		\chapter{Úvod}
+		Tato diplomová práce se zaměřuje na analýzu výhod a nevýhod využití umělé inteligence (AI) při návrhu webové aplikace. Cílem této práce je provést rozbor současného stavu dostupných nástrojů umělé inteligence v oblasti softwarového inženýrství. Hodnocení proběhne v jednotlivých etapách vývoje aplikace, tj. analýze, návrhu, implementaci, testování a kontinuální integraci a doručování (CI/CD).
+		
+		Pro lepší pochopení problematiky nejdříve podrobněji prozkoumáme fungování neuronových sítí. Jak funguje neuronová síť v základní podobě? Jak se učí neuronová síť předpovídat počasí, rozpoznávat osoby na obrázcích nebo generovat kód? Jaké matematické operace jsou klíčové při trénování neuronových sítí?
+		
+		Dále se zaměříme na neuronové sítě specializované na zpracování lidského jazyka a na velké jazykové modely (LLM), jako je například ChatGPT. Prozkoumáme postup, jak převedeme slova do podoby, které neuronová síť dokáže porozumět, pomocí zakódování do vektorů a tokenizace. Následně si vysvětlíme architekturu transformerů, která je základem většiny velkých jazykových modelů. Nakonec se zaměříme na techniky optimalizace vstupních dat, abychom dosáhli co nejlepších výsledků z modelu, včetně metody „prompt engineering“ a pokročilých přístupů, jako je doplňování kontextu modelu (RAG).
+		
+		Následuje vytvoření projektu s využitím umělé inteligence a hodnocení jejího přínosu v jednotlivých fázích vývoje softwaru. Na začátku této kapitoly bude specifikován rozsah testované aplikace, kritéria a metodika hodnocení. Hodnocení bude zohledňovat přínos umělé inteligence z hlediska juniorní a mediorní úrovně vývoje. Dále budeme hodnotit i obecnější hlediska, jako je například aktuálnost a relevance odpovědí k dané otázce. V závěru zhodnotíme přínos neuronových sítí při návrhu aplikace v jednotlivých fázích vývoje softwaru a jejich přínos v dalších aspektech vývoje, a také poskytneme pohled do budoucnosti využití AI jako pomocníka programátora, případně jeho náhradu.
+		
+		\chapter{Neuronové sítě} \label{nns}
+		\section{Základní pojmy}
+		Neuronová síť je složena z neuronů. Propojení mezi neurony mají danou váhu a doplněk (bias). Celá struktura si bere inspiraci z lidského mozku, který sám obsahuje miliardy propojených biologických neuronů \cite{general}. Neuron je tvořen vstupy $x_i$, aktivační funkci a výstupem. Vstupy $x_i$ jsou násobeny vahou $w_i$, která udává důležitost vstupu. Celý výstup lze ještě upravit doplňkem $b$. Výstup neuronu je definován následující rovnicí.
+		
+
+			\begin{equation}
+				\sum_{i=1}^{n} w_i x_i + b
+			\end{equation}
+
+
+		
+		Výstup je poslán dále, do aktivační funkce $\phi(v)$ . Ta může, ale nemusí, upravit hodnotu výstupu. Výstup může poté putovat buď do dalšího neuronu, nebo rovnou na výstup celé neuronové sítě. Tento proces je vykonán napříč všemi neurony v síti. Nazývá se také dopředná propagace (forward pass) \cite{general}.
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.75\linewidth]{img/neuron.jpg}
+			\caption{Blokové schéma neuronu \cite{dzone}}
+			\label{fig:neuron}
+		\end{figure}
+		
+		\subsection{Aktivační funkce}
+		Jedná se o matematickou funkci, která upravuje výstup neuronu \cite{deepai_act}. Příkladem může být pravděpodobnost. Pokud výstup z neuronu bude v řádu tisíců, nelze bez aktivační funkce ze sítě dostat hodnotu mezi 0 a 1. Aktivačních funkcí máme několik, např. ReLU která vrací hodnotu pouze, pokud je kladná, záporné hodnoty jsou nulovány.
+		
+
+			\begin{equation}
+				f(x) = max(0,x)
+			\end{equation}
+
+	
+		Pokud bychom určovali pravděpodobnost, použili bychom již zmíněnou funkci sigmoid \cite{act_func}. Ta výstup přizpůsobí na hodnoty mezi 0 a 1.
+
+			\begin{equation}\label{eq:sig}
+				\sigma(z) = \frac{1}{1 + e^{‑z}}
+			\end{equation}
+
+	
+		Pokud bychom měli určit pravděpodobnost více než dvou událostí, použili bychom funkci softmax, která převádí vektor hodnot na pravděpodobnostní distribuci \ref{eq:sig} \cite{neuralnetwork101_act}.
+
+			\begin{equation}
+				\sigma(z)_j = \frac{e^{z_j}}{\sum_{k=1}^K e^{z_k}}
+			\end{equation}
+
+		
+		\subsection{Vícevrstvé perceptrony (MLP)}
+		Neurony jsou seskupeny do vrstev. Neuronová síť se skládá z libovolného množství skrytých vrstev, které se nachází mezi vstupní a výstupní vrstvou \cite{neuralnetwork101}. Příkladem může být rozpoznávání číslic na datasetu MNIST. 
+		
+		Vstupní vrstva přijme šedotónovou hodnotu pixelů uvnitř obrázku, která je zredukována z matice na vektor. Skryté vrstvy se naučí prvky obrázku, třeba křivky, díky kterým rozpozná, jestli se jedná o číslo 1, nebo číslo 8. Výstupní vrstva poté identifikuje danou číslovku. 
+		
+		Tento typ sítě se označuje jako vícevrstvý perceptron (MLP) \cite{mnist}. Velikost výstupní vrstvy může být jakákoliv. Důležité je pouze, aby výstup z vrstvy měl stejnou dimenzi jako vstup vrstvy následující, a to napříč celou sítí, včetně výstupní vrstvy \cite{mnist}.
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.75\linewidth]{img/mnist_2layers.png}
+			\caption{Jednoduchá neuronová síť pro rozpoznání číslic \cite{mnist}}
+			\label{fig:mnist}
+		\end{figure}
+		
+		Vrstvy se ale nedělí pouze podle jejich pozice uvnitř sítě, ale také podle funkce. Krom plně propojených vrstev, obsahujících navzájem propojené neurony, lze použít i vrstvy s libovolnou operací, např. konvolucí, čehož se využívá hlavně v konvolučních neuronových sítích, používaných např. k rozpoznání obrázků. Dále vrstvy rekurentní, které nám poskytují schopnost si „pamatovat“ hodnoty napříč iteracemi, nacházejí využití hlavně při sekvenčních datech \cite{projectpro} \cite{general}, jako např. ceny akcií nebo text.
+		
+		\section{Učení neuronové sítě} \label{training}
+		V učení neuronových sítí hrají klíčovou roli data, která již obsahují správnou odpověď na to, co se snažíme neuronovou sítí předpovědět. Jedná se tedy o typ učení s učitelem. Kvalita dat tedy přímo limituje kvalitu konečné předpovědi od neuronové sítě. 
+		
+		Data ale musí být pečlivě předzpracována, tak, abychom maximalizovali pravděpodobnost správné předpovědi. Po zpracování dat dostáváme rysy dat. Nejjednodušejji si lze představit sloupce v tabulárních datech. Např. bias, tedy, že data nemají ekvivalentní počet bodů z libovolně daných skupin. V kontextu velkých jazykových modelů by se například mohlo jednat o nepoměrné rozložení programovacích příspěvků ku příspěvkům o zahrádkaření \cite{rubiks_code}.
+		
+		Data projdou skrze různé vrstvy neuronů, jak bylo zmíněno výše, v procesu dopředné propagace. Následně proběhne zpětná propagace, kde se odehrává učení neuronové sítě. Jde o proces, kdy se iterativně váhy a doplňky přizpůsobují tak, aby síť provedla předpověď co nejpodobnější správné odpovědi v datech \cite{rubiks_code}.
+		
+		\subsection{Chybová funkce}
+		Pro pochopení zpětné propagace je ale potřeba vědět, co je to chybová funkce. Jedná se o funkci, která měří rozdíl mezi správnou a předpovězenou hodnotou a „penalizuje“ neuronovou síť za špatné předpovědi. V procesu učení se neuronová síť snaží tuto chybovou funkci minimalizovat. 
+		
+		Chybovou funkcí může být např. odmocnina střední kvadratické odchylky, definována tímto vzorcem \cite{RMSE}.
+		
+
+			\begin{equation}
+				RMSE = \sqrt{\frac{1}{n}\sum_{i=1}^{n}(y_i ‑ \hat{y_i})^2}
+			\end{equation}
+
+		
+		Kdy $n$ značí počet dat, $\hat{y_i}$ značí předpovězenou hodnotu a $y_i$ značí cílovou hodnotu.
+		
+		U pravděpodobností se používá křížová entropie \cite{cross_entropy}. 
+
+			\begin{equation}
+				H(y, \hat{y}) = - \sum_{i} y_i \cdot \log(\hat{y}_i)
+			\end{equation}
+
+		Kdy $i$ značí počet kategorií, $\hat{y_i}$ značí předpovězenou pravděpodobnostní distribuci a $y_i$ značí cílovou pravděpodobnostní distribuci.
+		
+		\subsection{Optimizéry}
+		Jak ale neuronová síť hledá minimum dané chybové funkce? Metod pro hledání minima existuje mnoho, ale v oblasti strojového učení jsou nejčastěji používány varianty metody největšího spádu. Ta využívá gradientu, který udává změnu funkce. Algoritmus se pohybuje ve směru největšího záporného gradientu a konverguje k minimu funkce \cite{gradient_descent}. V terminologii neuronových sítí se tyto algoritmy značí jako optimizéry. % TODO: youtube
+		
+
+			\begin{equation}
+				\theta_{j+1} = \theta_j ‑ \alpha \frac{\partial J(\theta)}{\partial \theta}
+			\end{equation}
+
+	
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=1\linewidth]{img/loss.png}
+			\caption{Metoda největšího spádu \cite{general}}
+			\label{fig:sgd}
+		\end{figure}
+		
+		Pro správnou funkci optimizérů je důležité správně nastavit parametr $\alpha$, který značí míru učení (learning rate) algoritmu. Míra učení je velikostí jednoho kroku algoritmu, pokud bude velikost kroku moc malá, bude hledání minima trvat zbytečně dlouho. Pokud bude moc velká, může se nám stát, že minimum „přeskočíme“, a budeme se od něj pouze vzdalovat \cite{gradient_descent}.
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.5\linewidth]{img/epoch_loss.png}
+			\caption{Vliv nastavení míry učení na chybovou funkci v čase \cite{general}}
+			\label{fig:loss_time}
+		\end{figure}
+		
+		\subsection{Zpětná propagace}
+		Jedná se o metodu k vypočítávání derivací chybové funkce vzhledem k vahám $w_i$ jednotlivých propojení v síti \cite{nielsen2015neural} \cite{brilliant}. K tomuto je využito pravidlo o derivaci složené funkce \cite{profoundqa}. % TODO: youtube
+		
+
+			\begin{equation}
+				\frac{\delta J}{\delta w_n}
+			\end{equation}
+
+		
+		\subsection{Trénování neuronové sítě}
+		Zmíněný proces je ale pouze jedním krokem při trénování jednoho neuronu uvnitř neuronové sítě. Kroků je ale potřeba tisíce, na miliardách neuronů, než se neuronová síť naučí správně předpovídat. Jedná se také o proces „trénování“ neuronové sítě \cite{tds_train}.
+		
+		Při trénování data nejdříve projdou všemi vrstvami neuronové sítě s aktuálními vahami. Dojde k vypočtení chybové funkce vůči požadovanému výsledku. Následuje zpětná propagace. Vypočtené derivace jsou využity při výpočtu metody největšího spádu, kde je nalezeno minimum derivace chybové funkce vzhledem k parametrům sítě a dochází k přepočtu vah. Proces se opakuje s vícero daty, dokud neminimalizujeme chybu mezi předpovědí a realitou. Data vstupují do sítě ve várkách, což umožňuje paralelní zpracování a rychlejší trénování \cite{tds_train}. 
+		
+		Jak ale natrénovanou síť použijeme pro předpověď? Neznámá hodnota je vstupem do natrénované neuronové sítě. Následuje proces dopředné propagace a výstupem je předpověď pro danou hodnotu. To je důležité v procesu validace, kdy před procesem trénování odebereme část našich dat, jejichž výstup následně otestujeme na natrénované síti. Tím lze zhodnotit schopnost předpovídat neznámá data.
+		
+		Při procesu validace lze využít další funkce, které určí kvalitu neuronové sítě. Pro pravděpodobnostní modely by se mohlo jednat o přesnost, tedy podíl správných předpovědí ku všem předpovědím neuronové sítě. Obecně je možné využít jakoukoliv metriku, kterou lze vypočítat z výstupů neuronové sítě.
+		
+		Jedna „epocha“ trénování značí bod, kdy síť využila všechna trénovací data. Trénink se může pohybovat od pár epoch po několik stovek. Trénovací data jsou s každou epochou náhodně rozdělena, aby se síť nenaučila předpovídat pouze pořadí dat. Jak moc je potřeba síť trénovat se odvíjí od nastavených náhodných hodnot \cite{tds_train}. 
+		
+		Hodnoty vah lze uložit do binárního formátu, to vede k metodě „přenášeného učení“. Myšlenkou je využití existující neuronové sítě s natrénovanými vahami pro podobný úkol \cite{wiki:transfer}. Síť tak akorát v tréninku „doladíme“ na našich datech a tím zlepšíme kvalitu pro náš úkol \cite{hgf:finetune}. Tato metoda je obzvláště využívaná u velkých jazykových modelů, jenž jsou velice finančně náročné na trénink, ale ne tak moc na odladění.
+		
+		\subsection{Přeučení sítě} \label{overfit}
+		Pokud je síť schopna perfektně předpovědět trénovací data, ale na neznámých datech je její rozpoznávací schopnost podstatně horší, značí to „přeučení sítě“. Síť se naučí data „nazpaměť“, ale nezná jejich obecný význam. Nastává při nadměrném množství vah, nebo nedostatku dat \cite{overfitting_wiki}. Přeučení sítě lze řešit několika způsoby. Prvním způsobem je přerušit určitá spojení mezi vrstvami, a tím pádem snížit její počet vah. Poté nemá síť tolik „kapacity pro memorování“ a musí se naučit obecnější vlastnosti. Případně je nutné získat více dat \cite{overfitting_ml}.
+		
+		\chapter{Zpracování jazyka}
+		Doména zpracování jazyka (NLP) s pomocí strojového učení, případně neuronových sítí je o mnoho starší, než velké jazykové modely jako GPT nebo LLaMA. Pro pochopení LLM potřebujeme znalost „embedding“ a „transformer“ modelů, spolu s procesem „tokenizace“. Při tom si i vysvětlíme proces od předání vstupu LLM, až po výslednou odpověď.
+		
+		\section{Parametry modelů}
+		Předtím, než se podíváme na transformery jako takové, je dobré si přiblížit různé parametry, které hrají roli v kvalitě modelu. Velikost označuje počet vah v neuronové síti, čím vyšší je, tím výkonnější je model, také se někdy označuje jako počet parametrů modelu. Důležitým faktorem jsou také data, na kterých byl model trénován. Například v průběhu práce zjistíme, že menší model, jako je CodeLLaMA-34B oproti Falcon-180B, podává lepší výsledky, protože byl trénován hlavně na programovacích úlohách \cite{llm_parameters} \cite{embeddings}.
+		
+		Dalším důležitým parametrem je kontextové okno, neboli počet tokenů, které model uvažuje při tvorbě odpovědi. Tento parametr se může pohybovat od několika set po stovky tisíc. V našem testování jsme nedosáhli limitu u žádného modelu, ale pokud bychom například chtěli analyzovat dokumentaci knihovny, kontextové okno o sto tisících tokenech by přišlo vhod. 
+		
+		Teplota v případě velkých jazykových modelů určuje míru náhodnosti předpovědi dalšího slova. Vyšší teplota zplošťuje distribuci pravděpodobností, což zvyšuje šanci na výběr méně pravděpodobného slova \cite{llm_parameters}.
+		
+		Nebo tzv. „systémový prompt“, který umožňuje předdefinovat formát odpovědi umělé inteligence a omezit ji. Tyto prompty se pak projeví v odpovědi v rámci určitého bloku textu, odděleného speciálními tokeny, aby model pochopil, že se jedná o systémový prompt. 
+		
+		Nastavení teploty a systémového promptu je možné pouze u CodeLLaMA a Claude-instant, zatímco ChatGPT umožňuje nastavit pouze systémový prompt, ale u ostatních chatbotů tyto nastavení nejsou k dispozici \cite{llm_parameters}.
+		
+		\section{Tokenizace}
+		Tokenizace rozděluje text na tokeny, které délkou zahrnují písmena až slova. Pro efektivní zpracování tokenů se snažíme ale vstup s tokenizací i velikostně zmenšit. Ke kompresi vstupu se využívá algoritmu BPE, který rekurzivně bere nejčastěji se objevující dvojici tokenů, a vytvoří z ní nový token, dokud nedosáhneme omezení velikosti slovníku. Slovník mapuje tokeny na jejich původní reprezentaci v textovém řetězci. Obsahuje i speciální tokeny, které určují např. konec textového řetězce \cite{rothman2021transformers}. 
+		
+		Jak by probíhala tokenizace na řetězci „aaabdaaabac“? BPE nejprve detekuje první dvojici znaků, „aa“, který nahradíme tokenem „T“. Řetězec se zmenší pouze na „TabdTabac“. Proces opakovaně proběhne pro „ab“, nahrazeno tokenem „Q“, dostáváme „TQdTQac“. Poslední dvojicí tokenů je „TQ“, kterou lze nahradit tokenem „Z“, výsledek je tedy „ZdZac“. Tímto procesem snížíme počet tokenů, které jsou vstupem do modelu, tím pádem dochází ke kompresi vstupu, která umožňuje lepší efektivitu modelu \cite{rothman2021transformers}.
+		
+		\section{Embedding modely}
+		Cílem je dostat text do formy srozumitelné pro LLM, a to za pomoci embedding modelů, které převádějí text na tenzory. Tenzory zachycují jak sémantický, tak syntaktický význam vět. Syntaktika se zabývá stavbou samotné věty a sémantika se zabývá jejím významem. Tím pádem podobné věty budou mít podobné tenzory, pokud byly vytvořeny stejným modelem.
+		
+		Pomocí vzdálenosti tenzorů lze určit podobná slova. Slovo „král“ a „muž“ mají podobnou vzdálenost po zakódování do vektorů jako slova „žena“ a „královna“. To je dáno právě tím, že vektory zachycují význam slov, tím pádem vzdálenost mezi vektory, ať už kosinová, nebo euklidovská, poskytuje informaci o rozdílu významů slov, kterou lze přenést i na jinou slovní dvojici. Velké jazykové modely používají pro převod ze slov do tenzorů právě embedding modely \cite{embeddings} \cite{embeddings2}.
+		
+		Úkolem neuronové sítě je předpovědět slovo na základě jeho okolí. Dělí se na dva typy, a to CBOW a Skip-gram \cite{embeddings}. Znalost slov je dána slovníkem. Slovník obsahuje všechna známá slova pro neuronovou síť, také speciální tokeny, např. \verb|</EOS>|, který určuje konec textového řetězce \cite{embeddings2}.
+		
+		Jak ale takový model funguje? Uveďme si příklad na CBOW variantě Word2Vec. Nejdříve je text předzpracován. To zahrnuje převedení na malá nebo velká písmena, vyloučení nepotřebné interpunkce a tokenizaci. Cílem neuronové sítě je na základě kontextového okna tokenů velikosti $w$ předpovědět slovo uprostřed kontextového okna. Každému tokenu, v našem příkladě slovu, jsou ve slovníku přiřazeny váhy, které jsou v počátečním stavu náhodné \cite{ytb:word2vec}. 
+		
+		Slova se převedou na „one hot“ vektory, o velikosti celého slovníku. Každé číslo představuje výskyt jednoho slova ze slovníku v binární formě. Hodnota pro dané slovo bude tedy jedna, a pro ostatní slova ve slovníku hodnotu nula. Pokud bychom měli velikost slovníku pět, a pět slov v našem vstupu, budeme mít pět vektorů, které budou mít jedničku vždy na jiné pozici. Průměrem hodnot těchto pěti vektorů pro dané kontextové okno dostaneme vektor $x$, který bude vstupem do neuronové sítě \cite{ytb:word2vec}.
+		
+		Tento vektor prochází skrze ReLU vrstvu, dále putuje do skryté vrstvy, kde se vynásobí s vahami sítě, následně přejde do funkce softmax, která určí pravděpodobnostní distribuci výsledků. Na výstupu dostáváme pravděpodobnost slova ve středu daného kontextového okna, opět v rámci velikosti celého slovníku. Skrze trénování modelu dostaneme váhy pro správnou předpověď slova. Ty tvoří náš významový tenzor \cite{paper:word2vec} \cite{tokenization}. Pro vizuální ukázku procesu se doporučuji podívat na následující videa \cite{ytb:embeddings} \cite{ytb:word2vec}.
+		
+		\section{Transformer modely} \label{transformers}
+		Velké jazykové modely jsou založeny na architektuře tzv. „transformerů“. Transformer obsahuje dvě hlavní části, enkodér a dekodér. LLM ale obsahují pouze dekodér \cite{rothman2021transformers}. Proces průchodu vstupem skrze transformer je následující.
+		
+		\subsection{Kódování pozice}
+		Vstupem je význam slov, zakódován ve vektoru o určitých rozměrech $W$. Prvním krokem je zakódovat pozici slov. Jak ale zachytíme pozici slova? Opět pomocí vektoru. Pozicový vektor se skládá z hodnot $y$ přiřazených funkcí $sin$ nebo $cos$, hodnotu $x$ tvoří aktuální pozice $p$ slova v textu. Výsledkem $P$ je součet pozicového a vstupního vektoru. 
+		
+		Například pokud bychom měli rozměr vstupního vektoru $5 \times 1$, měli bychom pět unikátních funkcí $sin$. Z každé bychom extrahovali hodnotu $y$ pro pozici aktuálního slova ve větě $p$, což by byl také vektor $5 \times 1$, ten bychom přičetli k původnímu vstupnímu vektoru $W$. Tento proces se opakuje pro všechna slova ve větě \cite{rothman2021transformers}. 
+		
+		\subsection{Masked self-attention}
+		Centrálním konceptem pro architekturu transformerů je pozornost (self-attention). Její princip spočívá v tom, že každé slovo v textu je porovnáváno se všemi ostatními slovy v textu, aby byla určena jejich vzájemná podobnost. Tento proces se opakuje pro každé slovo v textu. Varianta maskované pozornosti (masked self-attention) se zaměřuje pouze na předcházející slova v posloupnosti. Model tak může reprezentovat vazby v textu a tím pádem zlepšit jeho pochopení.
+		
+		Pro lepší pochopení můžeme uvést příklad. Mějme dvě otázky: „What is the newest Apple phone?“ a „Is an apple a fruit?“.  V obou případech se ve větě vyskytuje slovo „apple“, avšak s odlišným významem. Standardní embedding vektory jako Word2Vec nedokážou tento kontext zachytit, neboť bere v potaz pouze jednotlivá slova bez okolního kontextu. Pro zahrnutí kontextu je třeba použít právě techniku pozornosti. Ta přetransformuje vektory slova „apple“ dle okolního kontextu, a následně pracuje s těmito modifikovanými vektory. Lze tak bez problému rozlišit „apple“ jako technologického giganta a „apple“ jako ovoce \cite{vaswani2023attention}.
+		
+		Matematická formulace by mohla být následující. Řekněme že máme dána dvě slova $W_x$ a $W_y$. Nejdříve naše nové poziční hodnoty vynásobíme dalšími vahami $w_1$. Vzniknou nám tři nové vektory, pro každé slovo, se stejnými rozměry, jako vektory původní. Klíč $K$, dotaz $Q$ a hodnota $V$. Dotaz $Q$ slouží pro vyhledávání podobných slov podle klíče $K$ \cite{vaswani2023attention} \cite{rothman2021transformers}. 
+		
+		Podobnost klíče $K_x$ a dotazu $Q_y$ vypočítáme pomocí skalárního součinu. Pro výpočet ale použijeme tenzoru hodnoty $V_y$, která prostoupí funkcí softmax a dostáváme, jenž značí, jak moc bude dané slovo $W_y$ ovlivňovat celkovou pozornost $A_x$ slova $W_x$. Poté vynásobíme všechny hodnoty slov $V_i$ s koeficienty danými funkcí softmax a sečteme, získáváme tak hodnotu pozornosti $A_x$ pro slovo $W_x$. \cite{vaswani2023attention} \cite{rothman2021transformers}.
+		
+		Tento proces se označuje jako jedna „hlava“. Hlav ale může být více, s různou hodnotou vah pro vypočtení $K$, $Q$ a $V$. Tím pádem můžeme zakódovat vícero vztahů mezi slovy, podobně jako vztah mezi slovem „apple“ a „phone“ v předchozím příkladu. Hodnoty $A_i$ získané z těchto hlav se sečtou s původními pozičními hodnotami, výsledku se také říká reziduální propojení, značme je třeba $R_i$ \cite{vaswani2023attention} \cite{rothman2021transformers}.
+		
+		Pro vygenerování textu použijeme jako konečný prvek vícevrstvý perceptron (MLP). Její vstup bude mít rozměr stejný, jako dimenze reziduálních propojení $R_i$, a její výstup bude mít dimenze velikosti slovníku. Opět využijeme softmax funkce, abychom dostali nejpravděpodobnější následující slovo. Pro vizuální ukázku procesu se doporučuji podívat na toto video \cite{ytb:transformers} \cite{vaswani2023attention} \cite{rothman2021transformers}.
+		
+		\section{Techniky použití AI} 
+		\subsection{Prompt engineering}
+		„Prompt engineering“ označuje praktiku strukturování textového vstupu pro dosažení co nejlepší odpovědi od LLM. Jedním z přístupů je uvést jeden nebo více příkladů úspěšného výstupu, což jasně specifikuje požadavek kladený na model \cite{PEG}.
+		
+		Další metodou je tzv. CoT (Chain of Thought), kde požadujeme, aby model rozložil problém do jednotlivých kroků a až poté odpověděl. Tento přístup lze připodobnit k rozkladu složitých matematických problémů na jednodušší kroky. Pokud bychom pouze odhadovali výsledek, pravděpodobnost úspěchu by byla malá. Pokud si ale problém rozdělíme do menších celků, a ty individuálně vypočítáme, šance úspěchu se zvýší, máme totiž čas na uvažování nad problémem. AI nemá pojem o čase, ale tím, že rozdělíme problém, zvětšíme prostor kontextového okna k uvažování nad problémem, což je podobné, jako když člověku dáte víc času se nad problémem zamyslet. 
+		
+		Tento přístup se často využívá u komplexních logických nebo matematických problémů \cite{PEG}. Vylepšením nad CoT je metoda ToT (Tree of Thoughts), kde LLM funguje jako sbor expertů pro danou problematiku. Každý expert generuje další možný krok k řešení problému a poté jsou v rámci skupiny tito experti porovnáni a jejich řešení diskutována. Pokud některý expert poskytne neplatné řešení, je vyloučen ze skupiny. Díky tomu se účinně minimalizuje riziko vzniku halucinací \cite{PEG}.
+		
+		Slabinou LLM jsou hlavně matematické výpočty. Zde se nám poté hodí různé nástroje. Jedná se o funkce, které si AI sama zavolá v procesu vytváření odpovědi, pokud je potřebuje. U výpočtů se často používá funkce, která umí spustit skript v Pythonu. LLM vygeneruje kód pro výpočet, který Python vyhodnotí. Další funkce zahrnují např. hledání v prohlížeči \cite{PEG}.
+		
+		V kontextu naší práce, hlavně fáze implementace, nebudeme ale naše otázky intenzivně optimalizovat. Proč? Nepředpokládám, že by se programátorovi chtělo ladit prompt např. půl hodiny za cílem dostat ideální odpověď. Textové vstupy budou různé kvality, v závislosti na tom, jestli zrovna chceme ukázat určitou slabinu AI nebo ne. 
+		
+		Určitě by šlo vstupy více optimalizovat \cite{PEG}. Důležitost znalostí samotného strukturování promptů pro co nejlepší výsledky ale postupně odeznívá, díky platformám, které sdílí nejefektivnější prompty pro dané použití \cite{langchainhub}. Nebo adaptérech před samotným LLM, které se snaží prompt „vyladit“, které se používají při generování obrázků, například \cite{leonardoai}.
+		
+		\subsection{Hledání v dokumentech}
+		Vzhledem k tomu, že se naše práce v implementační fázi zaměřuje také na vyhledávání napříč několika soubory kódu, je důležité zmínit, jak toho může AI dosáhnout. Metoda RAG (Retrieval Augmented Generation) je v současné době populární technika, která nám umožňuje snížit úroveň halucinací u LLM tím, že obohacuje odpovědi o informace z dokumentů. Princip této metody je relativně jednoduchý - spolu s otázkou poskytneme AI relevantní kontext a explicitně ji „nasměrujeme“ k použití tohoto kontextu v daném promptu. Kontext je nalezen jiným modelem, který hledá pomocí zakódovaných vektorů významu nejpodobnější kontext položené otázce \cite{paper:RAG}.
+		
+		Zde nám opět pomohou embedding modely. Postup je následující.
+		\begin{enumerate}
+			\item Vytvoříme náš vlastní textový vstup $P$, případně najdeme již předformátovaný. Např. „Na základě kontextu $X$ odpověz na uživatelský dotaz $Y$. Pokud v kontextu nenajdeš odpověď, tak odpověz „Nevím“. „
+			\item Rozdělíme náš dokument $D$ do částí, a to takovým způsobem, aby se do kontextového okna modelu vešel jak náš dotaz, tak relevantní část $C_n$ dokumentu.
+			\item Tyto části $C_n$ dokumentu převedeme pomocí embedding modelu do tenzorů $T_n$.
+			\item Převedeme otázku uživatele $Y$ do tenzoru $Y_v$.
+			\item Porovnáme vzdálenosti tenzorů $Y_v$ a $T_n$, a vybereme tenzor s nejmenší vzdálenosti $T_{best}$. 
+			\item Do vstupu $P$ dosadíme $T_{best}$ na místo $X$ a uživatelský dotaz na místo $Y$.
+		\end{enumerate}
+		
+		Stále se zatím jedná o jednu z nejméně náročných cest, jak dosáhnout „fine-tuningu“ pro naše LLM. Označuje se také jako „učení v kontextu“. Halucinace jsou minimalizovány jak poskytnutím kontextu, který by měl odpovídat otázce, tak omezením modelu samotným textovým vstupem, protože pokud informace nenajde, má odpovědět „Nevím“. Stále se ale mohou objevit. Navíc se objevují nové problémy, jak najdeme nejrelevatnější kus dokumentu? Jak zajistíme, že odpověď od AI odpovídá našemu očekávání?
+		
+		Jak již bylo zmíněno, kontext je klíčový pro správné použití AI. I proto se zdá, že si tato metoda udržuje popularitu, i když LLM mají kontextová okna až 150 tisíc slov \cite{paper:RAG}. Nicméně tento "naivní" přístup stále potřebuje zdokonalení, což je cílem dnešních RAG systémů, i když samotná problematika je poměrně nová. AI v dnešní podobě existuje teprve necelý rok. Mezi populární metody patří například kombinace hledání pomocí klíčového slova a vektorů významu nebo hledání pomocí metadat \cite{paper:RAG}.
+		
+		\chapter{Vytvoření projektu s AI}
+		\section{Úvodem...}
+		Před zahájením vypracování projektu s využitím umělé inteligence je nezbytné stanovit podmínky testování. Pro tento účel poslouží sedm rozmanitých modelů. Mezi ně patří tři instance GPT: Copilot Chat (GPT-4), Bing Copilot (GPT-4) a ChatGPT (GPT-3.5) , dále Claude (Claude-instant), a Google Bard (PaLM-2). Kromě toho jsou zahrnuty dva open-source modely, CodeLLama-34B a Falcon-180B.
+		
+		Konverzace s těmito modely probíhaly v anglickém jazyce, neboť byly natrénovány na datech z internetu, jehož je angličtina hlavním jazykem \cite{internetLanguages}. Tato skutečnost přispívá k lepší tokenizaci anglického textu a v důsledku i ke kvalitnějším odpovědím. Tuto vlastnost mi potvrdil například ChatGPT \cite{chatgpt_jazyk}. Konverzace probíhaly v základní konfiguraci, což znamená, že byly prováděny v kontextu průměrného programátora, který nemusí tušit, jak model dále ladit. Nejvýznamnější části těchto konverzací budou přímo citovány v práci, a kompletní seznam konverzací, v případě nefunkčnosti odkazů, je k dispozici v přiložených souborech ve složce \verb|konverzace| nebo v GitHub repozitáři \cite{promptsRepo}. Práce se bude odkazovat buď na použité velké jazykové modely, které jsou označeny názvem, a nebo zkráceně jako „model“. Případně na jejich kolektivní odpověď, dále označeno jako „AI“ nebo „umělá inteligence“.
+		
+		\section{Hodnocení}
+		Vyhodnocení přínosů umělé inteligence proběhne v několika různých formách. Budeme porovnávat mé předpokládané odpovědi s odpověďmi umělé inteligence v jednotlivých fázích vývoje softwaru, konkrétně během analýzy, návrhu, implementace, testování a CI/CD procesu. Tato práce se bude zaměřovat především na identifikaci nedostatků, protože pozitivní aspekty jsou natolik rozmanité, že vyžadují shrnutí do širšího kontextu. Zaměříme se na časté chyby na straně promptu, jako třeba nedostatek kontextu, ale i na straně umělé inteligence, jako neaktuální znalosti nebo komprese historického kontextu. Pokusíme se i navázat problém k teoretické částí, a dojít k tomu, proč se tak mohlo stát.
+		
+		Hodnocení umělé inteligence se také bude provádět z hlediska užitečnosti pro juniory a mediory v oblasti softwarového inženýrství. Rozhodl jsem se vynechat hodnocení pro seniory, protože si nejsem jist svou dostatečnou kvalifikací v tomto oboru. Nicméně, jak definujeme jednotlivé úrovně?
+		
+		Jako juniory v této práci považujeme jednotlivce, kteří absolvovali několik kurzů v oblasti programování, ale dosud nemají žádnou praktickou zkušenost s projekty, případně pracovní. Je zde důležité, aby tito jednotlivci nejen dostali kód, ale také jim byla poskytnuta relevantní vysvětlení problematiky. I když je odpověď stále klíčová, není vhodné, aby se jednoduše spoléhali na kopírování kódu od umělé inteligence bez jakéhokoliv porozumění, což by mohlo dlouhodobě vést k problémům. Proto požadujeme jasné vysvětlení kódu, které může být poskytnuto na vyžádání, a zároveň se snažíme minimalizovat používání programátorského slangu. Také bude užitečné, pokud umělá inteligence bude schopna poskytnout relevantní zdroje.
+		
+		Za mediory považujeme jednotlivce, kteří nemají problém s psaním kódu alespoň v jednom programovacím jazyce, mají za sebou několik projektů různého rozsahu, případně praxi v oboru. Sám se zařazuji do této kategorie. V této fázi je kritické, aby umělá inteligence byla schopna identifikovat nedostatky v kódu, které by mohly ovlivnit jeho kvalitu v budoucnosti. Také může pomoci s dokumentací, odhalováním chyb a navrhováním návrhových vzorů. Jako největší přínos bych ale bral dopisování kódu, což zvládá třeba GitHub Copilot \cite{gitCopilot}
+		
+		\section{Testovací aplikace}
+		Testování pomocí umělé inteligence proběhne na webové aplikaci poskytující aktuální informace o počasí, včetně předpovědi, historických dat a kvality ovzduší. Tato aplikace zahrnuje backend, frontend a databázi \cite{webapp_basics}. Jedním z předem stanovených požadavků je, aby frontend a backend byly napsány v různých programovacích jazycích, s nimiž jsem obeznámen, konkrétně Pythonem \cite{python} a JavaScriptem \cite{nodejs}. Podobných rozhodnutí, která jsou zaměřena na pokrytí co nejširšího rozsahu funkcionality aplikace, a tím pádem i testování umělé inteligence, je více.
+		
+		Aplikace bude nabízet jak variantu zdarma, tak placenou. To vyžaduje implementaci autentifikace a autorizace, stejně jako integraci platební brány. S přítomností autentifikace je také důležité klást důraz na bezpečnost. Vzhledem k mobilnímu prostředí je také nutné zajistit vizuální přizpůsobení. To poskytuje širokou škálu oblastí, kde lze testovat schopnosti umělé inteligence. Budu také omezeně používat zkušenosti s umělou inteligencí z jiných projektů, pokud jsou relevantní pro současný problém.
+		
+		Aplikace může být navržena tak, že nebude mít žádný backend, což by však omezovalo možnosti a zúžilo rozsah testování pouze na jeden ekosystém. Použité technologie, odpovídající předchozím požadavkům, zahrnují React pro frontend a knihovnu Tailwind pro správu CSS. Na backendu bude využito Pythonu spolu s frameworkem FastAPI. Pro cloudové služby jsou zvoleny Firebase pro autentifikaci a databázi, Heroku pro kontejnerizaci a nasazení. Pro řízení procesů CI/CD a verzování GitHub a dopňek Actions. Pro testování budou využity knihovny Cypress (end-to-end testování) a Jest pro JavaScript a Pytest pro Python (jednotkové a integrační testy). Pro platební bránu pro placené uživatele bude použit Stripe.
+		
+		Umělá inteligence bude použita pouze jako podpůrný nástroj během vývoje, přičemž konečná rozhodnutí ohledně aplikace zůstanou v mé kompetenci. Cílem je získat funkční aplikaci, která bude veřejně dostupná na internetu. Po dokončení vývoje se zaměříme na využití umělé inteligence k identifikaci možností pro zlepšení aplikace a refaktoringu.
+		
+		\section{Analýza problému}
+		První fáze životního cyklu vývoje (SDLC) se zaměřuje na získání požadavků od zákazníka, analýzu problému a jeho jasně definované zadání. Důležitou součástí je také dokumentace, která slouží k ověření pochopení problému jak ze strany zákazníka, tak i programátora \cite{problem_analysis3}, \cite{software_analysis}, \cite{SWEBook}.
+		
+		Nepochopení problému ze strany zákazníka nebo nedostatečný seznam požadavků může vést k úpravám kódu po jeho dokončení. Tento proces je vždy složitější než úpravy provedené v průběhu implementace, protože již vzniknou vazby v kódu. Podrobněji se podíváme na jednotlivé kroky analýzy:
+		
+		\begin{enumerate}
+			\item Definice problému – Jednoduše a jasně definujeme problém, ideálně v písemné formě, aby bylo dosaženo porozumění všech zúčastněných stran \cite{problem_analysis3}.
+			\item Hledání příčin – V tomto kroku se snažíme proniknout hlouběji a identifikovat příčiny problému a s ním souvisejících problémů. V této fázi můžeme například konzultovat odborníky na daný problém \cite{problem_analysis3}.
+			\item Identifikace zúčastněných stran – Tato fáze se zabývá identifikací všech subjektů, které jsou zapojeny do řešení problému. V našem případě jde o fiktivního „zákazníka“, ale v praxi to mohou být veřejnost, vedení firmy, zaměstnanci nebo jiné subjekty ovlivněné novým systémem \cite{problem_analysis3}.
+			\item Identifikace rozsahu – Tento krok zahrnuje jasnou definici rozsahu řešení problému a jeho cílů. Provádí se také prioritizace jednotlivých částí řešení \cite{problem_analysis3}. 
+		\end{enumerate}
+		
+		\section{Analýza s pomocí AI} 
+		\subsection{Otázky na zákazníka}
+		\vspace{0.6em}
+		\begin{tcolorbox}[colback=white,colframe=black]
+			\paragraph{Prompt} I have an assigment from a customer to create a simple weather application, do you have any tips for questions to ask so I can get more context from him about what he wants?
+			
+			\vspace{0.6em}
+			
+			\paragraph{Falcon} 
+			\begin{itemize}
+				\item Who is the target audience for the application? Will it be used by individuals, businesses, or organizations?
+				\item Are there any branding or design guidelines that need to be followed for the application's user interface?
+				\item What kind of user experience do you envision for the application? For example, should it be simple and straightforward, or feature-rich and customizable?
+				\item Are there any existing weather applications that you like or dislike, and why?
+				\item How do you plan to monetize the application, if at all? Advertising, subscription fees, sponsorships, etc.? 
+			\end{itemize}
+			... \cite{falcon_analyza}.
+		\end{tcolorbox}
+		
+		% \vspace{0.6em}
+		
+		Některé otázky považuji za zbytečné. Očekával bych například, že aplikace pro sledování počasí bude mít globální pokrytí, zejména pokud využívá veřejně dostupné API. Nicméně otázky, které mě zaujaly nejvíce, se týkají komerčního využití aplikace, protože možnost osobního využití by nám umožnila používat jiné, lepší API. Překvapující byly také otázky týkající se konkurence, „brandingu“ a GDPR. Tyto otázky mohou být motivovány nastavením modelu teploty, které však nebylo nalezeno u mnoha modelů. Dále negativa konkurenčních aplikací a využití satelitní mapy \cite{codellama_analyza}, \cite{chatgpt_analyza}, \cite{bingCopilot_analyza}, \cite{gitCopilot_analyza}, \cite{bard_analyza}, \cite{claude_analyza}, \cite{falcon_analyza}.
+		
+		\vspace{0.6em}
+		\begin{tcolorbox}[colback=white,colframe=black]
+			\paragraph{Bing Copilot} 
+			\begin{itemize}
+				\item What is the purpose of the application? Is it for personal use or for a business?
+				\item What kind of weather information does the application need to display? Temperature, humidity, wind speed, precipitation, etc.?
+				\item What is the target audience for the application? Will it be used by people of all ages or a specific age group?
+				\item What is the geographic scope of the application? Will it be used in a specific region or worldwide?
+				\item What kind of devices will the application be used on? Mobile phones, tablets, desktops, etc.?
+				\item Does the application need to be multilingual?
+				\item What is the budget and timeline for the project? 
+			\end{itemize}
+			... \cite{bingCopilot_analyza}
+		\end{tcolorbox}
+		\vspace{0.6em}
+		
+		AI přinesla množství otázek, z nichž bych alespoň část při setkání s fiktivním zákazníkem nejspíše opomněl. Některé modely se více zaměřily na konkrétní aspekty samotného produktu, jako jsou zmíněné satelitní mapy a platformy. Jiné modely se spíše soustředily na obecnější hlediska, jako je marketing, konkurence a GDPR. Tento trend se opakuje napříč několika kroky v procesu, což pravděpodobně souvisí s obsahem trénovacích dat a „biasem“ modelu.
+		
+		V době, kdy je ChatGPT dostupný i na chytrých telefonech, je užitečné mít takového pomocníka. Počet otázek, které bych mohl při jednání se zákazníkem přehlédnout, není zanedbatelný a mohl by výrazně ovlivnit cenu celého projektu. Pomocí takového nástroje lze připravit otázky například pro pochopení konkrétního problému v oblasti, pro kterou vytváříme řešení. Raději bych však v těchto případech využil model, který k odpovědi poskytuje i zdroje, ze kterých čerpal, jako například Bing Copilot (GPT-4) nebo Perplexity AI (GPT-3.5), zejména kvůli schopnosti modelů halucinovat \cite{bingCopilot}, \cite{perplexity}.
+		
+		Narážíme však na první problém umělé inteligence, který se bude opakovat v průběhu práce. Musíme být přesní v tom, co od ní požadujeme. Pokud potřebujeme pouze produktové požadavky, musíme je jasně formulovat v textovém vstupu. Není možné jen napsat obecné zadání a doufat, že si umělá inteligence domyslí zbytek. Pokud se podíváme na architekturu transformeru, pravděpodobně tento jev souvisí s vrstvou self-attention. Čím delší je vstupní sekvence slov, tím lepší je predikce následujícího slova a tím přínosnější text z modelu obdržíme. Tento jev lze přirovnat k situaci dítěte, které zná celý internet, ale nemá přesnou představu o fungování podaných informací, protože mu chybí praktické zkušenosti, musíme dítě tedy dost nasměrovat, abychom dostali, co chceme \ref{transformers}.
+		
+		%TODO FIX: teorie, uvod prakticka, hodnoceni
+		
+		\subsection{Upřesnění aplikace}
+		\vspace{0.6em}
+		\begin{tcolorbox}[colback=white,colframe=black]
+			\paragraph{Prompt} 
+			I have gotten these from my customer: 
+			\begin{enumerate}
+				\item The purpose of the weather application is to show current weather and forecast, along with air quality and historical weather in that location, with some charts for easier visualization
+				\item It should be a web based platform 
+				\item There should be a feature for geolocation to get the weather for the current location, or the user can type in a city and will get the weather back 
+				\item He is okay with external APIs, but does not want them to be paid 
+				\item The app will not be used commercially 
+				\item Design should be simplistic, similar to modern weather phone apps 
+				\item The coverage should be global, data doesn't need to be super accurate 
+				\item The app should have a paid and a free tier 
+				\item The timeline is quite short, budget is essentially zero 
+				\item The app should be able to maintain itself long after it is developed 
+				\item The app should have standard security measures
+			\end{enumerate}
+			
+			
+			\vspace{0.6em}
+			
+			\paragraph{Claude}
+			\begin{enumerate}
+				\item For geolocation, will IP address geolocation be sufficient or does it need true GPS capabilities?
+				\item For the paid/free tiers, what specific features will be included in each? How will payments/subscriptions be handled?
+				\item Regarding timelines - can you provide a rough estimate in weeks/months of when you'll need a minimum viable product?
+				\item For historical weather data - what timeframe should be included (past few days, months, years)?
+				\item What type of charts/visualizations would be most useful - line graphs, bar charts, scatter plots etc.?
+				\item How accurate does the forecast data need to be - within a few degrees/percentage or closer to actual conditions is fine?
+				\item How many locations should be able to be stored/viewed at once for each user?
+				\item What security measures do you expect - HTTPS, input sanitization, auth/accounts?
+				\item How will updates be handled long term - through a content management system? Automated deployment?
+				\item Can you provide examples of designs you like for inspiration? Color schemes? 
+			\end{enumerate} 
+			... \cite{claude_analyza}
+		\end{tcolorbox}
+		\vspace{0.6em}
+		
+		Otázka byla záměrně ponechána v neurčité formě, aby se ověřilo chování modelů. Většina modelů, s výjimkou Clauda, začala doporučovat platformy a knihovny, které by měly být využity při vývoji aplikace \cite{bard_analyza} \cite{bingCopilot_analyza} \cite{chatgpt_analyza} \cite{codellama_analyza} \cite{gitCopilot_analyza}. Naopak Claude navrhl další otázky, které je třeba zvážit. Tento přístup je vhodný, protože i když už jsou některé otázky pokryty, rozšířené informace umožní minimalizovat přepisování a úpravy kódu v budoucnosti \cite{claude_analyza}.
+		
+		\vspace{0.6em}
+		\begin{tcolorbox}[colback=white,colframe=black]
+			\paragraph{Falcon}
+			...Weather API: Utilize open-source or free weather APIs that provide globally available weather data. Some examples include OpenWeatherMap, Dark Sky, or World Weather Online. These APIs usually offer JSON or XML responses, which can be easily consumed by your application. Be sure to check their terms of service and usage limits before implementing them... \cite{falcon_analyza}
+		\end{tcolorbox}
+		\vspace{0.6em}
+		
+		Pokud jde o konkrétní doporučení, mnohá z nich se překrývají a týkají se především dobře známých služeb a knihoven. Otázkou však zůstává, zda-li umělá inteligence skutečně doporučuje na základě kontextu, nebo zda reaguje pouze na nejčastější záznam v trénovacích datech. Přestože se modely snaží predikovat následující slovo na základě předchozích, výsledek může být ovlivněn frekvencí výskytu backendových knihoven v datech, což může vést k nezamýšleným výsledkům. Tento jev lze zmírnit úpravou teploty, avšak zvyšuje to riziko generování zcela nesmyslných výstupů, protože se zvyšuje pravděpodobnost libovolného následujícího slova.
+		
+		Například, bylo doporučeno OpenWeatherMap, což je pravděpodobně nejznámější API pro získávání informací o počasí \cite{bard_analyza} \cite{bingCopilot_analyza} \cite{webapp_basics} \cite{openweather}. Žádný model však nenavrhl službu OpenMeteo, která nabízí široké možnosti nad rámec OpenWeatherMap a je zcela zdarma pro osobní použití \cite{openmeteo}. Toto opomenutí je pravděpodobně způsobeno tím, že OpenMeteo je z roku 2022 a pravděpodobně nebylo zahrnuto v trénovacích datech většiny použitých modelů, nebo bylo zmíněno pouze v malém množství. Získání přesných informací je obtížné, protože trénovací data nejsou veřejně dostupná ani u open-source modelů. Například, model Falcon zveřejnil pouze binární soubor s vahami a nastavení tokenizéru, což komplikuje proces debugování \cite{falcon}.
+		
+		Je proto lepší ověřit specifikace služeb na oficiálních webových stránkách, pokud obsahují dokumentaci, protože data v modelech nemusí obsahovat nejaktuálnější informace. I když se na to modely snaží upozornit, není to zahrnuto ve všech odpovědích. Například, pokud se zeptáme na událost, která nastala v aktuálním roce, ChatGPT omezuje své znalosti na leden 2022, ale při otázce ohledně využití API se takové omezení neuvádí \cite{chatgpt_knowledge}. Nicméně, model nás aspoň v některých případech odkazuje na webové stránky služeb, což nám umožňuje nahlédnout do dokumentace API a získat tak nejnovější informace.
+		
+		\vspace{0.6em}
+		\begin{tcolorbox}[colback=white,colframe=black]
+			\paragraph{CodeLLaMA}
+			
+			Thank you for providing me with the information from your customer. Based on this, here is a summary of the key points:
+			\begin{itemize}
+				\item The purpose of the weather application is to provide current weather, forecast, air quality, and historical weather data for a specific location.
+				\item The application should be web-based and have a feature for geolocation or typing in a city to retrieve weather data...
+			\end{itemize}
+			Based on these requirements, here are some suggestions for how you could approach the development of the weather application: 
+			... \cite{codellama_analyza}
+		\end{tcolorbox}
+		\vspace{0.6em}
+		
+		Další zajímavost je odpověď Falcon a CodeLLaMA, kde byly nejdříve shrnuty poznatky ze vstupu, a pak až odpověď. Lépe pak lze pochopit vytvořenou odpověď \cite{codellama_analyza} \cite{falcon_analyza}.
+		
+		\subsection{Architektura projektu}
+		% \begin{tcolorbox}[colback=white,colframe=black]
+			% \paragraph{Claude}
+			% \begin{enumerate}
+				
+				% \item Build a client-side single page application using a frontend framework like React or Angular. This allows for dynamic updates without page reloads.
+				
+				% \item Use a lightweight backend framework like Node.js/Express to handle API requests and data retrieval.
+				
+				% \item MongoDB or another NoSQL database to store user accounts, locations data, historical weather records in a flexible schema.
+				
+				% \item Abstract the database access into a data access object layer for queries and CRUD operations.
+				
+				% \item Encapsulate business logic like geocoding, forecast calculations etc into reusable services.
+				
+				% \item Consume free weather APIs like OpenWeatherMap for current/forecast data, geocoding of locations.
+				
+				% \item Implement caching of API responses and database queries to improve performance.
+				
+				% \item Host on a cloud platform like Heroku for easy scaling. Automate deployments from code repo.
+				% Security:
+				
+				% \item Implement authentication, input validation, CORS, HTTPS to protect endpoints and user data.
+				
+				% \item Write tests for services, API endpoints and critical functionality before development.
+				
+				% \end{enumerate}
+			
+			% This separates the major components cleanly while allowing extensibility. The architecture aims for performance, maintainability and scalability within the given constraints. Let me know if any part needs more explanation! \cite{claude_analyza}
+			% \end{tcolorbox}
+		% \vspace{0.6em}
+		\begin{tcolorbox}[colback=white,colframe=black]
+			\paragraph{Prompt} Okay, going from what i said, how would you handle the architectural parts of such a project (frontend, backend, database etc.)
+			
+			\vspace{0.6em}
+			
+			\paragraph{ChatGPT}
+			...Serverless Architecture: Utilize a serverless architecture to minimize operational costs, especially since your customer has a budget constraint. Serverless functions, like AWS Lambda or Azure Functions, are cost-effective for handling API requests... \cite{chatgpt_analyza}
+		\end{tcolorbox}
+		\vspace{0.6em}
+		
+		Příjemným překvapením v procesu návrhu aplikace byl koncept „serverless“ architektury, který operuje na principu účtování pouze za použití funkce. Vzhledem k nepravidelnému využívání aplikace tato architektura přináší větší smysl z hlediska minimalizace nákladů než trvale běžící server. Minimalizace nákladů je podpořena také skutečností, že na rozdíl od kontejnerových služeb mají služby pro serverless funkce kvóty pro bezplatné využívání v rámci cloudových služeb \cite{webapp_basics} \cite{bard_analyza} \cite{chatgpt_analyza} \cite{codellama_analyza} \cite{gitCopilot_analyza} \cite{claude_analyza} \cite{bingCopilot_analyza}. 
+		
+		Další aspekty, které bývají často opomenuty, zahrnují ukládání odpovědí do mezipaměti, neboť aktualizace počasí nemusí probíhat v reálném čase. Kromě toho je zmíněno monitorování a logování, které může být snadno opomenuto v návrhu architektury a následně je potřeba dodělat při implementaci, kdy už existují závislosti v kódu.
+		
+		Nicméně, některé modely, jako například Bard nebo Falcon, nezachytili moji otázku ohledně rozšíření odpovědi o architektuře a začali mi klást další otázky pro zákazníka \cite{bard_analyza} \cite{falcon_analyza}. I když nebylo specifikováno, který z předložených podnětů chci rozvinout, očekával bych, že se do kontextového okna vejde pouze ten nejnovější, tedy že se rozvine poslední předložená otázka. Tento scénář se však neodehrál, což naznačuje, že nelze spoléhat ani na to, že umělá inteligence dokáže správně porozumět kontextu předchozích zpráv.
+		
+		\subsection{Přídavné prvky}
+		\begin{tcolorbox}[colback=white,colframe=black]
+			\paragraph{Prompt} 
+			What other features, such as Authentication and Authorization (because of the free and paid tiers) should I consider?
+			
+			
+			\vspace{0.6em}
+			
+			\paragraph{CodeLLaMA} 
+			\begin{enumerate}
+				\item User accounts: Allow users to create accounts and log in to access premium features.
+				\item Role-based access control: Assign different roles to users based on their subscription level, and restrict access to certain features based on those roles.
+				\item Subscription management: Provide a way for users to manage their subscriptions, including upgrading or downgrading plans.
+				\item Payment processing: Integrate with a payment gateway to handle transactions and process payments.
+				\item Billing and invoicing: Generate invoices and send them to users on a regular basis, and provide a way for them to pay their bills online.
+				\item Discounts and promotions: Offer discounts or promotional codes to attract new users or encourage existing ones to upgrade their plans \cite{codellama_analyza}
+				\item Customer support: Provide support to users via email, chat, or phone, and offer a self-service portal where they can find answers to common questions.
+				\item Analytics and reporting: Collect and analyze data on user behavior and usage patterns, and provide reports to help you understand how the application is being used and identify areas for improvement.
+				\item Security: Implement appropriate security measures to protect user data and prevent unauthorized access to the application.
+				\item Scalability: Ensure that the application can handle a large number of users and data without compromising performance or availability. 
+			\end{enumerate}
+			... \cite{codellama_analyza}
+		\end{tcolorbox}
+		\vspace{0.6em}
+		
+		Opět se zde objevilo mnoho věcí, které mne v konverzaci se zákazníkem nemuselo napadnout. První se týkaly produktu samotného, druhé se zaměřili na obecnější hledisko. Z produktové kategorie se může jednat o notifikace uživatele, integrace sociálních sítí pro autentifikaci nebo možnost uživatelů hodnotit přesnost počasí \cite{bard_analyza} \cite{chatgpt_analyza} \cite{codellama_analyza} \cite{gitCopilot_analyza} \cite{claude_analyza}. Z obecnějších např. zmíněná strategie obsahu na sociálních médiích nebo platební model. Pokud tedy brainstormujeme přídavné prvky, je na to AI skvělým parťákem \cite{bingCopilot_analyza} \cite{falcon_analyza}.
+		
+		% \subsection{Agile nebo Waterfall?}
+		
+		% \vspace{0.6em}
+		% 
+		%     Would you recommend developing this app in an Agile or Waterfall manner?
+		% 
+		% \vspace{0.6em}
+		
+		% Nejdříve si řekněme, co vlastně tyto dva pojmy značí. Agile je způsob vývoje, který je dosti flexibilní a iterativní, pro projekty s nejasným deadlinem a měnícími se požadavky \cite{SWEBook}. Waterfall metoda je více strukturovaný, vyžaduje, aby se projekt měnil krok po kroku, vhodný spíše pro projekty, kde jsou specifikace pevně dány \cite{SWEBook}. Tím pádem pro náš případ, kdy jsou omezené prostředky, zadání není úplně kompletní a deadline je co nejdříve, by byla pravděpodobně vhodnější agilní metodika.
+		
+		% Většina chatbotů se shodla na tom, že by aplikace měla být vyvíjena agilním způsobem \cite{bard_analyza} \cite{falcon_analyza} \cite{claude_analyza}. Jen někteří chatboti se ale obtěžovali i krátce shrnout, co to vlastně Agile a Waterfall je. To beru jako nutnost, protože se slepě hnát za doporučením, aniž bych věděl, co obsahuje alternativa, mi nepřijde jako nejlepší rada. Ačkoliv by třeba použití Agile metodiky bylo odůvodněno \cite{chatgpt_analyza} \cite{gitCopilot_analyza} \cite{codellama_analyza}. 
+		
+		\subsection{Analýz\vspace{0.6em}a rizik}
+		\begin{tcolorbox}[colback=white,colframe=black]
+			\paragraph{Prompt} 
+			Knowing our previous conversation, could you analyze the potential risks that could arise in the development of such an application, and how could we prepare for them?
+			
+			
+			\vspace{0.6em}
+			
+			\paragraph{Claude} 
+			\begin{enumerate}
+				\item Dependency on external APIs - have fallback strategies if they go down
+				\item Scaling/performance issues - implement monitoring, add caching layers
+				\item Security vulnerabilities - thorough testing, keep dependencies updated
+				\item Limited budget/timeframe - use Agile, prioritize features, set expectations
+				\item Reliance on free APIs - have alternatives identified
+				\item Single developer - get expert reviews, document assumptions
+				\item Scope creep - define MVP, get signoff before additional work
+				\item Missing specifications - clarify requirements upfront
+				\item Changing priorities - involve stakeholders, demo frequently
+				\item Development delays - establish status tracking, address issues early
+				\item Lack of experience - research extensively, get mentorship if needed
+				\item Developer burnout - plan buffer, limit crunch periods
+				\item Low user adoption - validate product-market fit continuously
+				\item Competitive offerings - identify competitors, differentiate features
+				\item Revenue generation - realistic projections, pivot monetization
+			\end{enumerate}
+			
+			To prepare, focus on MVP, document risks \& mitigations, get early feedback, automate tests, add monitoring, define milestones \& deliverables clearly. Reassess risks periodically \& adapt as needed. Open communication is key to manage expectations.
+			... \cite{claude_analyza}
+		\end{tcolorbox}
+		\vspace{0.6em}
+		
+		Identifikovaná rizika, zejména mimo oblast architektury, jako je nepřesnost předpovědi počasí závislá na aktuálním počasí, problémy spojené s platebním modelem odběrů nebo soulad s předpisy týkajícími se ochrany osobních údajů uživatelů, jsou rizika, která by mne pravděpodobně nenapadla před samotnou implementací. Tato rizika rovněž mohou významně ovlivnit strukturu projektu \cite{chatgpt_analyza}. Další obtížně předvídatelná rizika zahrnují zvětšení rozsahu aplikace, komunikační problémy, vyhoření nebo překročení nákladů mimo stanovený rozpočet \cite{claude_analyza} \cite{bard_analyza}. Jiná rizika se zaměřují více na samotný produkt. Kvalita dat je zde v ohrožení, protože jsme závislí na externím API, které není pod naší kontrolou. To Falcon nezohlednil a navrhuje validaci modelu pro předpověď počasí \cite{falcon_analyza}. Externí zdroje mohou také negativně ovlivnit bezpečnost aplikace. 
+		
+		Při brainstormingu je tedy vhodné mít AI jako "generátor nápadů", zejména pokud jde o rizika, která nejsou běžnou součástí práce programátora \cite{falcon_analyza} \cite{claude_analyza} \cite{codellama_analyza}. Jsem znovu příjemně překvapen brainstormingem od AI a při návrhu plánu vývoje projektu bych se neváhal obrátit na AI k identifikaci rizik. Nicméně, při podrobnějším zkoumání konkrétní oblasti bych dával přednost modelům, které poskytují odkazy na zdroje, ze kterých čerpají.
+		
+		\subsection{Hodnocení dle seniority}
+		Přínos bych zde viděl hlavně pro juniory, kteří nemají např. ani jeden projekt za sebou, tím pádem neví, co postavení webové aplikace vlastně obnáší. Většina odpovědí jsou věci, na které by si jinak museli přijít v průběhu procesu, kde by oprava mohla přidat na časové náročnosti projektu. Pro juniorní úroveň se bude ale potřeba se oproti původní konverzaci podstatně více doptávat na různé detaily, nebo tento fakt uvést předem. Co zde ale vidím jako problémové je, že junior pravděpodobně nebude mít znalost o propojení různých aspektů software. Tím pádem by mohl opravdu ignorovat např. vytvoření databáze, i když je nutná pro zabudování rozdělení mezi platícím a neplatícím uživatelem.
+		
+		Přínos pro mediory, jak jsem již shrnul v předchozích sekcích, je neméně zásadní. Mnoho z nápadů, na které AI přišlo, by mi na místě nedošlo, a musel bych je poté řešit v průběhu SDLC a tím pádem prodloužit časovou náročnost celého projektu. Např. vyhodnocení využití serverless architektury na základě nulového rozpočtu pro vytvoření aplikace, jenž také není úplně očividné. 
+		
+		\section{Návrh struktury aplikace}
+		Zahrnuje rozhodnutí, jak naši aplikaci rozdělit na jednotlivé funkční celky. Rozhodnutí v této fázi dramaticky ovlivní implementaci a její kvalitu. Může i probíhat paralelně s implementací \cite{knuth1989notes} \cite{wikipedia:soft_design}. Rozhodnutí zahrnují např. výběr programovacího paradigmatu, programovacího jazyka, případně k němu vázané knihovny a platformy. Také jsou rozvrženy různé třídy, funkce, datových struktury a algoritmy. Návrh může být doprovázen diagramem který představuje konečnou strukturu aplikace, např. v jazyce UML.
+		
+		Každá aplikace má aspekty, které jsou méně a více důležité. Například bankovní aplikace na telefonu by měla mít velkou bezpečnost, což může vyžadovat implementaci biometrického ověření, které ale zase ubírá na použitelnosti samotné aplikace. Jedná se tedy o proces stanovení priorit, třeba na základě analýzy požadavků, a následném balancování mezi nimi.
+		
+		Ostatní prvky návrhu mohou zahrnovat UX design, pokud naše aplikace interaguje s uživateli, nebo datový modeling, pokud naše aplikace využívá databázi \cite{wikipedia:soft_design}. UX Design se zajímá o dojem uživatele při interakci s určitým produktem.
+		
+		\section{Návrh s pomocí AI}
+		\subsection{Doporučené technologie}
+		\vspace{0.6em}
+		\begin{tcolorbox}[colback=white,colframe=black]
+			\paragraph{Prompt}
+			I want to create a simple weather dashboard web application, which fetches data from a weather API, parses them on the backend and then sends them to the frontend and also saves them inside a database. The main parameter should be that the app is free to create, as I don't have any money to spend. Which „tech stack“ would you recommend for this, in regards to:
+			\begin{enumerate}
+				\item The programming language and framework for the backend.
+				\item The programming language and framework for the frontend.
+				\item Weather API to get information from.
+				\item Database, SQL and NoSQL.
+				\item Containerization service.
+				\item Cloud service to deploy to.
+				\item Version control system.
+				\item Package manager.
+				\item Configuration manager.
+				\item Logging and monitoring service.
+				\item Testing, which includes unit, integration, and end-to-end testing 
+			\end{enumerate}
+			
+			Give me your recommendations along with 3 other alternatives and a specific reason to why you chose this specific one, and why you did not choose the alternatives. The areas you should consider in your tech stack are: scalability, availability, price, performance, security, scalability, clean code and readability of code. Along with many others that are for you to infer. Also give me a list of other libraries (except the ones for frameworks, dependency managment etc.) that I should use in my program. Prefer long-standing libraries since they are more likely to get support long-term.
+			
+			\vspace{0.6em}
+			
+			
+			\paragraph{GitHub Copilot}
+			\begin{enumerate}
+				\item Backend: Node.js with Express.js framework
+				\item Frontend: React.js with Bootstrap or Material UI framework
+				\item Weather API: OpenWeatherMap API
+				\item Database: MongoDB (NoSQL)
+				\item Containerization service: Docker
+				\item Cloud service: Heroku
+				\item Version control system: Git
+				\item Package manager: npm
+				\item Configuration manager: dotenv
+				\item Logging and monitoring service: Winston and New Relic
+				\item Testing: Jest for unit testing, Supertest for integration testing, and Cypress for end-to-end testing.
+			\end{enumerate}
+			... \cite{gitCopilot_navrh}
+		\end{tcolorbox}
+		\vspace{0.6em}
+		
+		AI obecně doporučuje dlouho udržované knihovny a technologie, které mají k dispozici mnoho dalších knihoven pro řešení bezpečnosti, modularity apod. Tato řešení jsou proto modulární a vysoce kompatibilní, díky dlouhodobé podpoře jsou také robustní. Tím se minimalizuje možný technologický dluh, který by vznikl při práci s nejnovějšími dostupnými technologiemi, jež za pár let mohou ztratit podporu komunity a naše řešení by se tak mohlo stát nepoužitelným. Podobná doporučení ale dostanu, když použiju prohlížeč, kde je tedy výhoda použití AI?
+		
+		Jednou z výhod AI je možnost nabídnout alternativy a zdůvodnit volbu konkrétní knihovny, což by vyhledáváním trvalo značně déle. To je z části dáno promptem, který je klíčový pro efektivní využití AI. V závislosti na senioritě uživatele je možné se jednoduše zeptat na dodatečné vysvětlení a detaily, což vyhledávač neposkytuje. I když využití historického kontextu nemusí být vždy ideální, hlavní přínos AI spočívá v její schopnosti komunikovat nejasnosti a nechat si je vysvětlit. Pokud však chceme hlouběji proniknout do problematiky, je lepší použít model, který poskytuje zdroje \cite{claude_navrh}, \cite{chatgpt_navrh}, \cite{bard_navrh}, \cite{codellama_navrh}, \cite{falcon_navrh}, \cite{gitCopilot_navrh}, \cite{bingCopilot_navrh} \cite{perplexity}. 
+		
+		\vspace{0.6em}
+		\begin{tcolorbox}[colback=white,colframe=black]
+			\paragraph{ChatGPT}
+			...Heroku offers a straightforward way to deploy web applications for free with minimal setup. It's user-friendly and ideal for small-scale applications... \cite{chatgpt_navrh}
+		\end{tcolorbox}
+		\vspace{0.6em}
+		
+		Bylo zde ale i mnoho nepřesností, především v souvislosti s aktuálností dat. ChatGPT poskytoval zastaralé odpovědi, pravděpodobně z důvodu omezení dat do ledna 2022, týkající se dostupnosti bezplatných kvót cloudových služeb \cite{chatgpt_navrh} \cite{chatgpt_knowledge}. Dále Bard, který by se měl kontinuálně trénovat na nejnovějších datech, nezmiňuje Google Cloud Platform, produkt téže firmy, která poskytuje největší množství bezplatných kreditů ze známých cloudových platforem. Tím pádem není jasné, jaká je platnost tohoto tvrzení \cite{bard_navrh} \cite{GCP} \cite{Heroku}.
+		
+		\vspace{0.6em}
+		\begin{tcolorbox}[colback=white,colframe=black]
+			\paragraph{Falcon}
+			...For version control, I would recommend using Git. It is the most widely used version control system and has a large community and ecosystem of tools and integrations. Alternatives could be SVN or Mercurial, but Git has better support for branching and merging... \cite{falcon_navrh}
+		\end{tcolorbox}
+		\vspace{0.6em}
+		
+		U některých modelů mi chybí hlubší vysvětlení použitých technologií. Vzhledem k vlastnostem velkých jazykových modelů halucinovat, jsem schválně prompt struktruoval tak, abych měl na výběr z více alternativ,  jsem záměrně strukturoval prompt tak, abych měl na výběr z více alternativ. Některé modely však tento požadavek ignorovaly \cite{gitCopilot_navrh}, \cite{falcon_navrh}, pravděpodobně kvůli omezení kontextového okna modelu. Pro zlepšení schopností v oblasti softwarového inženýrství a lepší porozumění aplikaci, včetně případného ladění, je však kritické znát důvody volby konkrétní služby.
+		
+		\subsection{Specifikace návrhu}
+		\vspace{0.6em}
+		\begin{tcolorbox}[colback=white,colframe=black]
+			\paragraph{Prompt}
+			Now with your chosen tech stack, we will move towards desiging the application itself. I want you to give me recommendations on the following problems that I am facing while writing this app:
+			\begin{enumerate}
+				\item Should I use functional or object oriented desing, or both?
+				\item Should I use REST, GraphQL or something else for communication between components?
+				\item Should I use a raw table and a clean table inside my database? Would SQL or NoSQL be a better fit?
+				\item How would you go about backing up and archiving the weather data inside the database?
+				\item How would you handle the security aspect of the app, in regards to CORS or XSS etc.? Also how would you handle input validation? Would you recommend any libraries?
+				\item How would you structure the app in terms of files, modules and objects (that is if we use the OOP approach), so I don't mess up my code right from the get go
+				\item Which desing patterns should I use inside my code (factory, proxy etc.)?
+				\item How would you handle the routing of the app? Is it worth it to implement state managment tools if the app is quite simple?
+				\item Would you recommend caching the data for such an app, or using lazy loading?
+			\end{enumerate}
+			
+			\vspace{0.6em}
+			\paragraph{CodeLLaMA}
+			...Both approaches have their advantages and disadvantages. Since you mentioned that you are new to web development, I would recommend starting with a simpler functional design. However, if you are interested in learning OOP, you could try implementing it later on.... \cite{codellama_navrh}
+		\end{tcolorbox}
+		\vspace{0.6em}
+		
+		AI určila, že by aplikace měla využívat kombinaci objektově orientovaného a funkcionálního programování. Trochu zvláštní odpovědí je předpoklad od CodeLLaMA, že jsem nováčkem ve vývoji webu. Je mi nejasné, jak model dospěl k této informaci. Občas docházelo i k nekompatibilitě doporučení, když mi nejprve bylo doporučeno používat Python na backendu, ale následně byla doporučena backendová JavaScript knihovna \cite{codellama_navrh} \cite{bingCopilot_navrh}. Lze říci, že model "halucinuje". To může být opět dáno kontextovým oknem konverzace, kde se historie může ztratit, a s ní i povědomí o tom, jaký programovací jazyk byl použit. Model například mohl při shrnutí předchozí konverzace omezit její obsah na několik odstavců, aby se vešel do aktuálního kontextu \cite{compressing}.
+		
+		\vspace{0.6em}
+		\begin{tcolorbox}[colback=white,colframe=black]
+			\paragraph{Falcon}
+			...Other libraries that you may find useful include Pandas for data manipulation, NumPy for numerical computing, Matplotlib for data visualization, Requests for HTTP requests, Beautiful Soup for HTML parsing, and Selenium for browser automation... \cite{falcon_navrh}
+		\end{tcolorbox}
+		\vspace{0.6em}
+		
+		Nebo fakt, že mi jsou doporučeny Python knihovny pro datovou analýzu, jako je pandas, přestože jsem zmínil, že data posílám na frontend, což naznačuje jejich vizualizaci právě na frontendu. Pokud v této práci existuje opakující se téma, je to skutečnost, že nelze spoléhat na to, že si model dokáže odvodit kontext.
+		
+		Halucinace byly v tomto případě snadno pozorovatelné. Otázkou však je, jak se budeme vyrovnávat s situacemi, kdy bude pozorování chyby složitější a povede k přepsání velké části aplikace \cite{codellama_navrh}. Metodou, jak tomu předejít, je využití modelu, který poskytuje zdroje spolu s odpovědí, což zajistí, že model bude zakotven v reálných informacích a minimalizuje halucinace. Navíc lze snadno ověřit, zda model halucinuje, právě pomocí poskytnutých zdrojů \cite{PEG} \cite{perplexity}.
+		
+		\vspace{0.6em}
+		\begin{tcolorbox}[colback=white,colframe=black]
+			\paragraph{ChatGPT}
+			...For simplicity and the typical use case of a weather dashboard, REST is a suitable choice. GraphQL is a powerful tool but may be overkill for a small application. It offers more flexibility in querying data, which might be excessive for your requirements... \cite{chatgpt_navrh}
+		\end{tcolorbox}
+		\vspace{0.6em}
+		
+		Pro backendovou API by měl být použit REST místo GraphQL, protože je jednodušší, s případným shrnutím pro a proti obou architektur. Plně souhlasím, protože výhody GraphQL, např. specifikace potřebných dat, lze v našem případě jednoduše kontrolovat za pomoci backendu \cite{REST_GQL}.
+		
+		\vspace{0.6em}
+		% \begin{tcolorbox}[colback=white,colframe=black]
+			% \paragraph{CodeLLaMA}
+			% ...For a simple weather app, a relational database like SQL would be sufficient. A raw table and a clean table inside the database could be useful for storing raw data and processed data separately. However, if you expect a large amount of data, you might want to consider using a NoSQL database like MongoDB... \cite{codellama_navrh}
+			% \end{tcolorbox}
+		% \vspace{0.6em}
+		\vspace{0.6em}
+		\begin{tcolorbox}[colback=white,colframe=black]
+			\paragraph{CodeLLaMA}
+			...Use Helmet middleware for various security HTTP headers, CORS to restrict origins, and express-validator for input sanitization. Store API keys securely using environment variables... \cite{claude_navrh}
+		\end{tcolorbox}
+		\vspace{0.6em}
+		
+		Ohledně bezpečnosti aplikace jsou doporučení poměrně obsáhlá, a mnoho z nich, jako je například Content Security Policy (CSP) nebo bezpečnostní hlavičky, by mě nenapadlo řešit. Dobré je i zmínění knihoven, které lze využít k ošetření vulnerabilit. Zajímavým návrhem bylo i využití služby pro skenování slabých míst v kontejneru \cite{claude_navrh}, \cite{security_headers}, \cite{docker-docs}, \cite{ibm:containers}.
+		
+		Struktura složek se mezi různými modely výrazně lišila, především v závislosti na doporučeném backendu a frontendu. Byly i případy, kdy navržená struktura složek nedávala smysl, jako například Falcon, který původně navrhoval použití Reactu a Pythonu. Avšak struktura složek neobsahovala JSX soubory, které jsou typické pro React, a spíše připomínala webovou aplikaci napsanou čistě v Pythonu \cite{falcon_navrh}, \cite{react}. I zde opět vidíme, že nelze pouze spoléhat na historii konverzace, která může být po určité délce pouze shrnuta, a je lepší modelu kontext obnovit tím, že ho zahrneme přímo v aktuálním promptu.
+		
+		\vspace{0.6em}
+		\begin{tcolorbox}[colback=white,colframe=black]
+			\paragraph{Claude}
+			\begin{enumerate}
+				\item Model-View-Controller (MVC) - Separate frontend display logic from data and business logic. Useful for React components.
+				
+				\item Strategy Pattern - Define interchangeable algorithms/behavior. For example, switching between data sources.
+				
+				\item Observer Pattern - Used when something can have dependent "observers". For notifications on new data.
+				
+				\item Singleton Pattern - Ensure only one instance exists globally. Useful for things like the database connection.
+			\end{enumerate}
+			...\cite{claude_navrh}
+		\end{tcolorbox}
+		\vspace{0.6em} 
+		
+		Pokud člověk nemá již zkušenosti s většími projekty v objektově orientovaném programování, může být obtížné pochopit návrhové vzory. Avšak model dokáže snadno uvést příklady, kde by se daný vzor mohl použít. To je mnohem efektivnější, než se s problémem potýkat až při refaktorování. Například použití Singleton vzoru pro připojení k databázi nebo Factory vzoru pro vytváření objektů s daty o počasí.
+		
+		\vspace{0.6em}
+		\begin{tcolorbox}[colback=white,colframe=black]
+			\paragraph{ChatGPT}
+			...For a simple app, you may not need a dedicated state management library. Use React Router for client-side routing and lift state up to parent components when needed. If the app grows in complexity, consider incorporating a state management library like Redux or Mobx... \cite{chatgpt_navrh}
+		\end{tcolorbox}
+		\vspace{0.6em}
+		
+		Správa stavu na frontendu pomocí knihovny byla AI považována za zbytečnou pro tuto jednoduchou aplikaci. Nicméně implementace routingu nevedla k jednotnému rozhodnutí napříč různými modely. Není však zřejmé z promptu, zda se jedná o jednostránkovou aplikaci, což má přímý vliv na kvalitu odpovědi. \cite{claude_navrh}, \cite{chatgpt_navrh}.
+		
+		\vspace{0.6em}
+		\begin{tcolorbox}[colback=white,colframe=black]
+			\paragraph{CodeLLaMA}
+			...You could try using a library like LRU Cache to cache frequently accessed data. Lazy loading could also be useful for reducing the initial load time of your app... \cite{codellama_navrh}
+		\end{tcolorbox}
+		\vspace{0.6em}
+		
+		AI doporučilo pro optimalizaci webové aplikace ukládání odpovědí do mezipaměti, a „lazy loading“. CodeLLaMA překvapivě vytáhl ze své „paměti“ i komplexní datovou strukturu jako LRU Cache \cite{gfg:LRU} \cite{codellama_navrh}.
+		
+		\subsection{UML}
+		
+		\vspace{0.6em}
+		\begin{tcolorbox}[colback=white,colframe=black]
+			\paragraph{Prompt}
+			Could you recommend the various classes that could be used throughout the app? Maybe you could add a simple UML chart on top of that?
+		\end{tcolorbox}
+		\vspace{0.6em}
+		
+		Zde se ukázalo, že některé modely nepochopily mé zadání a domnívaly se, že měření počasí bude prováděno pomocí stanice, zatímco v historii konverzace jsem jasně uvedl, že k získání počasí bude využito API \cite{bard_navrh}, \cite{falcon_navrh}.
+		
+		Generování UML diagramů pomocí AI dopadlo bídně. Buď jsme obdrželi diagram toku, nebo rozdělení na třídy, které nedávalo smysl, nebo něco, co připomíná UML graf s chybějícími propojeními, nebo dokonce nic. Pouze model Claude vytvořil skutečný UML diagram, který nejlépe odpovídal navržené architektuře, a to i v přenositelném formátu \verb|plantuml|, který lze zkompilovat např. prohlížeči \cite{claude_navrh} \cite{codellama_navrh} \cite{wikipedia:uml}.
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.75\linewidth]{img/UML2.png}
+			\caption{UML diagram aplikace od Claude \cite{general}}
+			\label{fig:claude_uml}
+		\end{figure}
+		
+		\subsection{Hodnocení dle seniority}
+		V této části SDLC vidím pro juniory podobné problémy, jako v analýze, ale v intenzivnější formě. AI vypíše velké množství technologií. Sice přesně víme, co se máme naučit, abychom projekt zvládli. AI ale neuvažuje, zda-li jsou technologie potřeba, a to junior pravděpodobně nedokáže vyhodnotit. Neví, že něco neví, a z toho plynou větší problémy, než když pouze neví, například menší udržitelnost nebo škálovatelnost.
+		
+		Jako medior spatřuji přínos v návrhových vzorech, a v tom, že se lze dopodrobna doptat na technologie. Informace bych si ale raději stejně ověřil na oficiálních webových stránkách. Na rychlé „zbastlení“ to asi pomůže, ale aplikaci produkční úrovně s tím pravděpodobně nenavrhneme, jelikož se jedná o komplexní propojení celků, které AI nezvládá moc dobře.
+		
+		\section{Implementace s pomocí AI}
+		Pro tuto kapitolu jsem se rozhodl omezit počet modelů pouze na Copilot Chat. Důvodů je k tomu více, hlavní však spočívá v tom, že testování všech předem zmíněných modelů by vedlo k nadměrnému rozšíření obsahu práce. Navíc je na webu již dostatek porovnání modelů v různých programovacích úlohách. Copilot Chat byl vybrán zejména proto, že je natrénován převážně na programovacích datech a je přímo integrován do vývojového prostředí Visual Studio Code, které bylo použito při vývoji aplikace. Dále nemá omezené množství zpráv a disponuje několika speciálními prvky. Užitečné jsou také doporučené otázky. I když ne vždy dokážou modelu poskytnout přesnou odpověď, naznačují možný směr, jakým by mohl být zadán vstup, aby ho model co nejlépe pochopil \cite{gitCopilot}.
+		
+		Copilot Chat však není jedinou výhodou prostředí Visual Studio Code. Jako hlavní přednost je možné vnímat samotný Copilot, který funguje podobně jako automatické doplňování slov u chytrého telefonu. Copilot však dokáže doplnit řádek, vygenerovat zbytek funkce, nebo ji i vytvořit na základě jejího názvu s krátkým komentářem. Navíc se trénuje na základě napsaného kódu, což vede k tomu, že po určité době dokáže psát ve stejném stylu jako programátor, který ho využívá \cite{gitCopilot}. 
+		
+		\vspace{0.6em}
+		\begin{tcolorbox}[colback=white,colframe=black,title=Úprava výkonnosti třídy v Pythonu]
+			\paragraph{Prompt}
+			
+			Could I use different Python syntax to make the \verb|open_weather_api.py| module more performant or readable?
+			
+			\vspace{0.6em}
+			\paragraph{GitHub Copilot}
+			\begin{enumerate}
+				\item If you're using dataclasses and you know that you won't be adding any more attributes, you can use \verb|__slots__| to save memory...
+				\item Instead of using strings for the type parameter in the \verb|get_api_response()| method, you could use an Enum. This would make the code more self-documenting and would prevent typos.
+			\end{enumerate}
+			
+			\vspace{0.6em}
+			
+			\begin{lstlisting}[language=Python]
+				from enum import Enum
+				
+				class APIType(Enum):
+				WEATHER = "weather"
+				FORECAST = "forecast"
+				
+				@dataclass
+				class OpenWeatherAPI:
+				
+				__slots__ = ['api_key', 'parser'] # 
+				
+				api_key: str = os.getenv("OPEN_WEATHER_API_KEY")
+				parser = OpenWeatherParser()
+				
+				# ...
+				
+				def get_api_response(self, type: APIType, query_params: dict[str, float | str]) -> dict:
+				# ...
+			\end{lstlisting}
+			... \cite{dataclass}
+		\end{tcolorbox}
+		
+		Samotný kód, který Copilot Chat vygeneroval, nebyl ve většině případů přímo použitelný. Je proto nutné vždy funkce od Copilota pečlivě otestovat, ať už automatickými testy nebo lidským okem. V mnoha případech však stačilo pouze provést drobné úpravy. Nyní se podíváme na několik konkrétních příkladů.
+		
+		Znalost použitých programovacích jazyků byla až překvapivě hluboká. Například doporučení použití \verb|__slots__| u třídy s dekorátorem \verb|@dataclass|, vzhledem k neměnným parametrům, je něco, o čem jsem sice věděl, ale nikdy by mě nenapadlo, že to lze v daném kontextu využít. Poskytnuté zdůvodnění této volby také dává smysl \cite{dataclass}.
+		
+		\vspace{0.6em}
+		\begin{tcolorbox}[colback=white,colframe=black,title=Úprava výkonnosti třídy v Pythonu]
+			\paragraph{GitHub Copilot}
+			Here's an example of how you can use `requests-cache` to cache a request:
+			
+			\begin{lstlisting}[language=Python]
+				import requests_cache
+				
+				# Enable caching
+				requests_cache.install_cache("my_cache", expire_after=3600)
+				
+				# Make a request
+				response = requests.get("https://example.com/api/data")
+				
+				# The response will be cached for 1 hour (3600 seconds)
+			\end{lstlisting}
+			... \cite{requests_cache}
+		\end{tcolorbox}
+		
+		Ohledně backendu bych viděl potenciál v poskytnutí pomoci při zajištění bezpečnosti, avšak s určitými nedostatky. Pro detekci zranitelností lze úspěšněji využít skenování kontejnerů přímo od Dockeru nebo externích platforem, jako jsou Veracode nebo Prisma Cloud \cite{veracode} \cite{prisma_cloud}. Tyto nástroje dokáží prohledat celý kontejner a identifikovat zranitelnosti od úrovně knihoven až po úroveň operačního systému, což není uskutečnitelné pomocí umělé inteligence, jelikož jí chybí takto nízkoúrovňový přístup. Avšak tyto nástroje nepomohou s implementací samotného kódu, a zde právě přichází výhoda umělé inteligence, která dokáže přesně určit, jaké části kódu je třeba změnit. Dalším užitečným doporučením bylo využití ukládání do mezipaměti pomocí knihovny \verb|requests_cache|, o které jsem předem neměl ponětí \cite{webapp_basics} \cite{middleware}.
+		
+		\vspace{0.6em}
+		\begin{tcolorbox}[colback=white,colframe=black,title=Implementace CSRF v Pythonu]
+			\paragraph{GitHub Copilot}
+			To protect your FastAPI app from CSRF using \verb|fastapi_csrf_protect|, you can follow these steps \cite{middleware}:
+			
+			\begin{lstlisting}[language=Python]
+				from fastapi import FastAPI
+				from fastapi_csrf_protect import CsrfProtectMiddleware
+				
+				app = FastAPI()
+				
+				app.add_middleware(CsrfProtectMiddleware, csrf_secret="your_secret_key")
+			\end{lstlisting}
+		\end{tcolorbox}
+		
+		Znalost knihoven je však „pokus omyl“. U knihoven, které již nějakou dobu existují, je to podobné jako s jazykem samotným, například u knihovny \verb|FastAPI| \cite{fastapi}. Při snaze o zajištění bezpečnosti proti CSRF pomocí middleware jsem však nenarazil na úspěch, což mě vedlo k prohledávání internetu a následnému zjištění, že model vůbec nerozumí způsobu fungování CSRF \cite{csrf} \cite{csrf_web}. Tento problém souvisí s další nedokonalostí umělé inteligence, a tou je skutečnost, že pokud není v textovém vstupu explicitně uvedeno „pokud nevíš, tak řekni 'Nevím'“, pokusí se odpovědět za každou cenu, i když to bude naprostý nesmysl. Dochází tedy k vymýšlení metod, které v knihovně neexistují.
+		
+		Tato situace je opět dána poměrem dat použitých při tréninku. Nové nebo méně známé knihovny nemají dostatečný objem v trénovacích datech, což může vést k situaci, kdy model při předpovědi následujícího klíčového slova pro kód dospěje k závěru, že by měla být použita úplně jiná knihovna, a tím vytváří podivný hybrid, který v realitě neexistuje. V takových případech je tedy vhodné se spíše spoléhat na dokumentaci.
+		
+		\vspace{0.6em}
+		\begin{tcolorbox}[colback=white,colframe=black,title=Efektivnější metody zpracování dat v JavaScriptu]
+			\paragraph{Prompt}
+			could you modify the reduce statement in the daily variable to sort the icons array by frequency?
+			
+			\vspace{0.6em}
+			
+			\paragraph{GitHub Copilot}
+			Sure! Here's the updated \verb|daily| variable that sorts the \verb|icons| array by frequency \cite{map_reduce}:
+			
+			\vspace{0.6em}
+			
+			\begin{lstlisting}[language=JavaScript]
+				let daily = weather.reduce((acc, obj) => {
+					const key = formatToLocalTime(obj.dt, timezone, "cccc");
+					if (!acc[key]) {
+						acc[key] = { category: key, temp: 0, icons: {}, icon: ""};
+					}
+					acc[key].temp = obj.temp > acc[key].temp ? obj.temp : acc[key].temp;
+					if (!acc[key].icons[obj.weather_icon]) {
+						acc[key].icons[obj.weather_icon] = 1;
+					} else {
+						acc[key].icons[obj.weather_icon]++;
+					}
+					
+					acc[key].icon = Object.entries(acc[key].icons).sort((a, b) => b[1] - a[1])[0][0];
+					
+					return acc;
+				}, {});
+			\end{lstlisting}
+		\end{tcolorbox}
+		
+		\begin{tcolorbox}[colback=white,colframe=black,title=Implementace vlastních velikostí obrazovek do knihovny Tailwind]
+			\paragraph{GitHub Copilot}
+			Yes, you can define your custom screen sizes in Tailwind CSS by adding them to the `screens` section of your Tailwind configuration file. Here's an example:
+			
+			\vspace{0.6em}
+			
+			\begin{lstlisting}[language=JavaScript]
+				// tailwind.config.js
+				module.exports = {
+					theme: {
+						screens: {
+							'xs': '480px',
+							'sm': '640px',
+							'md': '768px',
+							'lg': '1024px',
+							'xl': '1280px',
+							'2xl': '1536px',
+						},
+						// other theme settings...
+					},
+					// other Tailwind settings...
+				}
+			\end{lstlisting}
+			... \cite{tailwind}
+		\end{tcolorbox}
+		
+		Hlavním přínosem byla asistence na frontendu, neboť mám málo zkušeností s JavaScriptovým ekosystémem ve srovnání s Pythonem. Copilot Chat významně přispěl k řešení problémů na frontendu. Jako příklad lze uvést zpracování dat z API pomocí funkcionálních metod \verb|map| a \verb|reduce|. Pokud jde o knihovny, pomohl mi například přidat do knihovny \verb|Tailwind| podporu pro responzivní design \cite{map_reduce} \cite{tailwind}.
+		
+		Automatická dokumentace kódu představuje příjemný doplňující prvek. Avšak je až příliš mechanická v tom, že sice popisuje co, avšak nevysvětluje proč, ani jaké hodnoty mohou proměnné nabývat. Poskytnutá dokumentace je tak spíše pouhou formalitou, která dokládá existenci kódu, nikoli užitečným zdrojem pro budoucí práci. Toto může být způsobeno nedostatkem širšího kontextu celého projektu, který by umožnil lepší pochopení způsobu řešení problémů.
+		
+		Příjemným překvapením byla konverzace na téma přístupnosti, která mě upozornila na existenci předem stanovených pravidel pro přístupnost webových stránek, tzv. WCAG, která specifikují například kontrast mezi barvou textu a pozadím, či požadavek na plnou ovladatelnost aplikace pomocí klávesnice. Konverzace byla vedena na základě doporučených otázek a obecně jsem obdržel uspokojivé odpovědi \cite{aria}.
+		
+		\subsection{Agenti}
+		
+		Dalším zajímavým prvkem jsou „agenti“, kteří májí přístup k různým nástrojům. V době psaní lze využít tři nástroje. Nejzajímavějším z nich pro nás je agent, který využívá RAG pro hledání v kontextu celé složky \cite{gh_agents}.
+		
+		\vspace{0.6em}
+		\begin{tcolorbox}[colback=white,colframe=black]
+			\paragraph{GitHub Copilot}
+			As an AI, I don't have the ability to analyze your entire codebase for errors without specific code excerpts. However, based on the directory structure you've provided, I can't identify any apparent errors. Your project seems to be well-structured and organized, and it includes good practices such as having a \verb|.gitignore| file, and separate directories for different parts of your application.
+			
+			For a more detailed analysis, consider running your tests, linters (Pylint for Python in the \verb|backend/|, and checking the output of these tools. They can help identify potential issues in your codebase. 
+			... \cite{codebase_analysis}
+		\end{tcolorbox}
+		
+		Agentova užitečnost je však sporná. Dokáže sice kritizovat například strukturu celého adresáře, ale při požadavku na detekci chyb v rozsáhlejším projektu se objeví uvedená zpráva. Ve skutečnosti by však tato zpráva měla spíše indikovat, že se jedná o proces náročný na výpočetní zdroje a že model nebude schopen operaci provést. Vzhledem k tomu, že má přístup k souborům i trénovacím datům, není důvod, proč by nemohl individuálně kontrolovat soubory a na konci poskytnout zprávu o nalezených chybách.
+		
+		Příjemným překvapením pro mě byla schopnost vytvořit základní strukturu projektu pouze pomocí jednoho promptu, například vytvoření základu backendu pomocí FastAPI se ukázalo jako velmi účinné. Rychlý start považuji obecně za velkou výhodu, protože je příliš snadné neustále ladit návrh a analýzu bez toho, aniž bych napsal řádek kódu, a s tím, že to nemusí být dokonalé. Ačkoliv nastavení adresářů pro projekty je dosti podobné, stačil by tedy i jednodušší generátor kódu, který však nemá kontext o samotné aplikaci, na rozdíl od umělé inteligence, která může vytvořit cesty nebo adresáře podle kontextu projektu \cite{typescript} \cite{workspace:fastAPI}.
+		
+		\vspace{0.6em}
+		\begin{tcolorbox}[colback=white,colframe=black]
+			\paragraph{GitHub Copilot}
+			...Sure, you can add a Bar chart to your \verb|ChartView.jsx| component by using the \verb|Bar| component from the \verb|react-chartjs-2| library. Here's an example of how you can do it... \cite{rag_chart}
+		\end{tcolorbox}
+		
+		Agent umožnňuje i doplnění funkcionality do souboru. Když jsem se dotázal, kde v projektu najdu komponent grafu, a jak do komponentu doplním sloupcový graf, agent neměl problém najít soubor a vytvořit úpravu. 
+		
+		\vspace{0.6em}
+		% \begin{tcolorbox}[colback=white,colframe=black]
+			% \paragraph{GitHub Copilot}
+			% I'm sorry, but based on the information provided about your workspace, there doesn't seem to be a specific React component that displays a prediction for multiple days inside a bar chart. However, you can create a new component using the \verb|react-chartjs-2| library, which seems to be used in your project (as seen in the \verb|ChartView.jsx`). Here's a basic example of how you might create a bar chart component: \cite{rag_chart}
+			% \end{tcolorbox}
+		
+		Při dotazu na vytvoření komponent však AI poskytne pouze základní nástin toho, jak by takový komponent mohl vypadat \cite{rag_chart}. Když má přístup k souborům, očekával bych, že by měl schopnost soubory vytvořit.
+		
+		Poslední zajímavou věcí k vyzkoušení bylo, jak se AI vypořádá s tím, když ji požádám, aby mi vytvořila testovací aplikaci. Na první pohled výsledky vypadaly nadějně, i když se jednalo o velmi zjednodušenou verzi. Pravděpodobně to souvisí s tím, že AI má omezený prostor pro uvažování v rámci kontextového okna a může vygenerovat pouze velmi jednoduchou aplikaci v rámci jedné odpovědi \cite{compressing}. 
+		
+		Při modifikaci systému, kdy bychom měli prostor pro více odpovědí, nebo specializovanou AI pro jednotlivé kroky, by se však kvalita aplikace mohla dramaticky zlepšit \cite{autogen_saas}. Problém ale vznikl, když jsem se pokusil projekt spustit. Obdržel jsem chyby, které jsem předložil AI, ale ta mi již nedokázala s jejich řešením pomoci.
+		
+		\subsection{Hodnocení dle seniority}
+		U juniora se opět jedná o dvojsečný meč. Pokud potřebujeme zjistit prvky samotného jazyka nebo nějaké dlouho podporované knihovny, Copilot Chat je schopen kompletně napsat kód s minimálními změnami vyžadovanými od uživatele. Důraz bych tedy kladl na čtení zpráv a snažil se alespoň pochopit, proč AI zvolilo danou cestu k řešení, a ptát se, jakou jinou cestu lze zvolit. Nejvíce poučné však je napsat kód, třeba i s pomocí doplňující verze Copilota, a pak si ho nechat zkritizovat od AI, což simuluje párové programování, které lze jen těžko provádět mimo pracovní nebo školní prostředí.
+		
+		Největší přínos vidím na úrovni mediora, kde lze pozorovat většinu halucinací. To ale neznamená, že jsem jednou za čas nenarazil na problémy, kdy jsem strávil více času řešením toho, proč kód od Copilot Chat nefunguje, než kdybych použil vyhledávač a moje aktuální znalosti. U méně známých knihoven nebo komplexnějších problémů bych raději volil použít vyhledávač a prohledat dokumentaci, protože je velká šance, že AI začne halucinovat. Nebo použít AI, které závisí na externích zdrojích, a uvádí je v odpovědi. Nad vytvořeným kódem však nemusíme moc přemýšlet, protože již máme pevné základy, na kterých lze stavět, a které nám umožňují zpozorovat většinu halucinací.
+		
+		Kde vidím větší přínos pro mediora je v samotném Copilotu, který může doplnit kód přesně dle stylu uživatele, a tím pádem stále akcelerovat jeho rychlost psaní, obzvlášť při všedních úkolech, jako je psaní dokumentace nebo „boilerplate“ kódu. Možná překvapivým přínosem je ale schopnost „technické komunikace“, tedy jak moc je programátor schopen popsat myšlenku kódu někomu, kdo nemusí být na jeho úrovni. K tomu se váže trénink párového programování, kdy člověk nemůže řešení dělat jen podle sebe a musí přijmout kompromisy \cite{wikipedia:tech_comm}.
+		
+		\section{Zlepšování kódu s pomocí AI}
+		Předtím, než se podíváme na refaktorování za pomoci umělé inteligence (AI), je vhodné definovat, co vlastně považujeme za „čistý kód“. Nejzákladnější pravidla zahrnují minimalizaci komplexity kódu a eliminaci duplikací. Každá funkce nebo třída by měla mít jedinou zodpovědnost, třídy by měly být otevřené pro rozšíření, ale uzavřené pro modifikaci \cite{wikipedia:dry} \cite{wikipedia:kiss} \cite{wikipedia:solid}. Dále je žádoucí minimalizovat závislosti mezi moduly, ale zároveň vyžadujeme, aby každý modul měl jasně definovaný účel. Testovatelnost kódu by měla být rovněž vysoká, toho lze docílit například malou závislosti na proměnných mimo parametry funkce \cite{gfg:coh_coup}.
+		
+		\subsection{Zlepšování implementace}
+		Oproti nástrojům pro statickou analýzu kódu, jako jsou Deepsource nebo CodeScene, je umělá inteligence (AI) výhodnější v tom, že se přizpůsobuje specifickým charakteristikám našeho kódu, a nemusíme přemýšlet nad tím, jak bychom měli na základě obecného příkladu zlepšit náš konkrétní kód \cite{deepsource} \cite{codescene}.
+		
+		Nicméně vidím využití hybridního přístupu, například v rámci kontinuální integrace (CI), kde lze zjevné chyby jednoduše identifikovat pomocí statické analýzy, zatímco složitější chyby, které vyžadují kontext, mohou být řešeny s pomocí AI a testování. První fáze implementace refaktorováním využívala pouze tento přístup, a to v kombinaci s náhodným dotazováním se.
+		\vspace{0.6em}
+		\begin{tcolorbox}[colback=white,colframe=black]
+			\paragraph{Prompt}
+			Could you give me refactoring tips for all the functions in the \verb|parsingUtils.js| module?
+			
+			\vspace{0.6em}
+			
+			\paragraph{GitHub Copilot}
+			\begin{enumerate}
+				\item Use destructuring to simplify the code and make it more readable.
+				\item Use arrow functions with implicit return to make the code more concise.
+				\item Use \verb|Object.fromEntries()| to simplify the code when creating an object from an array of key-value pairs.
+				\item Use \verb|Object.assign()| to merge objects instead of \verb|Object.assign({}, obj1, obj2)|.
+				\item Use \verb|const| instead of \verb|let| for variables that are not reassigned.
+				\item Use \verb|for...of| instead of \verb|map()| when you don't need to return a new array.
+			\end{enumerate}
+			... \cite{refactoring_simple}
+		\end{tcolorbox} 
+		
+		Odpovědi, i když kvalitní, nedosahovaly takové hloubky, jakou jsem si představoval. Řešily pouze nejvýraznější problémy při psaní kódu. Po dokončení první fáze refaktorování jsem se rozhodl přejít ke druhé fázi, kde jsem sestavil komplexnější řetězec, obdobně jako v analýze nebo návrhu. Každý řetězec se mírně lišil v závislosti na použitém programovacím jazyku a konkrétním kontextu kódu. Obecněji vypadal takto:
+		\vspace{0.6em}
+		\begin{tcolorbox}[colback=white,colframe=black]
+			\paragraph{Prompt}
+			\begin{itemize}
+				\item{Could you give me refactoring tips for all the functions in the XYZ module?}
+				\item{Would you recommend any algorithms or data structures to increase the peformance of the XYZ module?}
+				\item{How would you rate the cleanliness of the code in the functions of the XYZ module, in terms of things like SOLID, DRY, KISS, cohesion, coupling and any more you can come up with? Could you give me any tips for improving the adherence of the code to the principles i specified earlier?}
+				\item{How would you handle error handling in the fuctions of the XYZ module?}
+				\item{How would you handle the documentation of the XYZ module? Is it clear, or would you have difficulties interpreting it?}
+				\item{Are all the functions inside the XYZ module easily testable? If not, could you give me tips on how I could improve the testability of specific functions?}
+				\item{How well does the code in the XYZ module align to PEP (ECMAScript) standards?}
+				\item{Could I use different Python (JavaScript) syntax to make the XYZ module more performant or readable?}
+				\item{What design patterns could i use inside the XYZ module?}
+			\end{itemize}
+		\end{tcolorbox}
+		
+		Je důležité si uvědomit, že kritika vlastního kódu není jednoduchá, neboť vždy je přítomna určitá subjektivita. V takových situacích se často osvědčuje přítomnost párového programátora, který se zapojuje do procesu zhodnocení kódu, kdy detailně analyzuje kód a poskytuje objektivní zpětnou vazbu. 
+		
+		Je zajímavé pozorovat, že odpovědi poskytnuté Copilotem byly kvalitnější v případě backendu než frontendu, avšak obsahovaly méně konkrétních příkladů kódu. Tento fakt může být způsoben poměrem trénovacích dat v jazyce Python oproti datům v jazyce JavaScript nebo knihovně React v databázích repozitářů na platformě GitHub, jež slouží jako zdroj trénovacích dat pro Copilot \cite{gitCopilot}.
+		
+		\vspace{0.6em}
+		\begin{tcolorbox}[colback=white,colframe=black]
+			\paragraph{GitHub Copilot}
+			There are several ways you can optimize the performance of the \verb|ChartView| component in terms of JavaScript and React:
+			\begin{enumerate}
+				\item Memoize the \verb|setXYValuesCallback| function using the \verb|useCallback| hook. This will prevent the function from being recreated on every render, which can improve performance.
+				\item Use the \verb|useEffect| hook to set the X and Y axis values for the chart when the component mounts or updates. This will ensure that the chart is always up-to-date with the latest data.
+				\item Use the \verb|React.memo| higher-order component to memoize the \verb|ChartView| component itself. This will prevent unnecessary re-renders when the props haven't changed.
+				\item Consider using a library like \verb|reselect| to memoize the \verb|setXYValuesCallback| function. This can improve performance by preventing unnecessary re-renders.
+				\item Use the \verb|useMemo| hook to memoize the \verb|xValues| and \verb|yValues| arrays. This will prevent the arrays from being recreated on every render, which can improve performance.
+			\end{enumerate}
+			... \cite{refactoring_simple}
+		\end{tcolorbox}
+		
+		Při zkoumání optimalizace výkonu jsem si uvědomil, že moje znalosti \verb|React| jsou menší, než jsem předpokládal. Konkrétně jsem díky AI objevil výhody využití funkcí \verb|useMemo| a \verb|useCallback| pro React komponenty. Tyto funkce eliminují nadbytečné načítání obalujících funkcí při každém načtení webové stránky, což přináší úsporu času potřebného pro načtení stránky, zejména pokud se jedná o funkce náročné na výpočet. Dále bych považoval za úspěch schopnost vysvětlit, proč konkrétní optimalizace není vhodná. Například, u backendových endpointů nemá smysl optimalizovat datové struktury a algoritmy, protože jsou spíše ovlivněny počtem prováděných I/O operací \cite{react} \cite{bottlenecks}.
+		
+		\vspace{0.6em}
+		\begin{tcolorbox}[colback=white,colframe=black]
+			\paragraph{GitHub Copilot}
+			...Data Parsing: If parsing the API responses is a performance bottleneck, consider using a faster parsing library. For example, if the responses are in JSON format, consider using a library like \verb|orjson| or \verb|ujson| which are faster than the built-in \verb|json| module... \cite{enum}
+		\end{tcolorbox}
+		
+		Dále mne příjemně překvapila znalost knihoven pro zlepšení výkonu např. upozornění, že pokud obdržíme velké množství dat z API, tak se vyplatí použít jinou knihovnu \verb|ujson| pro zpracování JSON objektu v Pythonu. Nebo použití knihovny \verb|requests_cache| pro ukládání odpovědi od API po určitou časovou dobu, to přijde vhod v případě našich dat, která se nemění minutu od minuty. 
+		
+		Zdá se, že tyto knihovny byly dobře zastoupeny v trénovacích datech, narozdíl od knihoven pro řešení bezpečnosti aplikace. Dalším důvodem, proč zde hledání dopadlo lépe, může být, že zpracování JSON není podmíněno žádnou další knihovnou, zatímco řešení bezpečnosti je podmíněno použitým backendovou knihovnou, při použití populárnější knihovny jako např. Flask by byla doporučení zdárnější \cite{flask}.
+		
+		Na backendové straně bylo dokonce doporučeno nahradit seznam množinou, protože pro ověřování duplicity je vyhledávání v množině výrazně efektivnější (O(1) oproti O(n) u seznamu). Další doporučení zahrnovalo využití typu \verb|Enum| namísto ručního definování konstant nebo implementaci paralelizace pro volání API. Tyto doporučení jsou poznatky, na které bych při opakovaném procházení kódu došel sám, což poukazuje na to, že pomoc AI spíše spočívá v kontrole kódu než v jeho psaní \cite{meteo_parser} \cite{enum} \cite{dataclass}.
+		
+		\vspace{0.6em}
+		\begin{tcolorbox}[colback=white,colframe=black]
+			\paragraph{GitHub Copilot}
+			...However, if the \verb|items| array is very large, it could potentially impact performance when rendering the component. In that case, you could consider using a virtualized list library, such as \verb|react-window| or \verb|react-virtualized|, to improve performance by only rendering the items that are currently visible on the screen.... \cite{enum}
+		\end{tcolorbox}
+		
+		
+		Objevily se však i metody, které jsem dosud neznal, například použití virtualizace seznamu na frontendu pro extrakci pouze prvních pěti položek. Nicméně, tato rada se ukázala jako málo užitečná, protože velikost posílaného seznamu jsem mohl ovládat na úrovni backendu. Bohužel Copilot Chat ve své odpovědi nebral v úvahu kontext celého projektu, pomocí agenta, což způsobilo, že jeho odpověď byla méně relevantní.
+		
+		\cite{enum}.
+		\vspace{0.6em}
+		\begin{tcolorbox}[colback=white,colframe=black]
+			\paragraph{GitHub Copilot}
+			
+			The \verb|weather.py| module could benefit from the use of a few design patterns:
+			
+			\begin{enumerate}
+				\item Factory Pattern: You could use the Factory pattern to create objects without specifying the exact class of object that will be created. This can be useful for the \verb|get_air_quality| and \verb|get_historical_data| methods, where different types of API calls are made. You could have a factory method that creates an API call object based on the type of API call.
+				
+				\item Strategy Pattern: The Strategy pattern could be used to select the appropriate parsing method based on the type of API call. Currently, the \verb|get_air_quality| and \verb|get_historical_data| methods each call a different method on the \verb|OpenMeteoParser| object. Instead, you could have a strategy object that selects the appropriate parsing method.
+				
+				\item Decorator Pattern: The Decorator pattern could be used to add caching behavior to the \verb|get_api_response| method. Instead of creating a \verb|requests_cache.CachedSession| inside the method, you could have a decorator that adds caching behavior to any method it's applied to.
+			\end{enumerate}
+			
+			Here are some tips for improving the code:
+			
+			\begin{enumerate}
+				\item Abstract Common Code: As mentioned above, the \verb|get_air_quality| and \verb|get_historical_data| methods have some common code that could be abstracted into a separate method.
+				
+				\item Use Dependency Injection: Instead of hard-coding the \verb|OpenMeteoParser| class in the \verb|OpenMeteoAPI| class, consider passing it in as a parameter. This would reduce coupling and make the code more flexible and easier to test.
+				
+				\item Improve Error Handling: The \verb|get_api_response| method raises an \verb|HTTPException| if the API returns an error. This is fine, but it could be improved by raising a more specific exception, or by logging the error and returning a default value.
+				
+				\item Use Constants for URLs and Parameters: The URLs and parameters used in the API calls are hardcoded in the methods. It would be better to define them as constants at the top of the class or module.
+				
+				\item Type Annotations: The code uses type annotations, which is great. However, they could be used more consistently. For example, the \verb|get_api_response| method doesn't specify the return type of the \verb|dict|.
+			\end{enumerate}
+			... \cite{call_api}
+		\end{tcolorbox}
+		
+		Je výhodné mít po ruce někoho, kdo dokáže teoretické principy čistého kódu přenést na konkrétní příklady v kontextu námi psaného kódu, včetně popisu, kde jsou různá pravidla porušena a proč. Další výhodou je možnost získat potřebné informace prostřednictvím dotazování se, což často zahrnovalo i doporučené následující otázky. Je patrné, že investice několika minut do ladění promptů přináší výrazně lepší výsledky. Tedy, spíše zamyšlení se nad očekávanými výsledky, včetně možné pomoci ze strany AI. 
+		
+		Jako příklad může sloužit opakované používání vzoru, kdy jsou potřebné objekty předávány do funkcí pomocí parametrů, což je označováno jako explicitní závislosti. Tímto způsobem se zvyšuje testovatelnost kódu, protože je možné nahradit potřebné objekty jejich falešnými implementacemi a tím dosáhnout testování nezávislého na externím stavu světa \cite{msft:dependency}.
+		
+		Zajímavostí bylo vyzkoušet agenta se schopností uvažovat nad více soubory naráz a zjistit, zda by byl schopen poskytnout kritiku týkající se pokrytí originální funkce testy. To by mělo být možné díky přístupu k celé projektové složce a tedy i k oběma souborům současně. Bohužel tento pokus nebyl úspěšný, jelikož AI pouze odpovědělo, že ačkoliv soubor zaznamenalo, nemá přístup k jeho obsahu. Je pravděpodobné, že omezení spíše spočívá ve funkcionalitě IDE \cite{agent_coverage}.
+		
+		\subsection{Zlepšování testů}
+		Ačkoliv se testy také řadí do implementace, jsou zajímavější v tom, že jsou z většiny napsány skrze Copilot Chat. Nastává tedy otázka, jak se bude AI chovat, když bude muset kritizovat vlastní kód. Pro testování byl použit následující řetězec promptů, podobný tomu v minulé sekci:
+		
+		\vspace{0.6em}
+		\begin{tcolorbox}[colback=white,colframe=black]
+			\paragraph{Prompt}
+			\begin{enumerate}
+				\item{Could you give me refactoring tips for all the functions in the current module?}
+				\item{How well does the code in the current module align to the latest ES (PEP) standards?}
+				\item{How would you rate the cleanliness of the code in the functions of the XYZ module, in terms of things like SOLID, DRY, KISS, cohesion, coupling and any more you can come up with? Could you give me any tips for improving the adherence of the code to the principles i specified earlier?}
+				\item{Could i use different JS (Python) syntax to make the current module more performant or readable?}
+				\item{Being that the current module is actually a test module, how would you rate it as a test? Does it align with all the specifics of a proper test, or are there any areas that could be improved?}
+			\end{enumerate}
+		\end{tcolorbox}
+		
+		Nepřekvapivě se zachovalo úplně stejně, jako když analyzovalo můj kód. Překvapila mne ale opět znalost knihoven a konceptů testování. To se projevilo hlavně ve formě parametrizovaného testování, které nám umožňuje spustit ten samý test, pouze s jinou sadou parametrů. Knihovny obou použitých testovacích jazyků toto podporují, ale neměl jsem o tom tušení \cite{parametrized_testing_be} \cite{parametrized_testing_fe}.
+		
+		
+		\vspace{0.6em}\begin{tcolorbox}[colback=white,colframe=black]
+			\paragraph{Prompt}
+			What about the absence of docstrings? is that not a violation of PEP8 standard?
+			
+			
+			\vspace{0.6em}
+			
+			\paragraph{GitHub Copilot}
+			...Yes, you're correct. While PEP 8 does not strictly enforce the use of docstrings, it is highly recommended as per PEP 257, which provides the Docstring Conventions. Docstrings are important for understanding the purpose and usage of your classes, methods, and functions. They are especially useful in larger codebases and for people other than the original author who may need to work with the code... \cite{pep257_fail}
+		\end{tcolorbox}
+		
+		Vyhodnocování dodržování standardů PEP v případě Pythonu a ECMAScript v případě JavaScriptu bylo lehce matoucí. V rámci JavaScriptu se zdálo, že vyhodnocení proběhlo v pořádku, ale v případě Pythonu se model pokoušel automaticky vyhodnocovat podle standardu PEP 8. Ten však nezahrnuje povinné dokumentační komentáře k funkcím, modulům a třídám, které jsou obsaženy v PEP 257. Tyto dokumentační komentáře jsou nicméně kritickou částí dokumentace kódu v Pythonu. Model na tuto skutečnost upozornil až poté, co byl o ní informován, avšak očekával bych, že tato zásadní věc bude jednou z prvních, kterou model zmíní jako potenciální chybu. Nicméně lze namítnout, že jsem to explicitně nevyžadoval \cite{pep257_fail} \cite{PEP} \cite{ES}.
+		
+		\vspace{0.6em}
+		\begin{tcolorbox}[colback=white,colframe=black]
+			\paragraph{Github Copilot}
+			...The descriptions for the test cases could be more specific. Instead of saying "calls the handleUnitsChange function when the metric button is clicked", you could say "calls the handleUnitsChange function with 'metric' when the metric button is clicked". This gives a clearer idea of what the test is doing... \cite{test_desc}
+		\end{tcolorbox}
+		
+		Překvapením bylo, že Copilot Chat se nevyhýbá ani řešení jmen pro jednotlivé testy, která se na první pohled zdají nedůležitá. Avšak pokud programátor nevidí daný projekt několik let, najednou nabývají důležitosti. Tato situace mi připomíná principy extrémního programování, které se obvykle řeší spíše v seniorních kruzích \cite{parametrized_testing_fe} \cite{TDD}.
+		
+		\vspace{0.6em}
+		\begin{tcolorbox}[colback=white,colframe=black]
+			
+			\paragraph{Github Copilot}
+			The code you've provided is already quite readable and follows good practices for writing test suites in JavaScript. However, there are a few minor changes you could make to improve readability:
+			
+			\begin{enumerate}
+				\item Use \verb|beforeEach| for common setup: If you have more tests in the \verb|describe| blocks for \verb|createChartData| and \verb|setXYValues| and they use the same setup code, you could use a \verb|beforeEach| block to avoid repeating the setup code in each test.
+				
+				\item Use \verb|describe.each| for parameterized tests: If you find yourself writing multiple tests for \verb|createChartData| or \verb|setXYValues| that only differ in the arguments passed to the function, you could use \verb|describe.each| or \verb|it.each| to write parameterized tests.
+				
+				\item Use \verb|jest.mock| for mocking functions: Instead of manually creating mock functions with \verb|jest.fn()|, you could use \verb|jest.mock| to automatically mock the \verb|setXValues| and \verb|setYValues| functions. This would make your tests more concise and easier to read.
+			\end{enumerate}
+			
+			As for performance, the performance of your tests is unlikely to be a concern unless you have a very large number of tests or your tests are doing a lot of heavy computation. In general, the most important thing for test code is that it is clear and easy to understand, so that it can serve as documentation for how the code under test is supposed to behave.
+			
+			
+			... \cite{parametrized_testing_fe}
+		\end{tcolorbox}
+		\vspace{0.6em}
+		
+		Odpovědi týkající se čitelnosti a výkonu se zaměřovaly na metody používané k efektivnímu nastavení testů. Zlepšila se i znalost knihoven v této oblasti. Vidím přínos například v upozornění, že proměnné nemusí být aktualizovány s každým testem a lze je nastavit pouze jednou, nebo v již zmíněném parametrizovaném testování. Dále AI uvedlo, jak zlepšit falešné implementace externích knihoven a systémů \cite{parametrized_testing_fe} \cite{testing}.
+		
+		
+		\subsection{Hodnocení dle seniority}
+		U junioru a medioru se můžeme ptát jakkoliv složitě pro svoji úroveň, a stejně model dokáže určité chyby vytknout, případně ukázat, jak je opravit nebo rovnou upravenou verzi. Junior by se mohl ptát pouze na jednoduché tipy na refactoring, medior na řetězec podobný mému. V obou případech ale dostane kritiku adekvátní jeho úrovni, a je schopen se z ní poučit pro další projekt, a opět v případě nejasností obdržet vysvětlení problematiky. 
+		
+		Pro vývoj do další úrovně, obzvlášť u mediora, je důležité řešit aspekty čistého a výkonného kódu, kde se právě hodí mít někoho, kdo je na stejné, nebo vyšší úrovni. U seniorů bude asi s rozsahem znalostí přínos menší, protože je možné, že hloubka otázek by byla mimo pochopení samotného modelu. Stále se ale může jednat o dobrého parťáka pro recenzi kódu.
+		
+		Ve svém pocitu že Copilot pomáhá při ověření kvality kódu nejsem sám, dle článku od GitHub se velké množství vývojářů cití jistěji ve svém kódu pokud používají pro recenzi kódu umělou inteligenci, v tomto případě právě Copilot. Na druhou stranu ale také vyšel článek, který si stěžuje na fakt, že AI nástroje jako Copilot zhoršují kvalitu samotného kódu a zvyšují množství nepotřebného kódu. Osobně si myslím, že pravda je někde na pomezí, a to, že by kód vždy měl projít určitým auditem, než se dostane do produkce. Ať už ze strany člověka, kontrolujícího kvalitu kódu poskytnutého od AI, nebo AI kontrolující kvalitu kódu napsaného člověkem \cite{copilot:code_churn} \cite{copilot:benefits}
+		
+		
+		\section{Testování}
+		Máme obecně 3 typy testů. Unit testy neboli také jednotkové testy, testují samotnou funkcionalitu malé jednotky kódu, například funkce, nebo třídy. Měli by být spolehlivé, rychlé a co nejvíce izolované od zbytku kódu \cite{testing}. Integrační testování se zabývá komunikací modulů a komponent uvnitř projektu, může se jednat o testování interakce backendu a databáze, nebou dvou tříd mezi sebou. Efektivní je hlavně ve velkých projektech, kde jsou jednotlivé komponent vyvijeny nezávisle na sobě, ale musí fungovat jako jeden celek \cite{testing}. End-to-end testing se zabývá testováním funkcionality, která zahrnuje několik částí systému, například vložení zboží do košíku v internetovém obchodě. Tyto testy jsou nejnáročnější, nebývá jich tedy mnoho \cite{testing}.
+		
+		\section{Testování s pomocí AI}
+		
+		Testy nelze pouze kopírovat, ale počet změn, které se musí provést, je opravdu minimální, alespoň co se týče unit testů a integračních testů \cite{testing}. End-to-end testování je trochu složitější, protože jazykový model nemá kód, podle kterého může určit, co je testováno. Musí se spoléhat na dostatečně přesný popis uživatelem, opět se vracíme k důležitosti exaktního popisu zadání a kontextu. Použitý prompt vypadal takto, případně následovala konverzace ohledně nejasností nebo ladění \cite{testing}.
+		
+		\vspace{0.6em}
+		\begin{tcolorbox}[colback=white,colframe=black,title=Konverzace s opakovaním kódu]
+			\paragraph{Prompt}
+			my fetch weather returns a promise, while the mock is just a function, could that be the problem?
+			
+			\vspace{0.6em}
+			
+			\paragraph{GitHub Copilot}
+			Yes, that could be the problem. If your \verb|fetchWeather| function returns a promise, you need to make sure that your mock function returns a promise as well. You can do this by using the \verb|Promise.resolve()| method to create a resolved promise with the data you want to return. Here's an example of how you can modify the mock function to return a promise:
+			
+			\vspace{0.6em}
+			
+			\begin{lstlisting}[language=JavaScript]
+				const mockFetchWeather = jest.fn(() => Promise.resolve({ temperature: 20 }));
+				jest.mock("./services/weatherService", () => ({
+					__esModule: true,
+					default: () => mockFetchWeather(),
+				}));
+			\end{lstlisting}
+			
+			\vspace{0.6em}
+			
+			
+			\paragraph{Prompt}
+			I am now getting this error inside my mocked function, any ideas why? "TypeError: Cannot read properties of undefined (reading 'catch')"
+			
+			\vspace{0.6em}
+			
+			\paragraph{GitHub Copilot}
+			The error message "TypeError: Cannot read properties of undefined (reading 'catch')" usually occurs when you try to call the \verb|catch| method on a value that is \verb|undefined|. This can happen if your mock function is not returning a promise or if the promise it returns is not resolving correctly.
+			
+			To fix this error, you can make sure that your mock function returns a promise that resolves correctly. Here's an example of how you can modify the mock function to return a resolved promise:
+			
+			\vspace{0.6em}
+			
+			\begin{lstlisting}[language=JavaScript]
+				const mockFetchWeather = jest.fn(() =>
+				Promise.resolve({ temperature: 20 })
+				);
+				jest.mock("./services/weatherService", () => ({
+					__esModule: true,
+					default: () => mockFetchWeather(),
+				}));
+			\end{lstlisting}
+			... \cite{mocking_fail}
+		\end{tcolorbox}
+		
+		V případě potřeby složitějších testů, které zahrnují falešné implementace, Copilot Chat obvykle nedokáže napsat kód, který by fungoval na první pokus. Tím pádem uživatel často musí ladit testy a případně je upravovat, pokud chce dosáhnout vysokého pokrytí testů \cite{codecov}. Výhodou je schopnost ověřit, obecně nebo specificky, že jsou různé testovací scénáře pro danou funkci pokryty \cite{TDD} \cite{mocking} \cite{mocking_fail}.
+		
+		Stále ale je lepší mít základní testy než žádné testy. To ilustruje fakt, že pokud uživatel nemá tušení, co píše, ani s pomocí AI se přes určité překážky nedostane \cite{canvas} \cite{firebase_auth} \cite{firebase}. Příkladem toho jsou frontendové testy, ať už unit nebo end-to-end testy, se kterými jsem měl skoro nulovou zkušenost, a u složitějších testů jsem se i s pomocí AI zasekl a stejně byl odkázán na prohlížeč.
+		
+		S tím souvisí další pozorování, že AI buď poskytne odpověď, která funguje, nebo žádnou odpověď. Málokdy se mi stalo, že bych se zeptal na opravu odpovědi kvůli problému, a nedostal ten samý kód. V tom případě jsem raději použil vyhledávač. To může být známkou toho, že Copilot skutečně neví, kde je chyba, ale pokud to explicitně neoznámí, je obtížné určit, zda je to pravda. Jediným způsobem, jak se vymanit z tohoto cyklu, je restartovat konverzaci. To však není ideální, protože tím ztrácíme předchozí kontext a také povědomí o problému \cite{mocking_fail}.
+		
+		Vychází to z architektury transformerů, protože jde o předpověď následujícího slova, a pravděpodobnost slova „nevím“ bude dosti menší než slova týkajícího se tematiky v promptu. Kontext aktuálního promptu je přeci jen podobný, jak u promptu předtím, a celá konverzace nenaznačuje, že by měl napsat, že neví, proč nenapsat tedy velice podobnou odpověď? Jedním ze způsobu, jak toto omezit, je právě explicitně zmínit, že pokud model neví, tak nemá nic psát. To ale není zdaleka jistá cesta, jak se vyhnout opakování odpovědi, protože se sice stane tato věta součástí kontextu, kterého je ale v promptu podstatně více. Omezení halucinací je něco, co se v oblasti velkých jazykových modelů stále aktivně řeší \cite{jing2024fgaif}.
+		
+		Odpovědi ale nešly dostatečně „do hloubky“. Například falešné implementace API nemusí být relevantní, pokud čas na získání odpovědi ze serveru není příliš dlouhý, což snižuje pokrytí testů. Namísto toho, aby Copilot položil otázku, zda je použití falešných implementací vhodné, nebo aby požadoval délku trvání odpovědi ze serveru, AI pouze vykoná pokyn \cite{mocking_fail}. Dalo by se to připodobnit k stavebnicím LEGO, AI za Vás vcelku bezproblémově postaví jednotlivé bloky, může třeba i poskytnout návod, ale je již na člověku co si stavebnici koupí ji složit dohromady \cite{testing} \cite{mocking} \cite{mocking_fail}.
+		
+		Znalost knihoven jako Jest nebo Pytest je na dobré úrovni, ale jakmile jsem potřeboval pro moji end-to-end testovací knihovnu Cypress poradit s rozšiřující knihovnou, která falšuje autentifikaci na platformě Firebase, byl jsem odkázán na dokumentaci a vlastní rozum. Jedná se ale o velice specifickou knihovnu, která ani nemusí být přítomna v datech modelu, je tedy pochopitelné, že mi s ní těžko poradí. Podobně jako když jsem vyžadoval knihovnu ohledně bezpečnosti v \verb|FastAPI| \cite{end2end_fb} \cite{firebase_auth} \cite{firebase} \cite{jest} \cite{pytest} \cite{cypress}. 
+		
+		V ostatních projektech jsem ale přišel na to, že lze dokumentaci kopírovat přímo do kontextového okna modelu a zeptat se na specifický detail, úspěšnost je pak podstatně vyšší, protože zakládáme na reálných a aktuálních datech. Vzhledem ke kontextovým oknům v rámci statisíců tokenů lze čerpat i ze vcelku rozsáhlé dokumentace. Nebo využít právě hledání v dokumentech, najít nejrelevantnější kus dokumentace, a ten shrnout pomocí AI. Model tak donutíme uvažovat aktuální data. Bohužel mne ale toto při psaní aplikace nenapadlo \cite{PEG}.
+		
+		\subsection{Hodnocení dle seniority}
+		Vidím přínos hlavně u juniorů, kteří si díky jednoduchosti psaní testů, které nevyužívají pokročilé koncepty, jako třeba falešné implementace, mohou na testy více zvyknout již od začátku své kariéry v softwarovém inženýrství, a tím pádem psát dříve kód, který disponuje udržitelností, protože je jeho základní funkcionalita pokryta testy. Ve složitějších testech je ale člověk odkázán na dokumentaci a vlastní rozum.
+		
+		Pro medorní úroveň je Copilot šikovný pro vytvoření boilerplate kódu pro složitější testy, zlepšování čitelnosti testů a jednoduché testy. Nebo v trénování jiných přístupů k vývoji, například extrémní programování, kdy se snažíme nejdříve vytvořit testy pro náš kód, vytvořit minimální implementaci, a opakovat \cite{TDD}.
+		
+		\section{Alternativní kopiloti}
+		Vzhledem k placené povaze služby Copilot Chat se tato práce krátce zabývá alternativami, které jsou k dispozici zcela zdarma nebo po omezenou dobu během konkrétních implementačních fází. Mezi kopie patří například Amazon CodeWhisperer \cite{codewhisperer}. 
+		
+		Zmíněné nástroje jsou kvalitativně srovnatelné s Copilotem, avšak obsahují doplňkové prvky, které je činí vhodnějšími pro určité oblasti softwarového vývoje.
+		
+		\subsection{CodiumAI}
+		CodiumAI je kopilot zaměřený zejména na optimalizaci kódu. Pro tento účel nabízí prostředí, které zobrazuje různé nedostatky kódu spolu se štítky označujícími, na které části kódu se dané změny vztahují. Je možné definovat dodatečné parametry, jako je například zvýraznění čitelnosti kódu. Výsledné prostředí je přehledné a umožňuje dosáhnout podobného efektu jako v případě mého řetězce promptů v kapitole o refaktoringu, avšak bez nutnosti vynaložit úsilí na jeho vytvoření \cite{codium}.
+		
+		Nástroj také poskytuje prostředí pro generování testů, které zobrazuje různé testovací scénáře a umožňuje přidání dalších testů. Pokrytí testování je překvapivě detailní. Zajímavou funkcí je možnost automatické opravy kódu, avšak tato funkce je vázána na spuštění testů přímo v prostředí CodiumAI. Při pokusu o spuštění této funkce jsem však narazil na chybu kvůli chybějícím knihovnám v interním spouštěči kódu.
+		
+		\subsection{Cody}
+		Cody je víceúčelový kopilot. Jedním z jeho zajímavých rysů je možnost změny modelu používaného na pozadí. Ve verzi zdarma je možné využívat API klíče k výměně modelů. Podporuje jak OpenAI API, tak i Ollama, což je program umožňující lokální běh modelů přímo na uživatelově počítači. Tato možnost je užitečná zejména v případech, kdy uživatel nechce publikovat svůj kód třetím stranám. Vyžaduje však významný výpočetní výkon \cite{ollama}.
+		
+		Cody obsahuje podobné funkce jako Copilot Chat, umožňuje optimalizaci kódu, tvorbu jednotkových testů a další. Jedním ze speciálních prvků je funkce pro vyhledávání v projektu pomocí textu. Avšak i když samotné vyhledávání poskytuje relevantní výsledky, zahrnuje i kódy knihoven, které nemusí být relevantní pro konkrétního programátora \cite{cody}.
+		
+		\subsection{Cursor}
+		Cursor je vývojové prostředí založené na platformě VSCode. Obsahuje několik zajímavých prvků, které ho odlišují od Copilot (Chat) ve VSCode. Ve variantě zdarma nabízí omezené využívání modelů GPT-4 a plné využití GPT-3.5 Turbo.
+		
+		Prvním unikátním prvkem je možnost ladění pomocí umělé inteligence. V případě chyby AI přebírá kontrolu nad vývojovým prostředím a snaží se samostatně najít řešení. Podle výstupu v terminálu je pravděpodobně využívána metoda prompt engineering ve formě metody CoT, která rozkládá problém na menší části a snaží se je řešit individuálně.
+		
+		Druhým prvkem je režim Interpreter Mode, ve kterém AI samostatně upravuje kód, vytváří soubory a snaží se identifikovat problémy. Uživatel je pouze žádán o potvrzení nebo poskytnutí dalších informací \cite{cursor}. Ukázka této funkcionality je dostupná zde \cite{cursor_showcase}.
+		
+		Tento přístup je dále rozvíjen Devinem a jeho open source alternativami. Devin má přístup nejen k psaní kódu a terminálu, ale také k internetovému prohlížeči, pomocí kterého může vyhledávat informace, které nezná. První měření naznačují, že se jedná o efektivní nástroj, který byl schopen úspěšně vyřešit podstatně více problémů na platformě GitHub, než prosté využití samotných velkých jazykových modelů. Avšak zatím není veřejně dostupný, a proto nebyl použit při tvorbě tohoto projektu \cite{devin}.
+		
+		
+		\section{Nasazení do produkce s pomocí AI}
+		
+		Pro nastavení CI/CD toků jsme využili prostředí GitHub Actions, které nám umožňuje zdarma provádět různé úkony pomocí kontejnerů \cite{ibm:containers} \cite{docker}. Požadované operace se deklarují pomocí YAML souborů. Od Copilot Chat jsem dostal soubor YAML, který stačilo pouze zkopírovat, a aktualizovat verze určitých skriptů. Vzhledem k tomu, že deklarativní způsob psaní těchto souborů je dělá jednoduše hledatelnými, nebylo by tak těžké si podobný skript najít na internetu a upravit ho ka našim potřebám. Skript by ale pravděpodobně nebyl vysvětlen přesně dle našich potřeb, tím pádem bychom se z něho nepoučili, a neměli šanci skript opravit v případě chyby, či rozšířit naše znalosti nasazení do produkce.
+		
+		Všechny automatizace se povedlo úspěšně zprovoznit v GitHub Actions \cite{GHA} \cite{cicd_t}, právě v nemalé části díky AI. V procesu tvoření toku jsem ale došel k určitým problémům. Hlavní byly ohledně zastaralých verzí skriptů. Raději jsem se tedy při automatickém vytvoření dokumentace, analýze kódu a zpráv ohledně pokrytí kódu testy, opět odkázal na internet. Při zpětné kontrole ale příkazy pro knihovny na automatické vytvoření dokumentace a kontrolu kódu zvládl bez problému \cite{codecov} \cite{static_ana}. Způsobeno to může být tím, že se opět jedná o známé knihovny, tedy obsahují větší část trénovacích dat modelu.
+		
+		Samotné nasazení proběhlo na platformě Heroku na backendu, s pomocí Docker kontejneru. Pro frontend byl použit Firebase Hosting. V nahrání na zmíněné platformy jsem se referoval přímo na aktuální dokumentaci, opět ze strachu staré dokumentace v AI, jelikož v ostatních projektech byly např. příkazy pro Firebase zastaralé \cite{firebase} \cite{docker} \cite{Heroku} \cite{ibm:containers} \cite{cors}.
+		
+		\vspace{0.6em}
+		\begin{tcolorbox}[colback=white,colframe=black,title=Soubor pro spuštení docker kontejneru]
+			\begin{lstlisting}
+				FROM tiangolo/uvicorn-gunicorn-fastapi:python3.8
+				
+				COPY ./app /app
+				
+				CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "80"]
+			\end{lstlisting}
+			... \cite{agent_deploy}
+		\end{tcolorbox}
+		\vspace{0.6em}
+		
+		Zkusil jsem i využít agenta, který má přístup ke kontextu celé složky, s tím, jestli nebude efektivnější. Ačkoliv jsem na první pohled byl odpovědí mile, používal již zastaralou verzi Python 3.8. Takto zastaralá verze nemusí mít nejnovější aktualizace, což je v nejlepším případě akorát nešikovné, ale může způsobovat i bezpečnostního rizika \cite{agent_deploy}.
+		
+		\subsection{Hodnocení dle seniority}
+		Dle mého zde budou profitovat všechny úrovně podobně, protože o nasazení do produkce se většinou v rámci firmy stará DevOps tým. Je tedy dobré mít AI, které má základní znalosti DevOps, a dokáže vytvořit konfigurační soubor pro nasazení ať už na CI/CD platformy jako GitHub Actions nebo do cloudového prostředí, případě skripty pro řešení ad-hoc problémů a automatizaci procesů. U cloudových služeb bych se ale raději odkázal na dokumentaci, může se totiž stát, že je dokumentace API v trénovacích datech je již zastaralá, což se mi několikrát stalo právě s platformou Firebase a přiloženou knihovnou \cite{firebase} \cite{cicd} \cite{cicd2}.
+		
+		Jediné, co mne lehce zaráží, jsou neaktualizované verze skriptů, které sice dávají smysl vzhledem k časovým omezením trénovacích dat modelů, ale na juniorní úrovni by mohli poskytnout nemalé potíže, protože třeba ani daný junior netuší, že existuje novější verze. Na vyšších úrovních to může vyvolat potíže s kompatibilitou, když programátor nainstaluje nejnovější verze knihoven, které ale vyžadují nejnovější verze závislých knihoven na této, a těžko řešitelná chyba je na světě.  Je tedy potřeba raději ověřit verze použitých služeb, aplikací a knihoven, a zkontrolovat, že se jedná o ty nejnovější, a né slepě spoléhat na doporučení AI modelu.
+		
+		
+		\chapter{Závěr} 
+		Přestože práce zmiňuje několik negativních aspektů, stále hodnotím přínos umělé inteligence (AI) při tvorbě softwarových projektů jako kladný. Bez ohledu na to, zda se jedná o generování boilerplate kódu, vyhledávání příkazů v existujících knihovnách nebo tvorbu základní struktury kódu, tyto činnosti často zaberou významnou část času při vývoji softwaru. To platí i pro testování a vylepšování kódu. I když umělá inteligence může pomoci s návrhem a analýzou, stále je zapotřebí mít znalost oblasti, ve které pracujeme, a představu o architektuře aplikace. Umělá inteligence může být užitečným pomocníkem při diskuzích o aplikaci s ostatními zainteresovanými stranami. Při nasazení do produkce však model umělé inteligence neposkytuje významnou podporu, neboť se jedná o soubor technologií propojených dohromady, jejichž dokumentace je vždy aktuálnější online.
+		
+		Většina kódu byla napsána bez mého zásahu. I když jsem ušetřil čas při návrhu, občas jsem přesto musel sáhnout po vyhledávači. Důležitá otázka se také týká toho, jak mnoho nových věcí se díky tomu člověk naučí. Je tedy vhodné používat umělou inteligenci opatrně, zvláště v junorní roli. Programování v podstatě spočívá v řešení problémů pomocí technologií, a pokud umělá inteligence řeší problémy za nás, nezvýšíme tím své dovednosti. Proto je vhodné delegovat úkoly umělé inteligenci až v okamžiku, kdy je základní princip jejich řešení plně pochopen a máme s nimi dostatečné praktické zkušenosti.
+		
+		Zajímavým aspektem je, že spolupráce s umělou inteligencí může zlepšit naši schopnost formulovat a vysvětlit problémy, například juniorům v týmu. I když se možná nenaučíme psát kód sami, zlepšíme svou schopnost komunikovat o kódu, což přispívá k rozvoji naší technické a netechnické komunikace, což může posílit naši kariéru v oblasti programování.
+		
+		V poslední době je živou diskusí otázka, zda může umělá inteligence nahradit programátory. Bez ohledu na konkrétní model silně pochybuji, že by v příštích letech mohla umělá inteligence plně nahradit zkušeného programátora. Ačkoli je schopna vytvářet samostatné uzly v grafu, propojení a porozumění jim stále vyžaduje lidskou zkušenost. 
+		
+		Nicméně nelze vyloučit, že se způsob, jakým programujeme, se s časem změní z kódu na jazyk (například angličtinu nebo češtinu), protože schopnost umělé inteligence psát kód je pozoruhodná. Nicméně stále bude prostor pro programátory, protože jejich práce spočívá v řešení problémů a nikoliv pouze v exaktní znalosti programovacích jazyků nebo knihoven.
+		
+		\printbibliography[title={Použitá literatura}] % sazba seznamu citací 
+		% \printbibliography[title={References}] 
+		\addcontentsline{toc}{chapter}{Použitá literatura} % vložení nadpisu do obsahu
+		% \addcontentsline{toc}{chapter}{References} 
+		%%
+	\end{document}
+	
+	
+	
