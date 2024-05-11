@@ -432,27 +432,27 @@
 		\section{Úvodem...}
 		Před zahájením vypracování projektu s využitím umělé inteligence je nezbytné stanovit podmínky testování. Pro tento účel poslouží sedm rozmanitých modelů. Mezi ně patří tři instance GPT: Copilot Chat (GPT-4), Bing Copilot (GPT-4) a ChatGPT (GPT-3.5) , dále Claude (Claude-instant), a Google Bard (PaLM-2). Kromě toho jsou zahrnuty dva open-source modely, CodeLLama-34B a Falcon-180B.
 		
-		Konverzace probíhaly v anglickém jazyce, neboť trénování proběhlo na datech z internetu, jehož je angličtina hlavním jazykem \cite{internetLanguages}. Tato skutečnost přispívá k lepší tokenizaci anglického textu a v důsledku i ke kvalitnějším odpovědím. Tuto vlastnost mi potvrdil například ChatGPT \cite{chatgpt_jazyk}. Konverzace probíhaly v základní konfiguraci, což znamená, že byly prováděny v kontextu průměrného programátora, který nemusí tušit, jak model dále ladit. Nejvýznamnější části těchto konverzací budou přímo citovány v práci. 
+		Konverzace probíhaly v anglickém jazyce, neboť trénování proběhlo na datech z internetu, jehož lavním jazykem je angličtina \cite{internetLanguages}. Tato skutečnost přispívá k lepší tokenizaci anglického textu a v důsledku i ke kvalitnějším odpovědím. Tuto vlastnost mi potvrdil například ChatGPT \cite{chatgpt_jazyk}. Konverzace probíhaly v základní konfiguraci, což znamená, že byly prováděny v kontextu průměrného programátora, který nemusí tušit, jak model dále ladit. Nejvýznamnější části těchto konverzací budou přímo citovány v práci. 
 		
-		Kompletní seznam konverzací, v případě nefunkčnosti odkazů, je k dispozici v přiložených souborech ve složce \verb|konverzace| nebo v GitHub repozitáři \cite{promptsRepo}. Práce se bude odkazovat buď na použité velké jazykové modely, které jsou označeny názvem, a nebo zkráceně jako „model“. Případně na jejich kolektivní odpověď, dále značeno jako „AI“ nebo „umělá inteligence“.
+		Kompletní seznam konverzací, v případě nefunkčnosti odkazů, je k dispozici v přiložených souborech ve složce \verb|konverzace| nebo v GitHub repozitáři \cite{promptsRepo}. včetně \verb|README.md| souboru popisujicího strukturu složek více do detailu. Práce se bude odkazovat buď na použité velké jazykové modely, které jsou označeny názvem, a nebo zkráceně jako „model“. Případně na jejich kolektivní odpověď, dále značeno jako „AI“ nebo „umělá inteligence“.
 		
-		Kompletní testovací aplikace bude taktéž přiložena, a to ve složce \verb|aplikace|, není ale plně lokálně spustitelná, proto se pro její zobrazení doporučuji podívat na odkaz \cite{final_app}. Absence lokální spustitelnosti je způsobena nucenou přítomností senzitivních údajů ke cloudovým službám apod. Pro zobrazení kódu ale doporučují spíše navštívit GitHub repozitář \cite{gh_final_app}, kde bude vždy nejaktuálnější verze aplikace, narozdíl od přiloženého média. 
+		Kompletní testovací aplikace bude taktéž přiložena, a to ve složce \verb|aplikace|, není ale plně lokálně spustitelná, proto se pro její zobrazení doporučuji podívat na odkaz zde \cite{final_app}. Absence lokální spustitelnosti je způsobena absencí senzitivních údajů ke cloudovým službám apod. Pro zobrazení kódu ale doporučují spíše navštívit GitHub repozitář \cite{gh_final_app}, kde bude vždy nejaktuálnější verze aplikace, narozdíl od přiloženého média, které je časově omezeno. Velké rozdíly by ale mezi verzemi být neměli. 
 		
 		\section{Hodnocení}
-		Vyhodnocení přínosů umělé inteligence proběhne v několika různých formách. Budeme porovnávat mé předpokládané odpovědi s odpověďmi umělé inteligence v jednotlivých fázích vývoje softwaru, konkrétně během analýzy, návrhu, implementace, testování a CI/CD procesu. Tato práce se bude zaměřovat především na identifikaci nedostatků, protože pozitivní aspekty jsou natolik rozmanité, že vyžadují shrnutí do širšího kontextu. Zaměříme se na časté chyby na straně promptu, jako třeba nedostatek kontextu, ale i na straně umělé inteligence, jako neaktuální znalosti nebo komprese historického kontextu. Pokusíme se i navázat problém k teoretické částí, a dojít k tomu, proč se tak mohlo stát.
+		Vyhodnocení přínosů umělé inteligence proběhne v několika různých formách. Budeme porovnávat mé předpokládané odpovědi s odpověďmi umělé inteligence v jednotlivých fázích vývoje softwaru, konkrétně během analýzy, návrhu, implementace, testování a CI/CD. Tato práce se bude zaměřovat především na identifikaci nedostatků, protože pozitivní aspekty jsou natolik rozmanité, že vyžadují shrnutí do širšího kontextu. Zaměříme se na časté chyby na straně promptu, jako třeba nedostatek kontextu, ale i na straně umělé inteligence, jako neaktuální znalosti nebo komprese historického kontextu. Pokusíme se i navázat problém k teoretické částí, a dojít k tomu, proč se tak mohlo stát.
 		
 		Hodnocení umělé inteligence se také bude provádět z hlediska užitečnosti pro juniory a mediory v oblasti softwarového inženýrství. Rozhodl jsem se vynechat hodnocení pro seniory, protože si nejsem jist svou dostatečnou kvalifikací v tomto oboru. Nicméně, jak definujeme jednotlivé úrovně?
 		
-		Jako juniory v této práci považujeme jednotlivce, kteří absolvovali několik kurzů v oblasti programování, ale dosud nemají žádnou praktickou zkušenost s projekty, případně pracovní. Je zde důležité, aby tito jednotlivci nejen dostali kód, ale také jim byla poskytnuta relevantní vysvětlení problematiky. I když je odpověď stále klíčová, není vhodné, aby se jednoduše spoléhali na kopírování kódu od umělé inteligence bez jakéhokoliv porozumění, což by mohlo dlouhodobě vést k problémům. Proto požadujeme jasné vysvětlení kódu, které může být poskytnuto na vyžádání, a zároveň se snažíme minimalizovat používání programátorského slangu. Také bude užitečné, pokud umělá inteligence bude schopna poskytnout relevantní zdroje.
+		Jako juniory v této práci považujeme jednotlivce, kteří absolvovali několik kurzů v oblasti programování, ale dosud nemají žádnou praktickou zkušenost s projekty, případně pracovní. Je zde důležité, aby tito jednotlivci nejen dostali kód, ale také jim byla poskytnuta relevantní vysvětlení problematiky. I když je odpověď stále klíčová, není vhodné, aby se jednoduše spoléhali na kopírování kódu od umělé inteligence bez jakéhokoliv porozumění, což by mohlo dlouhodobě vést k problémům v mnoha ohledech. Proto požadujeme jasné vysvětlení kódu, které může být poskytnuto na vyžádání.
 		
-		Za mediory považujeme jednotlivce, kteří nemají problém s psaním kódu alespoň v jednom programovacím jazyce, mají za sebou několik projektů různého rozsahu, případně praxi v oboru. Sám se zařazuji do této kategorie. V této fázi je kritické, aby umělá inteligence byla schopna identifikovat nedostatky v kódu, které by mohly ovlivnit jeho kvalitu v budoucnosti. Také může pomoci s dokumentací, odhalováním chyb a navrhováním návrhových vzorů. Jako největší přínos bych ale bral dopisování kódu, což zvládá třeba GitHub Copilot \cite{gitCopilot}
+		Za mediory považujeme jednotlivce, kteří nemají problém s psaním kódu alespoň v jednom programovacím jazyce, mají za sebou několik projektů různého rozsahu, případně praxi v oboru. Sám se zařazuji do této kategorie. V této fázi je kritické, aby umělá inteligence byla schopna identifikovat nedostatky v kódu, které by mohly ovlivnit jeho kvalitu v budoucnosti. Také může pomoci s dokumentací, odhalováním chyb a navrhováním návrhových vzorů. Případně i  dopisování kódu, což zvládá třeba GitHub Copilot \cite{gitCopilot}.
 		
 		\section{Testovací aplikace}
-		Testování pomocí umělé inteligence proběhne na webové aplikaci poskytující aktuální informace o počasí, včetně předpovědi, historických dat a kvality ovzduší. Tato aplikace zahrnuje backend, frontend a databázi \cite{webapp_basics}. Jedním z předem stanovených požadavků je, aby frontend a backend byly napsány v různých programovacích jazycích, s nimiž jsem obeznámen, konkrétně Pythonem \cite{python} a JavaScriptem \cite{nodejs}. Podobných rozhodnutí, která jsou zaměřena na pokrytí co nejširšího rozsahu funkcionality aplikace, a tím pádem i testování umělé inteligence, je více.
+		Testování pomocí umělé inteligence proběhne na webové aplikaci poskytující aktuální informace o počasí, včetně předpovědi, historických dat a kvality ovzduší. Tato aplikace zahrnuje backend, frontend a databázi \cite{webapp_basics}. Jedním z předem stanovených požadavků je, aby frontend a backend byly napsány v různých programovacích jazycích, s nimiž jsem obeznámen, konkrétně Pythonem a JavaScriptem. Podobných rozhodnutí, která jsou zaměřena na pokrytí co nejširšího rozsahu funkcionality aplikace, a tím pádem i testování umělé inteligence, je více.
 		
 		Aplikace bude nabízet jak variantu zdarma, tak placenou. To vyžaduje implementaci autentifikace a autorizace, stejně jako integraci platební brány. S přítomností autentifikace je také důležité klást důraz na bezpečnost. Vzhledem k mobilnímu prostředí je také nutné zajistit vizuální přizpůsobení. To poskytuje širokou škálu oblastí, kde lze testovat schopnosti umělé inteligence. Budu také omezeně používat zkušenosti s umělou inteligencí z jiných projektů, pokud jsou relevantní pro současný problém.
 		
-		Aplikace může být navržena tak, že nebude mít žádný backend, což by však omezovalo možnosti a zúžilo rozsah testování pouze na jeden ekosystém. Použité technologie, odpovídající předchozím požadavkům, zahrnují React pro frontend a knihovnu Tailwind pro správu CSS. Na backendu bude využito Pythonu spolu s frameworkem FastAPI. Pro cloudové služby jsou zvoleny Firebase pro autentifikaci a databázi, Heroku pro kontejnerizaci a nasazení. Pro řízení procesů CI/CD a verzování GitHub a dopňek Actions. Pro testování budou využity knihovny Cypress (end-to-end testování) a Jest pro JavaScript a Pytest pro Python (jednotkové a integrační testy). Jako platební brána pro placené uživatele bude použit Stripe.
+		Aplikace může být navržena tak, že nebude mít žádný backend, což by však omezovalo možnosti a zúžilo rozsah testování pouze na jeden ekosystém. Použité technologie, odpovídající předchozím požadavkům, zahrnují React pro frontend a knihovnu Tailwind pro správu CSS. Na backendu bude využito Pythonu spolu s frameworkem FastAPI. Pro cloudové služby jsou zvoleny Firebase pro autentifikaci a databázi, Heroku a Docker pro kontejnerizaci a nasazení. Pro řízení procesů CI/CD a verzování GitHub a dopňek Actions. Pro testování budou využity knihovny Cypress (end-to-end testování) a Jest pro JavaScript a Pytest pro Python (jednotkové a integrační testy). Jako platební brána pro placené uživatele bude použit Stripe \cite{fastapi} \cite{docker} \cite{react} \cite{heroku}.
 		
 		Umělá inteligence bude použita pouze jako podpůrný nástroj během vývoje, přičemž konečná rozhodnutí ohledně aplikace zůstanou v mé kompetenci. Cílem je získat funkční aplikaci, která bude veřejně dostupná na internetu. Po dokončení vývoje se zaměříme na využití umělé inteligence k identifikaci možností pro zlepšení aplikace a refaktoringu.
 		
@@ -511,7 +511,7 @@
 		
 		V době, kdy je ChatGPT dostupný i na chytrých telefonech, je užitečné mít takového pomocníka. Počet otázek, které bych mohl při jednání se zákazníkem přehlédnout, není zanedbatelný a mohl by výrazně ovlivnit cenu celého projektu. Pomocí takového nástroje lze připravit otázky například pro pochopení konkrétního problému v oblasti, pro kterou vytváříme řešení. Raději bych však v těchto případech využil model, který k odpovědi poskytuje i zdroje, ze kterých čerpal, jako například Bing Copilot (GPT-4) nebo Perplexity AI (GPT-3.5), zejména kvůli schopnosti modelů halucinovat \cite{bingCopilot}, \cite{perplexity}.
 		
-		Narážíme však na první problém umělé inteligence, který se bude opakovat v průběhu práce. Musíme být přesní v tom, co od ní požadujeme. Pokud potřebujeme pouze produktové požadavky, musíme je jasně formulovat v textovém vstupu. Není možné jen napsat obecné zadání a doufat, že si umělá inteligence domyslí zbytek. Pokud se podíváme na architekturu transformeru, pravděpodobně tento jev souvisí s vrstvou self-attention. Čím delší je vstupní sekvence slov, tím lepší je predikce následujícího slova a tím přínosnější text z modelu obdržíme \cite{rothman2021transformers} \cite{context_understand}.
+		Narážíme však na první problém umělé inteligence, který se bude opakovat v průběhu práce. Musíme být přesní v tom, co od ní požadujeme. Pokud potřebujeme pouze produktové požadavky, musíme je jasně formulovat v textovém vstupu. Není možné jen napsat obecné zadání a doufat, že si umělá inteligence domyslí zbytek. Pokud se podíváme na architekturu transformeru, pravděpodobně tento jev souvisí s vrstvou self-attention. Čím delší je vstupní sekvence slov, tím více vazeb může vznikout ve vrstvě pozornosti což zlepšuje přesost predikce následujícího slova a tím přínosnější text z modelu obdržíme \cite{rothman2021transformers} \cite{context_understand}.
 		
 		%TODO FIX: teorie, uvod prakticka, hodnoceni
 		
@@ -551,7 +551,7 @@
 		\end{tcolorbox}
 		\vspace{0.6em}
 		
-		Otázka byla záměrně ponechána v neurčité formě, aby se ověřilo chování modelů. Většina modelů, s výjimkou Clauda, začala doporučovat platformy a knihovny, které by měly být využity při vývoji aplikace \cite{bard_analyza} \cite{bingCopilot_analyza} \cite{chatgpt_analyza} \cite{codellama_analyza} \cite{gitCopilot_analyza}. Naopak Claude navrhl další otázky, které je třeba zvážit. Tento přístup je vhodný, protože i když už jsou některé otázky pokryty, rozšířené informace umožní minimalizovat přepisování a úpravy kódu v budoucnosti \cite{claude_analyza}.
+		Otázka byla záměrně ponechána v neurčité formě, aby jsme si potvrdili, že opravdu musíme uvést exaktně co chceme. Většina modelů, s výjimkou Clauda, začala doporučovat platformy a knihovny, které by měly být využity při vývoji aplikace \cite{bard_analyza} \cite{bingCopilot_analyza} \cite{chatgpt_analyza} \cite{codellama_analyza} \cite{gitCopilot_analyza}. Naopak Claude navrhl další otázky, které je třeba zvážit. Tento přístup je vhodný, protože i když už jsou některé otázky pokryty, rozšířené informace umožní minimalizovat přepisování a úpravy kódu v budoucnosti \cite{claude_analyza}.
 		
 		\vspace{0.6em}
 		\begin{tcolorbox}[colback=white,colframe=black]
@@ -560,7 +560,7 @@
 		\end{tcolorbox}
 		\vspace{0.6em}
 		
-		Pokud jde o konkrétní doporučení, mnohá z nich se překrývají a týkají se především dobře známých služeb a knihoven. Otázkou však zůstává, zda-li umělá inteligence skutečně doporučuje na základě kontextu, nebo zda reaguje pouze na nejčastější záznam v trénovacích datech. Přestože se modely snaží predikovat následující slovo na základě předchozích, výsledek může být ovlivněn frekvencí výskytu backendových knihoven v datech, což může vést k nezamýšleným výsledkům. Tento jev lze zmírnit úpravou teploty, avšak zvyšuje to riziko generování zcela nesmyslných výstupů, protože se zvyšuje pravděpodobnost libovolného následujícího slova.
+		Pokud jde o konkrétní doporučení, mnohá z nich se překrývají a týkají se především dobře známých služeb a knihoven. Otázkou však zůstává, zda-li umělá inteligence skutečně doporučuje na základě uvedného kontextu, nebo zda dodává pouze nejčastější záznam v trénovacích datech. Přestože se modely snaží predikovat následující slovo na základě předchozích, výsledek může být ovlivněn frekvencí výskytu backendových knihoven v datech. Tím pádem ale vlastně výběr knihovny není o moc lepší, než kdyby si vyhledal nejpopulárnější knihovny pro backend. Tento jev lze zmírnit úpravou teploty, avšak zvyšuje to riziko generování zcela nesmyslných výstupů, protože se zvyšuje pravděpodobnost všech možných slov.
 		
 		Například, bylo doporučeno OpenWeatherMap, což je pravděpodobně nejznámější API pro získávání informací o počasí \cite{bard_analyza} \cite{bingCopilot_analyza} \cite{webapp_basics} \cite{openweather}. Žádný model však nenavrhl službu OpenMeteo, která nabízí široké možnosti nad rámec OpenWeatherMap a je zcela zdarma pro osobní použití \cite{openmeteo}. Toto opomenutí je pravděpodobně způsobeno tím, že OpenMeteo je z roku 2022 a pravděpodobně nebylo zahrnuto v trénovacích datech většiny použitých modelů, nebo bylo zmíněno pouze v malém množství. Získání přesných informací je obtížné, protože trénovací data nejsou veřejně dostupná ani u open-source modelů. Například, model Falcon zveřejnil pouze binární soubor s vahami a nastavení tokenizéru, což komplikuje proces debugování \cite{falcon}.
 		
@@ -627,7 +627,7 @@
 		
 		Další aspekty, které bývají často opomenuty, zahrnují ukládání odpovědí do mezipaměti, neboť aktualizace počasí nemusí probíhat v reálném čase. Kromě toho je zmíněno monitorování a logování, které může být snadno opomenuto v návrhu architektury a následně je potřeba dodělat při implementaci, kdy už existují závislosti v kódu.
 		
-		Nicméně, některé modely, jako například Bard nebo Falcon, nezachytili moji otázku ohledně rozšíření odpovědi o architektuře a začali mi klást další otázky pro zákazníka \cite{bard_analyza} \cite{falcon_analyza}. I když nebylo specifikováno, který z předložených podnětů chci rozvinout, očekával bych, že se do kontextového okna vejde pouze ten nejnovější, tedy že se rozvine poslední předložená otázka. Tento scénář se však neodehrál, což naznačuje, že nelze spoléhat ani na to, že umělá inteligence dokáže správně porozumět kontextu předchozích zpráv.
+		Nicméně, některé modely, jako například Bard nebo Falcon, nezachytili moji otázku ohledně rozšíření odpovědi o architektuře a začali mi klást další otázky pro zákazníka \cite{bard_analyza} \cite{falcon_analyza}. I když nebylo specifikováno, který z předložených podnětů chci rozvinout, očekával bych, že se do kontextového okna vejde pouze ten nejnovější, tedy že se rozvine poslední předložená otázka. Z odpovědi to ale vypadá, že model znovu odpověděl na otázku první. Nelze spoléhat ani na to, že umělá inteligence dokáže správně porozumět kontextu předchozích zpráv.
 		
 		\subsection{Přídavné prvky}
 		\begin{tcolorbox}[colback=white,colframe=black]
@@ -654,7 +654,7 @@
 		\end{tcolorbox}
 		\vspace{0.6em}
 		
-		Opět se zde objevilo mnoho věcí, které mne v konverzaci se zákazníkem nemuselo napadnout. První se týkaly produktu samotného, druhé se zaměřily na obecnější hledisko. Z produktové kategorie se může jednat o notifikace uživatele, integrace sociálních sítí pro autentifikaci nebo možnost uživatelů hodnotit přesnost počasí \cite{bard_analyza} \cite{chatgpt_analyza} \cite{codellama_analyza} \cite{gitCopilot_analyza} \cite{claude_analyza}. Z obecnějších např. zmíněná strategie obsahu na sociálních médiích nebo platební model. Pokud tedy brainstormujeme přídavné prvky, je na to AI skvělým parťákem \cite{bingCopilot_analyza} \cite{falcon_analyza}.
+		Opět se zde objevilo mnoho věcí, které mne v konverzaci se zákazníkem nemuselo napadnout. První se týkaly produktu samotného, druhé se zaměřily na obecnější hledisko. Z produktové kategorie se může jednat o notifikace uživatele, integrace sociálních sítí pro autentifikaci nebo možnost uživatelů hodnotit přesnost počasí \cite{bard_analyza} \cite{chatgpt_analyza} \cite{codellama_analyza} \cite{gitCopilot_analyza} \cite{claude_analyza}. Z obecnějších např. zmíněná strategie obsahu na sociálních médiích nebo platební model. Pokud tedy brainstormujeme přídavné prvky, je AI skvělým parťákem \cite{bingCopilot_analyza} \cite{falcon_analyza}.
 		
 		% \subsection{Agile nebo Waterfall?}
 		
@@ -700,19 +700,19 @@
 		\end{tcolorbox}
 		\vspace{0.6em}
 		
-		Identifikovaná rizika, zejména mimo oblast architektury, jako je nepřesnost předpovědi počasí závislá na aktuálním počasí, problémy spojené s platebním modelem odběrů nebo soulad s předpisy týkajícími se ochrany osobních údajů uživatelů, jsou rizika, která by mne pravděpodobně nenapadla před samotnou implementací. Tato rizika rovněž mohou významně ovlivnit strukturu projektu \cite{chatgpt_analyza}. Další obtížně předvídatelná rizika zahrnují zvětšení rozsahu aplikace, komunikační problémy, vyhoření nebo překročení nákladů mimo stanovený rozpočet \cite{claude_analyza} \cite{bard_analyza}. Jiná rizika se zaměřují více na samotný produkt. Kvalita dat je zde v ohrožení, protože jsme závislí na externím API, které není pod naší kontrolou. To Falcon nezohlednil a navrhuje validaci modelu pro předpověď počasí \cite{falcon_analyza}. Externí zdroje mohou také negativně ovlivnit bezpečnost aplikace. 
+		Identifikovaná rizika, zejména mimo oblast architektury, jako je nepřesnost předpovědi závislá na aktuálním počasí, problémy spojené s platebním modelem odběrů nebo soulad s předpisy týkajícími se ochrany osobních údajů uživatelů, jsou rizika, která by mne pravděpodobně nenapadla před samotnou implementací. Tato rizika rovněž mohou významně ovlivnit strukturu projektu \cite{chatgpt_analyza}. Další obtížně předvídatelná rizika zahrnují zvětšení rozsahu aplikace, komunikační problémy, vyhoření nebo překročení nákladů mimo stanovený rozpočet \cite{claude_analyza} \cite{bard_analyza}. Jiná rizika se zaměřují více na samotný produkt. Kvalita dat je zde v ohrožení, protože jsme závislí na externím API, které není pod naší kontrolou. To Falcon nezohlednil a navrhuje validaci modelu pro předpověď počasí \cite{falcon_analyza}. Externí zdroje mohou také negativně ovlivnit bezpečnost aplikace. 
 		
 		Při brainstormingu je tedy vhodné mít AI jako "generátor nápadů", zejména pokud jde o rizika, která nejsou běžnou součástí práce programátora \cite{falcon_analyza} \cite{claude_analyza} \cite{codellama_analyza}. Jsem znovu příjemně překvapen brainstormingem od AI a při návrhu plánu vývoje projektu bych se neváhal obrátit na AI k identifikaci rizik. Nicméně, při podrobnějším zkoumání konkrétní oblasti bych dával přednost modelům, které poskytují odkazy na zdroje, ze kterých čerpají.
 		
 		\subsection{Hodnocení dle seniority}
-		Přínos bych zde viděl hlavně pro juniory, kteří nemají např. ani jeden projekt za sebou. Ti často neznají kompletní proces vývoje webové aplikace a museli by získat potřebné znalosti postupně během samotného vývoje, což by mohlo zvýšit časovou náročnost projektu. Na juniorské úrovni je však nezbytné klást mnohem více otázek ohledně různých detailů nebo tyto aspekty explicitně uvést dopředu.
+		Přínos bych zde viděl hlavně pro juniory, kteří nemají např. ani jeden projekt za sebou. Ti často neznají kompletní proces vývoje webové aplikace a museli by získat znalosti postupně během samotného vývoje, což by mohlo zvýšit časovou náročnost projektu. Na juniorní úrovni je však nezbytné klást mnohem více otázek ohledně různých detailů nebo tyto aspekty explicitně uvést dopředu.
 		
-		Jedním z potenciálních problémů je, že začínající vývojář pravděpodobně nemá dostatečné znalosti o propojení různých částí softwaru. To by mohlo vést k opomenutí důležitých prvků, na popud AI, jako je například vytvoření databáze, i když je to nezbytné pro implementaci funkcí rozlišení mezi placenými a neplacenými uživateli.
+		Jedním z potenciálních problémů je, že začínající vývojář pravděpodobně nemá dostatečné znalosti o propojení různých částí softwaru. To by mohlo vést k opomenutí důležitých prvků, na popud AI, jako je například vytvoření databáze, i když je to vhodné pro rozlišení mezi placeným a neplaceným uživatelem.
 		
 		Přínos pro středně pokročilé vývojáře, jak jsem již dříve uvedl, je rovněž významný. Mnoho nápadů, které vzešly z diskuse s umělou inteligencí, by mne samovolně nenapadlo a musel bych je řešit až v průběhu životního cyklu softwarového vývoje, což by zvýšilo časovou náročnost projektu. Například zhodnocení využití serverless architektury při nulovém rozpočtu pro tvorbu aplikace není zcela triviální, a nemusí být na první pohled zřejmé.
 		
 		\section{Návrh struktury aplikace}
-		Zahrnuje rozhodnutí, jak naši aplikaci rozdělit na jednotlivé funkční celky. Rozhodnutí v této fázi dramaticky ovlivní implementaci a její kvalitu. Může i probíhat paralelně s implementací \cite{knuth1989notes} \cite{wikipedia:soft_design}. Rozhodnutí zahrnují např. výběr programovacího paradigmatu, programovacího jazyka, případně k němu vázané knihovny a platformy. Také jsou rozvrženy různé třídy, funkce, datových struktury a algoritmy. Návrh může být doprovázen diagramem který představuje konečnou strukturu aplikace, např. v jazyce UML.
+		Zahrnuje rozhodnutí, jak naši aplikaci rozdělit na jednotlivé funkční celky. Rozhodnutí v této fázi dramaticky ovlivní implementaci a její kvalitu. Může probíhat i paralelně s implementací \cite{knuth1989notes} \cite{wikipedia:soft_design}. Rozhodnutí zahrnují např. výběr programovacího paradigmatu, programovacího jazyka, případně k němu vázané knihovny a platformy. Také jsou rozvrženy různé třídy, funkce, datových struktury a algoritmy. Návrh může být doprovázen diagramem který představuje konečnou strukturu aplikace, např. v jazyce Unified Modeling Language (UML).
 		
 		Každá aplikace má aspekty, které jsou méně a více důležité. Například bankovní aplikace na telefonu by měla mít velkou bezpečnost, což může vyžadovat implementaci biometrického ověření, které ale zase ubírá na použitelnosti samotné aplikace. Jedná se tedy o proces stanovení priorit, třeba na základě analýzy požadavků, a následném balancování mezi nimi.
 		
@@ -763,7 +763,7 @@
 		
 		AI obecně doporučuje dlouho udržované knihovny a technologie, které mají k dispozici mnoho dalších knihoven pro řešení bezpečnosti, modularity apod. Tato řešení jsou proto modulární a vysoce kompatibilní, díky dlouhodobé podpoře jsou také robustní. Tím se minimalizuje možný technologický dluh, který by vznikl při práci s nejnovějšími dostupnými technologiemi, jež za pár let mohou ztratit podporu komunity a naše řešení by se tak mohlo stát nepoužitelným. Podobná doporučení ale dostanu, když použiju prohlížeč, kde je tedy výhoda použití AI?
 		
-		Jednou z výhod AI je možnost nabídnout alternativy a zdůvodnit volbu konkrétní knihovny, což by vyhledáváním trvalo značně déle. To je z části dáno promptem, který je klíčový pro efektivní využití AI. V závislosti na senioritě uživatele je možné se jednoduše zeptat na dodatečné vysvětlení a detaily, což vyhledávač neposkytuje. I když využití historického kontextu nemusí být vždy ideální, hlavní přínos AI spočívá v její schopnosti komunikovat nejasnosti a nechat si je vysvětlit. Pokud však chceme hlouběji proniknout do problematiky, je lepší použít model, který poskytuje zdroje \cite{claude_navrh}, \cite{chatgpt_navrh}, \cite{bard_navrh}, \cite{codellama_navrh}, \cite{falcon_navrh}, \cite{gitCopilot_navrh}, \cite{bingCopilot_navrh} \cite{perplexity}. 
+		Jednou z výhod AI je možnost nabídnout alternativy a zdůvodnit volbu konkrétní knihovny, což by vyhledáváním trvalo značně déle. To je z části dáno promptem, který je klíčový pro efektivní využití AI. V závislosti na senioritě uživatele je možné se jednoduše zeptat na dodatečné vysvětlení a detaily, což vyhledávač neposkytuje. Je ale potřeba se doptat, a nechat si doporučení dovysvětlit, pokud si nejsme jisti. Pokud pouze převezmeme doporučení jako dogma, nevěstí to pro budoucnost udržitelnosti projektu nic dobrého. I když využití historického kontextu nemusí být vždy ideální, hlavní přínos AI spočívá v její schopnosti komunikovat nejasnosti a nechat si je vysvětlit. Pokud však chceme hlouběji proniknout do problematiky, je lepší použít model, který poskytuje zdroje \cite{claude_navrh}, \cite{chatgpt_navrh}, \cite{bard_navrh}, \cite{codellama_navrh}, \cite{falcon_navrh}, \cite{gitCopilot_navrh}, \cite{bingCopilot_navrh} \cite{perplexity}. 
 		
 		\vspace{0.6em}
 		\begin{tcolorbox}[colback=white,colframe=black]
@@ -772,7 +772,7 @@
 		\end{tcolorbox}
 		\vspace{0.6em}
 		
-		Bylo zde ale i mnoho nepřesností, především v souvislosti s aktuálností dat. ChatGPT poskytoval zastaralé odpovědi, pravděpodobně z důvodu omezení dat do ledna 2022, týkající se dostupnosti bezplatných kvót cloudových služeb \cite{chatgpt_navrh} \cite{chatgpt_knowledge}. Dále Bard, který by se měl kontinuálně trénovat na nejnovějších datech, nezmiňuje Google Cloud Platform, produkt téže firmy, která poskytuje největší množství bezplatných kreditů ze známých cloudových platforem. Tím pádem není jasné, jaká je platnost tohoto tvrzení \cite{bard_navrh} \cite{GCP} \cite{Heroku}.
+		Bylo zde ale i mnoho nepřesností, především v souvislosti s aktuálností dat. ChatGPT poskytoval zastaralé odpovědi, pravděpodobně z důvodu omezení dat do ledna 2022, týkající se dostupnosti bezplatných kvót cloudových služeb \cite{chatgpt_navrh} \cite{chatgpt_knowledge}. Dále Bard, který by se měl kontinuálně trénovat na nejnovějších datech, nezmiňuje Google Cloud Platform, produkt téže firmy, která poskytuje největší množství bezplatných kreditů ze známých cloudových platforem. Tím pádem mi není jasné, jaká je platnost tohoto tvrzení, dále jsem ho ale netestoval \cite{bard_navrh} \cite{GCP} \cite{Heroku}.
 		
 		\vspace{0.6em}
 		\begin{tcolorbox}[colback=white,colframe=black]
@@ -781,7 +781,7 @@
 		\end{tcolorbox}
 		\vspace{0.6em}
 		
-		U některých modelů mi chybí hlubší vysvětlení použitých technologií. Vzhledem k vlastnostem velkých jazykových modelů halucinovat, jsem schválně prompt struktruoval tak, abych měl na výběr z více alternativ. Některé modely však tento požadavek ignorovaly \cite{gitCopilot_navrh}, \cite{falcon_navrh}, pravděpodobně kvůli omezení kontextového okna modelu. Pro zlepšení schopností v oblasti softwarového inženýrství a lepší porozumění aplikaci, včetně případného ladění, je však kritické znát důvody volby konkrétní služby.
+		U některých modelů mi chybí hlubší vysvětlení použitých technologií. Vzhledem k vlastnostem velkých jazykových modelů halucinovat, jsem schválně prompt struktruoval tak, abych měl na výběr z více alternativ. Některé modely však tento požadavek ignorovaly, pravděpodobně kvůli omezení kontextového okna modelu. Pro zlepšení schopností v oblasti softwarového inženýrství a lepší porozumění aplikaci, včetně případného ladění, je však kritické znát důvody volby konkrétní služby \cite{gitCopilot_navrh} \cite{falcon_navrh}.
 		
 		\subsection{Specifikace návrhu}
 		\vspace{0.6em}
@@ -841,9 +841,9 @@
 		\end{tcolorbox}
 		\vspace{0.6em}
 		
-		Ohledně bezpečnosti aplikace jsou doporučení poměrně obsáhlá, a mnoho z nich, jako je například Content Security Policy (CSP) nebo bezpečnostní hlavičky, by mě nenapadlo řešit. Dobré je i zmínění knihoven, které lze využít k ošetření vulnerabilit. Zajímavým návrhem bylo i využití služby pro skenování slabých míst v kontejneru \cite{claude_navrh}, \cite{security_headers}, \cite{docker-docs}, \cite{ibm:containers}.
+		Ohledně bezpečnosti aplikace jsou doporučení poměrně obsáhlá. Dobré je i zmínění knihoven, které lze využít k ošetření vulnerabilit. Zajímavým návrhem bylo i využití služby pro skenování slabých míst v kontejneru \cite{claude_navrh}, \cite{security_headers}, \cite{docker-docs}, \cite{ibm:containers}.
 		
-		Struktura složek se mezi různými modely výrazně lišila, především v závislosti na doporučeném backendu a frontendu. Byly i případy, kdy navržená struktura složek nedávala smysl, jako například Falcon, který původně navrhoval použití Reactu a Pythonu. Avšak struktura složek neobsahovala JSX soubory, které jsou typické pro React, a spíše připomínala webovou aplikaci napsanou čistě v Pythonu \cite{falcon_navrh}, \cite{react}. I zde opět vidíme, že nelze pouze spoléhat na historii konverzace, která může být po určité délce pouze shrnuta, a je lepší modelu kontext obnovit tím, že ho zahrneme přímo v aktuálním promptu.
+		Struktura složek se mezi různými modely výrazně lišila, především v závislosti na doporučeném backendu a frontendu. Byly i případy, kdy navržená struktura složek nedávala smysl, jako například Falcon, který původně navrhoval použití Reactu a Pythonu. Avšak struktura složek neobsahovala JSX soubory, které jsou typické pro React, a spíše připomínala webovou aplikaci napsanou čistě v Pythonu a HTML \cite{falcon_navrh}, \cite{react}. I zde opět vidíme, že nelze pouze spoléhat na historii konverzace, která může být po určité délce pouze shrnuta, a je lepší modelu kontext obnovit tím, že ho zahrneme přímo v aktuálním promptu.
 		
 		\vspace{0.6em}
 		\begin{tcolorbox}[colback=white,colframe=black]
@@ -870,7 +870,7 @@
 		\end{tcolorbox}
 		\vspace{0.6em}
 		
-		Správa stavu na frontendu pomocí knihovny byla AI považována za zbytečnou pro tuto jednoduchou aplikaci. Nicméně implementace routingu nevedla k jednotnému rozhodnutí napříč různými modely. Není však zřejmé z promptu, zda se jedná o jednostránkovou aplikaci, což má přímý vliv na kvalitu odpovědi. \cite{claude_navrh}, \cite{chatgpt_navrh}.
+		Správa stavu na frontendu pomocí knihovny byla AI považována za zbytečnou pro tuto jednoduchou aplikaci. Nicméně implementace routingu nevedla k jednotnému rozhodnutí napříč různými modely. Není však zřejmé z promptu, zda se jedná o jednostránkovou aplikaci, což má přímý vliv na rozhodnutí \cite{claude_navrh}, \cite{chatgpt_navrh}.
 		
 		\vspace{0.6em}
 		\begin{tcolorbox}[colback=white,colframe=black]
@@ -892,7 +892,7 @@
 		
 		Zde se ukázalo, že některé modely nepochopily mé zadání a domnívaly se, že měření počasí bude prováděno pomocí stanice, zatímco v historii konverzace jsem jasně uvedl, že k získání počasí bude využito API \cite{bard_navrh}, \cite{falcon_navrh}.
 		
-		Generování UML diagramů pomocí AI dopadlo bídně. Buď jsme obdrželi diagram toku, nebo rozdělení na třídy, které nedávalo smysl, nebo něco, co připomíná UML graf s chybějícími propojeními, nebo dokonce nic. Pouze model Claude vytvořil skutečný UML diagram, který nejlépe odpovídal navržené architektuře, a to i v přenositelném formátu \verb|plantuml|, který lze zkompilovat např. prohlížeči \cite{claude_navrh} \cite{codellama_navrh} \cite{wikipedia:uml}.
+		Generování UML diagramů pomocí AI dopadlo bídně. Buď jsme obdrželi diagram toku, nebo rozdělení na třídy, které nedávalo smysl, nebo něco, co připomíná UML graf s chybějícími propojeními, nebo dokonce nic. Pouze model Claude vytvořil skutečný UML diagram, který nejlépe odpovídal navržené architektuře, a to i v přenositelném formátu \verb|plantuml|, který lze zkompilovat \cite{claude_navrh} \cite{codellama_navrh} \cite{wikipedia:uml}.
 		
 		\begin{figure}[H]
 			\centering
@@ -902,14 +902,14 @@
 		\end{figure}
 		
 		\subsection{Hodnocení dle seniority}
-		V této fázi životního cyklu softwarového vývoje identifikuji podobné obtíže pro začínající vývojáře jako v předchozí analýze, avšak v intenzivnější míře. Umělá inteligence uvádí široké spektrum technologií. Sice přesně víme, co se potřebujeme naučit pro zvládnutí projektu, umělá inteligence ale nepřihlíží k tomu, zda jsou tyto technologie skutečně nezbytné, což začínající vývojář pravděpodobně nedokáže správně vyhodnotit. Nevědomí toho, co nevíme, může často vést k větším problémům než pouhé nevědomí, například snížené udržitelnosti nebo škálovatelnosti, protože např. zvýšíme závislost na knihovnách, které můžeme používat pouze raritně.
+		V této fázi životního cyklu softwarového vývoje identifikuji podobné obtíže pro začínající vývojáře jako v předchozí analýze, avšak v intenzivnější míře. Umělá inteligence uvádí široké spektrum technologií. Sice přesně víme, co se potřebujeme naučit pro zvládnutí projektu, umělá inteligence ale nepřihlíží k tomu, zda jsou tyto technologie skutečně nezbytné, což začínající vývojář pravděpodobně nedokáže správně vyhodnotit. Nevědomí toho, co nevíme, může často vést k větším problémům než pouhé nevědomí, například snížené udržitelnosti nebo škálovatelnosti, protože např. zvýšíme závislost na knihovnách.
 		
-		Jako středně pokročilý vývojář vidím výhody v použití návrhových vzorů a možnosti důkladného dotazování se na technologie. Přesto bych si raději ověřil informace na oficiálních webových stránkách, kvůli aktuálnosti trénovacích dat modelů. I když to může pomoci při rychlém prototypování, pravděpodobně s tímto přístupem nedosáhneme aplikace na produkční úrovni, protože se jedná o komplexní propojení prvků, které umělá inteligence nedokáže příliš dobře zvládnout.
+		Jako středně pokročilý vývojář vidím výhody v použití návrhových vzorů a možnosti důkladného dotazování se na technologie. Přesto bych si raději ověřil informace na oficiálních webových stránkách, kvůli aktuálnosti trénovacích dat modelů. I když to může pomoci při rychlém prototypování, pravděpodobně s tímto přístupem nedosáhneme aplikace na produkční úrovni, protože se jedná o komplexní propojení prvků, které umělá inteligence nedokáže příliš dobře zvládnout, na což poukázal návrh tříd a UML grafu.
 		
 		\section{Implementace s pomocí AI}
-		Pro tuto kapitolu jsem se rozhodl omezit počet modelů pouze na Copilot Chat. Důvodů je k tomu více, hlavní však spočívá v tom, že testování všech předem zmíněných modelů by vedlo k nadměrnému rozšíření obsahu práce. Navíc je na webu již dostatek porovnání modelů v různých programovacích úlohách. Copilot Chat byl vybrán zejména proto, že je natrénován převážně na programovacích datech a je přímo integrován do vývojového prostředí Visual Studio Code (VSCode), které bylo použito při vývoji aplikace. Dále nemá omezené množství zpráv a disponuje několika speciálními prvky. Užitečné jsou také doporučené otázky. I když ne vždy dokážou modelu poskytnout přesnou odpověď, naznačují možný směr, jakým by mohl být zadán vstup, aby ho model co nejlépe pochopil \cite{gitCopilot}.
-		
-		Copilot Chat však není jedinou výhodou prostředí Visual Studio Code. Jako hlavní přednost je možné vnímat samotný Copilot, který funguje podobně jako automatické doplňování slov u chytrého telefonu. Copilot však dokáže doplnit řádek, vygenerovat zbytek funkce, nebo ji i vytvořit na základě jejího názvu s krátkým komentářem. Navíc se trénuje na základě napsaného kódu, což vede k tomu, že po určité době dokáže psát ve stejném stylu jako programátor, který ho využívá \cite{gitCopilot}. 
+		Pro tuto kapitolu jsem se rozhodl omezit počet modelů pouze na Copilot Chat. Důvodů je k tomu více, hlavní však spočívá v tom, že testování všech předem zmíněných modelů by vedlo k nadměrnému rozšíření obsahu práce. Navíc je na webu již dostatek porovnání modelů v různých programovacích úlohách. Copilot Chat byl vybrán zejména proto, že je natrénován převážně na programovacích datech a je přímo integrován do vývojového prostředí Visual Studio Code (VSCode), které bylo použito při vývoji aplikace. 
+
+    Dále nemá omezené množství zpráv a disponuje několika speciálními prvky. Užitečné jsou také doporučené otázky, které naznačují možný směr, jakým by mohl být zadán vstup, aby ho model co nejlépe pochopil \cite{gitCopilot}. Copilot Chat však není jedinou výhodou prostředí Visual Studio Code. Jako hlavní přednost je možné vnímat samotný Copilot, který funguje podobně, jako automatické doplňování slov u chytrého telefonu. Copilot však dokáže doplnit řádek, vygenerovat zbytek funkce, nebo ji i vytvořit na základě jejího názvu s krátkým komentářem. Navíc se trénuje dle uživatelského kódu, což vede k tomu, že po určité době dokáže psát ve stejném stylu jako programátor, který ho využívá \cite{gitCopilot}. Toho může být docíleno např. adaptérem před vstupem do velkého jazykového modelu.
 		
 		\vspace{0.6em}
 		\begin{tcolorbox}[colback=white,colframe=black,title=Úprava výkonnosti třídy v Pythonu]
@@ -949,9 +949,9 @@
 			... \cite{dataclass}
 		\end{tcolorbox}
 		
-		Samotný kód, který Copilot Chat vygeneroval, nebyl ve většině případů přímo použitelný. Je proto nutné vždy funkce od Copilota pečlivě otestovat, ať už automatickými testy nebo lidským okem. V mnoha případech však stačilo pouze provést drobné úpravy. Nyní se podíváme na několik konkrétních příkladů.
+		Samotný kód, který Copilot Chat vygeneroval, nebyl ve většině případů přímo použitelný. Je proto nutné vždy funkce od Copilota pečlivě otestovat, ať už automatickými testy nebo lidským okem. V mnoha případech však stačilo provést drobné úpravy. Nyní se podíváme na několik konkrétních příkladů.
 		
-		Znalost použitých programovacích jazyků byla až překvapivě hluboká. Například doporučení použití \verb|__slots__| u třídy s dekorátorem \verb|@dataclass|, vzhledem k neměnným parametrům, je něco, o čem jsem sice věděl, ale nikdy by mě nenapadlo, že to lze v daném kontextu využít. Poskytnuté zdůvodnění této volby také dává smysl \cite{dataclass}.
+		Znalost použitých programovacích jazyků byla až překvapivě hluboká. Například doporučení použití \verb|__slots__| u třídy s dekorátorem \verb|@dataclass|, vzhledem k neměnným parametrům, je něco, o čem jsem sice věděl, ale nikdy by mě nenapadlo, že to lze v daném kontextu využít, navíc je i uvedeno proč mám takovou změnu provést \cite{dataclass}.
 		
 		\vspace{0.6em}
 		\begin{tcolorbox}[colback=white,colframe=black,title=Úprava výkonnosti třídy v Pythonu]
@@ -972,7 +972,11 @@
 			... \cite{requests_cache}
 		\end{tcolorbox}
 		
-		Ohledně backendu bych viděl potenciál v poskytnutí pomoci při zajištění bezpečnosti, avšak s určitými nedostatky. Pro detekci zranitelností lze úspěšněji využít skenování kontejnerů přímo od Dockeru nebo externích platforem, jako jsou Veracode nebo Prisma Cloud \cite{veracode} \cite{prisma_cloud}. Tyto nástroje dokáží prohledat celý kontejner a identifikovat zranitelnosti od úrovně knihoven až po úroveň operačního systému, což není uskutečnitelné pomocí umělé inteligence, jelikož jí chybí takto nízkoúrovňový přístup. Avšak tyto nástroje nepomohou s implementací samotného kódu, a zde právě přichází výhoda umělé inteligence, která dokáže přesně určit, jaké části kódu je třeba změnit. Dalším užitečným doporučením bylo využití ukládání do mezipaměti pomocí knihovny \verb|requests_cache|, o které jsem předem neměl ponětí \cite{webapp_basics} \cite{middleware}.
+		Ohledně backendu bych viděl potenciál v poskytnutí pomoci při zajištění bezpečnosti, avšak s určitými nedostatky. Pro detekci zranitelností lze úspěšněji využít skenování kontejnerů přímo v platformě pro kontejnerizaci Docker. Případně lze využít externích platforem, jako jsou Veracode nebo Prisma Cloud \cite{veracode} \cite{prisma_cloud} \cite{docker}. 
+
+    Tyto nástroje dokáží prohledat celý kontejner a identifikovat zranitelnosti od úrovně knihoven až po úroveň operačního systému, což není uskutečnitelné pomocí umělé inteligence, jelikož jí chybí takto nízkoúrovňový přístup. Avšak v čem tyto nástroje nepomohou je bezpečnost na úrovni samotné implementace, např. využití bezpečnostního middleware. Zde je právě výhoda umělé inteligence, která dokáže přesně určit, jaké části kódu je třeba změnit, a jakým způsobem. 
+
+    Neméně důležitá je i rychlost naši aplikace. Té lze docílit již zmíněným ukládáním do mezipaměti, pomocí doporučené knihovny \verb|requests_cache|, o které jsem předem neměl ponětí. Příjemným překvapením bylo, že jsem se za celou dobu implementace nemusel podívat do dokumentace této knihovny, jelikož všechna doporučení fungovala bezproblémově na první spuštění \cite{webapp_basics} \cite{middleware}.
 		
 		\vspace{0.6em}
 		\begin{tcolorbox}[colback=white,colframe=black,title=Implementace CSRF v Pythonu]
@@ -989,9 +993,9 @@
 			\end{lstlisting}
 		\end{tcolorbox}
 		
-		Znalost knihoven je však „pokus omyl“. U knihoven, které již nějakou dobu existují, je to podobné jako s jazykem samotným, například u knihovny \verb|FastAPI| \cite{fastapi}. Při snaze o zajištění bezpečnosti proti CSRF pomocí middleware jsem však nenarazil na úspěch, což mě vedlo k prohledávání internetu a následnému zjištění, že model vůbec nerozumí způsobu fungování CSRF \cite{csrf} \cite{csrf_web}.
+		Znalost knihoven je však „pokus omyl“. U knihoven, které již nějakou dobu existují, je to podobné jako s jazykem samotným, například u knihovny \verb|FastAPI| \cite{fastapi}. Při snaze o zajištění bezpečnosti proti CSRF pomocí middleware jsem však nenarazil na úspěch, což mě vedlo k prohledávání internetu a následnému zjištění, že Copilot vůbec nerozumí způsobu fungování CSRF \cite{csrf} \cite{csrf_web}.
 		
-		Tato situace je z části dána poměrem dat použitých při tréninku. Nové nebo méně známé knihovny nemají dostatečný objem v trénovacích datech, což může vést k situaci, kdy model při předpovědi následujícího klíčového slova pro kód dospěje k závěru, že by měla být použita úplně jiná knihovna, a tím vytváří podivný hybrid, který v realitě neexistuje. V takových případech je tedy vhodné se spíše spoléhat na dokumentaci \cite{chinchilla}.
+		Tato situace může být z části dána poměrem dat použitých při tréninku. Nové nebo méně známé knihovny nemají dostatečný objem v trénovacích datech, což může vést k situaci, kdy model při předpovědi následujícího klíčového slova pro kód dospěje k závěru, že by měla být použita úplně jiná knihovna, a tím vytváří podivný hybrid, který v realitě neexistuje. V takových případech je tedy vhodné se spíše spoléhat na dokumentaci \cite{chinchilla}.
 		
 		\vspace{0.6em}
 		\begin{tcolorbox}[colback=white,colframe=black,title=Efektivnější metody zpracování dat v JavaScriptu]
@@ -1053,9 +1057,9 @@
 		
 		Hlavním přínosem byla asistence na frontendu, neboť mám málo zkušeností s JavaScriptovým ekosystémem ve srovnání s Pythonem. Copilot Chat významně přispěl k řešení problémů na frontendu. Jako příklad lze uvést zpracování dat z API pomocí funkcionálních metod \verb|map| a \verb|reduce|. Pokud jde o knihovny, pomohl mi například přidat do knihovny \verb|Tailwind| podporu pro responzivní design \cite{map_reduce} \cite{tailwind}.
 		
-		Automatická dokumentace kódu představuje příjemný doplňující prvek. Avšak je až příliš mechanická v tom, že sice popisuje co, avšak nevysvětluje proč, ani jaké hodnoty mohou proměnné nabývat. Poskytnutá dokumentace je tak spíše pouhou formalitou, která dokládá existenci kódu, nikoli užitečným zdrojem pro budoucí práci. Toto může být způsobeno nedostatkem širšího kontextu celého projektu, který by umožnil lepší pochopení způsobu řešení problémů, protože kontextové okno je omezené a nelze do něj načíst podrobnosti o všech souborech.
+		Poskytnutá automatická dokumentace kódu je spíše pouhou formalitou, nikoli užitečným zdrojem pro budoucí práci. Toto může být způsobeno nedostatkem širšího kontextu celého projektu, který by umožnil lepší pochopení způsobu řešení problémů, protože kontextové okno je omezené a nelze do něj načíst podrobnosti o všech souborech.
 		
-		Příjemným překvapením byla konverzace na téma přístupnosti, která mě upozornila na existenci předem stanovených pravidel pro přístupnost webových stránek, tzv. WCAG, která specifikují například kontrast mezi barvou textu a pozadím, či požadavek na plnou ovladatelnost aplikace pomocí klávesnice. Konverzace byla vedena na základě doporučených otázek a obecně jsem obdržel uspokojivé odpovědi \cite{aria}.
+		Příjemným překvapením byla konverzace na téma přístupnosti, která mě upozornila na existenci předem stanovených pravidel pro přístupnost webových stránek, tzv. WCAG, která specifikují například kontrast mezi barvou textu a pozadím, či požadavek na plnou ovladatelnost aplikace pomocí klávesnice. Konverzace byla vedena hlavně na základě doporučených otázek, protože byly dosti podobné tomu, na co bych se zeptal já \cite{aria}.
 		
 		\subsection{Agenti}
 		
@@ -1070,9 +1074,9 @@
 			... \cite{codebase_analysis}
 		\end{tcolorbox}
 		
-		Agentova užitečnost je však sporná. Dokáže sice kritizovat například strukturu celého adresáře, ale při požadavku na detekci chyb v rozsáhlejším projektu se objeví uvedená zpráva. Ve skutečnosti by však tato zpráva měla spíše indikovat, že se jedná o proces náročný na výpočetní zdroje a že model nebude schopen operaci provést. Vzhledem k tomu, že má přístup k souborům i trénovacím datům, není důvod, proč by nemohl individuálně kontrolovat soubory a na konci poskytnout zprávu o nalezených chybách.
+		Agentova užitečnost je však sporná. Dokáže sice kritizovat například strukturu celého adresáře, ale při požadavku na detekci chyb v rozsáhlejším projektu se objeví uvedená zpráva. Ve skutečnosti by tato zpráva měla spíše indikovat, že se jedná o proces náročný na výpočetní zdroje a že model nebude schopen operaci provést. Vzhledem k tomu, že má přístup k souborům, není důvod, proč by nemohl individuálně kontrolovat soubory a na konci poskytnout zprávu o nalezených chybách.
 		
-		Příjemným překvapením pro mě byla schopnost vytvořit základní strukturu projektu pouze pomocí jednoho promptu, například vytvoření základu backendu pomocí FastAPI se ukázalo jako velmi účinné. Rychlý start považuji obecně za velkou výhodu, protože je příliš snadné neustále ladit návrh a analýzu bez toho, aniž bych napsal řádek kódu, a s tím, že to nemusí být dokonalé. Ačkoliv nastavení adresářů pro projekty je dosti podobné, stačil by tedy i jednodušší generátor kódu, který však nemá kontext o samotné aplikaci, na rozdíl od umělé inteligence, která může vytvořit cesty nebo adresáře podle kontextu projektu \cite{typescript} \cite{workspace:fastAPI}.
+		Překvapila mne i schopnost vytvořit základní strukturu projektu pouze pomocí jednoho promptu. Rychlý start, který AI nabízí, ať už touto formou nebo skrze prosté generování souborů kódu, považuji za velkou výhodu, protože je příliš snadné neustále ladit návrh a analýzu bez toho, aniž bych napsal řádek kódu, a s tím, že to nemusí být dokonalé.  Lze namítnout, že by zde stačil i jednodušší generátor kódu, který však nemá kontext o samotné aplikaci, na rozdíl od umělé inteligence, která může vytvořit cesty nebo adresáře podle kontextu projektu \cite{typescript} \cite{workspace:fastAPI}.
 		
 		\vspace{0.6em}
 		\begin{tcolorbox}[colback=white,colframe=black]
@@ -1080,34 +1084,26 @@
 			...Sure, you can add a Bar chart to your \verb|ChartView.jsx| component by using the \verb|Bar| component from the \verb|react-chartjs-2| library. Here's an example of how you can do it... \cite{rag_chart}
 		\end{tcolorbox}
 		
-		Agent umožnňuje i doplnění funkcionality do souboru. Když jsem se dotázal, kde v projektu najdu komponent grafu, a jak do komponentu doplním sloupcový graf, agent neměl problém najít soubor a vytvořit úpravu. 
-		
-		\vspace{0.6em}
-		% \begin{tcolorbox}[colback=white,colframe=black]
-			% \paragraph{GitHub Copilot}
-			% I'm sorry, but based on the information provided about your workspace, there doesn't seem to be a specific React component that displays a prediction for multiple days inside a bar chart. However, you can create a new component using the \verb|react-chartjs-2| library, which seems to be used in your project (as seen in the \verb|ChartView.jsx`). Here's a basic example of how you might create a bar chart component: \cite{rag_chart}
-			% \end{tcolorbox}
-		
-		Při dotazu na vytvoření komponent však AI poskytne pouze základní nástin toho, jak by takový komponent mohl vypadat \cite{rag_chart}. Když má přístup k souborům, očekával bych, že by měl schopnost soubory vytvořit.
+		Agent umožnňuje i doplnění funkcionality do souboru. Když jsem se dotázal, kde v projektu najdu komponent grafu, a jak do komponentu doplním sloupcový graf, agent neměl problém najít soubor a vytvořit úpravu. Při dotazu na vytvoření komponent však AI poskytne pouze základní nástin toho, jak by takový komponent mohl vypadat \cite{rag_chart}. Když má přístup k souborům, očekával bych, že by měl schopnost soubory vytvořit. 
 		
 		Poslední zajímavou věcí k vyzkoušení bylo, jak se AI vypořádá s tím, když ji požádám, aby mi vytvořila testovací aplikaci. Na první pohled výsledky vypadaly nadějně, i když se jednalo o velmi zjednodušenou verzi. Pravděpodobně to souvisí s tím, že AI má omezený prostor pro uvažování v rámci kontextového okna a může vygenerovat pouze velmi jednoduchou aplikaci v rámci jedné odpovědi \cite{compressing}. 
 		
 		Při modifikaci systému, kdy bychom měli prostor pro více odpovědí, nebo specializovanou AI pro jednotlivé kroky, by se však kvalita aplikace mohla dramaticky zlepšit \cite{autogen_saas}. Problém ale vznikl, když jsem se pokusil projekt spustit. Obdržel jsem chyby, které jsem předložil AI, ale ta mi již nedokázala s jejich řešením pomoci.
 		
 		\subsection{Hodnocení dle seniority}
-		U juniora se opět jedná o dvojsečný meč. Pokud potřebujeme zjistit prvky samotného jazyka nebo nějaké dlouho podporované knihovny, Copilot Chat je schopen kompletně napsat kód s minimálními změnami vyžadovanými od uživatele. Důraz bych tedy kladl na čtení zpráv a snažil se alespoň pochopit, proč AI zvolilo danou cestu k řešení, a ptát se, jakou jinou cestu lze zvolit. Nejvíce poučné však je napsat kód, třeba i s pomocí doplňující verze Copilota, a pak si ho nechat zkritizovat od AI, což simuluje párové programování, které lze jen těžko provádět mimo pracovní nebo školní prostředí.
+		U juniora se opět jedná o dvojsečný meč. Pokud potřebujeme zjistit prvky samotného jazyka nebo nějaké dlouho podporované knihovny, Copilot Chat je napsat kód s minimem změn vyžadovaných od uživatele. Důraz bych tedy kladl na čtení zpráv a snažil se pochopit, proč AI zvolilo dané řešení, a ptát se na alternativy. Nejvíce poučné však je napsat kód, třeba i s pomocí doplňující verze Copilota, a pak si ho nechat zkritizovat od AI, což simuluje párové programování, které lze jen těžko provádět mimo pracovní nebo školní prostředí.
 		
-		Největší přínos vidím na úrovni mediora, kde lze pozorovat většinu halucinací. To ale neznamená, že jsem jednou za čas nenarazil na problémy, kdy jsem strávil více času řešením toho, proč kód od Copilot Chat nefunguje, než kdybych použil vyhledávač a moje aktuální znalosti. U méně známých knihoven nebo komplexnějších problémů bych raději volil použít vyhledávač a prohledat dokumentaci, protože je velká šance, že AI začne halucinovat. Nebo použít AI, které závisí na externích zdrojích, a uvádí je v odpovědi. Nad vytvořeným kódem však nemusíme moc přemýšlet, protože již máme pevné základy, na kterých lze stavět, a které nám umožňují zpozorovat většinu halucinací.
+		Největší přínos vidím na úrovni mediora, kde lze pozorovat většinu halucinací. To ale neznamená, že jsem jednou za čas nenarazil na problémy, kdy jsem strávil více času řešením toho, proč kód od Copilot Chat nefunguje, než kdybych použil vyhledávač a moje aktuální znalosti. U méně známých knihoven nebo komplexnějších problémů bych raději volil použít vyhledávač a prohledat dokumentaci, protože je velká šance, že AI začne halucinovat. Nebo použít AI, které závisí na externích zdrojích, a uvádí je v odpovědi.
 		
-		Kde vidím větší přínos pro mediora je v samotném Copilotu, který může doplnit kód přesně dle stylu uživatele, a tím pádem stále akcelerovat jeho rychlost psaní, obzvlášť při všedních úkolech, jako je psaní dokumentace nebo „boilerplate“ kódu. Možná překvapivým přínosem je ale schopnost „technické komunikace“, tedy jak moc je programátor schopen popsat myšlenku kódu někomu, kdo nemusí být na jeho úrovni. K tomu se váže trénink párového programování, kdy člověk nemůže řešení dělat jen podle sebe a musí přijmout kompromisy \cite{wikipedia:tech_comm}.
+		Kde vidím větší přínos pro mediora je v samotném Copilotu, který může doplnit kód přesně dle stylu uživatele, a tím pádem stále akcelerovat jeho rychlost psaní, obzvlášť při všedních úkolech, jako je psaní dokumentace nebo „boilerplate“ kódu. Možná překvapivým přínosem je ale schopnost „technické komunikace“, tedy jak moc je programátor schopen popsat myšlenku kódu někomu, kdo nemusí být na jeho úrovni \cite{wikipedia:tech_comm}.
 		
 		\section{Zlepšování kódu s pomocí AI}
-		Předtím, než se podíváme na refaktorování za pomoci umělé inteligence (AI), je vhodné definovat, co vlastně považujeme za „čistý kód“. Nejzákladnější pravidla zahrnují minimalizaci komplexity kódu a eliminaci duplikací. Každá funkce nebo třída by měla mít jedinou zodpovědnost, třídy by měly být otevřené pro rozšíření, ale uzavřené pro modifikaci \cite{wikipedia:dry} \cite{wikipedia:kiss} \cite{wikipedia:solid}. Dále je žádoucí minimalizovat závislosti mezi moduly, ale zároveň vyžadujeme, aby každý modul měl jasně definovaný účel. Testovatelnost kódu by měla být rovněž vysoká, toho lze docílit například malou závislosti na proměnných mimo parametry funkce \cite{gfg:coh_coup}.
+		Předtím, než se podíváme na refaktorování za pomoci umělé inteligence (AI), je vhodné definovat, co vlastně považujeme za „čistý kód“. Nejzákladnější pravidla zahrnují minimalizaci komplexity kódu a eliminaci duplikací. Každá funkce nebo třída by měla mít jedinou zodpovědnost, třídy by měly být otevřené pro rozšíření, ale uzavřené pro modifikaci \cite{wikipedia:dry} \cite{wikipedia:kiss} \cite{wikipedia:solid}. Dále je žádoucí minimalizovat závislosti mezi moduly, ale zároveň vyžadujeme, aby měl každý modul jasně definovaný účel. Testovatelnost kódu by měla být rovněž vysoká, toho lze docílit například malou závislosti na proměnných mimo parametry funkce \cite{gfg:coh_coup}.
 		
 		\subsection{Zlepšování implementace}
 		Oproti nástrojům pro statickou analýzu kódu, jako jsou Deepsource nebo CodeScene, je umělá inteligence (AI) výhodnější v tom, že se přizpůsobuje specifickým charakteristikám našeho kódu, a nemusíme přemýšlet nad tím, jak bychom měli na základě obecného příkladu zlepšit náš konkrétní kód \cite{deepsource} \cite{codescene}.
 		
-		Nicméně vidím využití hybridního přístupu, například v rámci kontinuální integrace (CI), kde lze zjevné chyby jednoduše identifikovat pomocí statické analýzy, zatímco složitější chyby, které vyžadují kontext, mohou být řešeny s pomocí AI a testování. První fáze implementace refaktorováním využívala pouze tento přístup, a to v kombinaci s náhodným dotazováním se.
+		Nicméně vidím využití hybridního přístupu, například v rámci kontinuální integrace (CI), kde lze zjevné přestupky vůči čistotě kódu jednoduše identifikovat pomocí statické analýzy, zatímco složitější chyby, které vyžadují kontext, mohou být řešeny s pomocí AI a verifikace funkce za pomoci testování. První fáze implementace refaktorováním využívala pouze jednoduché otázky, v kombinaci s náhodným dotazováním se.
 		\vspace{0.6em}
 		\begin{tcolorbox}[colback=white,colframe=black]
 			\paragraph{Prompt}
@@ -1127,7 +1123,8 @@
 			... \cite{refactoring_simple}
 		\end{tcolorbox} 
 		
-		Odpovědi, i když kvalitní, nedosahovaly takové hloubky, jakou jsem si představoval. Řešily pouze nejvýraznější problémy při psaní kódu. Po dokončení první fáze refaktorování jsem se rozhodl přejít ke druhé fázi, kde jsem sestavil komplexnější řetězec, obdobně jako v analýze nebo návrhu. Každý řetězec se mírně liší v závislosti na použitém programovacím jazyku a konkrétním kontextu kódu. Obecněji vypadal takto:
+		Odpovědi, i když kvalitní, nedosahovaly takové hloubky, jakou jsem si představoval. Řešily pouze nejvýraznější problémy při psaní kódu, ale ne ty, které bych si představoval. Po dokončení první fáze refaktorování jsem se rozhodl přejít ke druhé fázi, kde jsem sestavil komplexnější řetězec, obdobně jako v analýze nebo návrhu. Každý řetězec se mírně liší v závislosti na použitém programovacím jazyku a konkrétním kontextu kódu. Obecněji vypadal takto:
+
 		\vspace{0.6em}
 		\begin{tcolorbox}[colback=white,colframe=black]
 			\paragraph{Prompt}
@@ -1146,7 +1143,7 @@
 		
 		Je důležité si uvědomit, že kritika vlastního kódu není jednoduchá, neboť vždy je přítomna určitá subjektivita. V takových situacích se často osvědčuje přítomnost párového programátora, který se zapojuje do procesu zhodnocení kódu, kdy detailně analyzuje kód a poskytuje objektivní zpětnou vazbu. 
 		
-		Je zajímavé pozorovat, že odpovědi poskytnuté Copilotem byly kvalitnější v případě backendu než frontendu, avšak obsahovaly méně konkrétních příkladů kódu. Tento fakt může být způsoben poměrem trénovacích dat v jazyce Python oproti datům v jazyce JavaScript nebo knihovně React v databázích repozitářů na platformě GitHub, jež slouží jako zdroj trénovacích dat pro Copilot \cite{gitCopilot}.
+		Je zajímavé pozorovat, že odpovědi poskytnuté Copilotem byly kvalitnější v případě backendu než frontendu, avšak obsahovaly méně konkrétních příkladů kódu. Tento fakt může být způsoben poměrem trénovacích dat v jazyce Python oproti datům v jazyce JavaScript, specificky knihovně React v databázích repozitářů na platformě GitHub, jež slouží jako zdroj trénovacích dat pro Copilot \cite{gitCopilot}.
 		
 		\vspace{0.6em}
 		\begin{tcolorbox}[colback=white,colframe=black]
@@ -1162,7 +1159,7 @@
 			... \cite{refactoring_simple}
 		\end{tcolorbox}
 		
-		Při zkoumání optimalizace výkonu jsem si uvědomil, že moje znalosti \verb|React| jsou menší, než jsem předpokládal. Konkrétně jsem díky AI objevil výhody využití funkcí \verb|useMemo| a \verb|useCallback| pro React komponenty. Tyto funkce eliminují nadbytečné načítání obalujících funkcí při každém načtení webové stránky, což přináší úsporu času potřebného pro načtení stránky, zejména pokud se jedná o funkce náročné na výpočet. Dále bych považoval za úspěch schopnost vysvětlit, proč konkrétní optimalizace není vhodná. Například, u backendových endpointů nemá smysl optimalizovat datové struktury a algoritmy, protože jsou spíše ovlivněny počtem prováděných I/O operací \cite{react} \cite{bottlenecks}.
+		Při zkoumání optimalizace výkonu jsem si uvědomil, že moje znalosti \verb|React| jsou menší, než jsem předpokládal. Konkrétně jsem díky AI objevil výhody využití funkcí \verb|useMemo| a \verb|useCallback| pro \verb|React| komponenty. Tyto funkce eliminují nadbytečné načítání JavaScriptu při každém načtení webové stránky, což přináší úsporu času potřebného pro načtení stránky, zejména pokud se jedná o funkce náročné na výpočet. Dále bych považoval za úspěch schopnost vysvětlit, proč konkrétní optimalizace není vhodná. Například, že u některých backendových cest nemá smysl optimalizovat datové struktury a algoritmy, protože jsou spíše ovlivněny počtem prováděných I/O operací \cite{react} \cite{bottlenecks}.
 		
 		\vspace{0.6em}
 		\begin{tcolorbox}[colback=white,colframe=black]
@@ -1170,11 +1167,9 @@
 			...Data Parsing: If parsing the API responses is a performance bottleneck, consider using a faster parsing library. For example, if the responses are in JSON format, consider using a library like \verb|orjson| or \verb|ujson| which are faster than the built-in \verb|json| module... \cite{enum}
 		\end{tcolorbox}
 		
-		Dále mne příjemně překvapila znalost knihoven pro zlepšení výkonu např. upozornění, že pokud obdržíme velké množství dat z API, tak se vyplatí použít jinou knihovnu \verb|ujson| pro zpracování JSON objektu v Pythonu. Nebo použití knihovny \verb|requests_cache| pro ukládání odpovědi od API po určitou časovou dobu, to přijde vhod v případě našich dat, která se nemění minutu od minuty. 
+		Dále mne příjemně překvapila znalost knihoven pro zlepšení výkonu. Příkladem je \verb|ujson| pro efektivnější zpracování JSON objektu v Pythonu. Zdá se, že tyto knihovny byly dobře zastoupeny v trénovacích datech, narozdíl od knihoven pro řešení bezpečnosti aplikace. Dalším důvodem, proč zde hledání dopadlo lépe, může být, že zpracování JSON není podmíněno žádnou další knihovnou, zatímco řešení bezpečnosti je podmíněno použitou backendovou knihovnou.
 		
-		Zdá se, že tyto knihovny byly dobře zastoupeny v trénovacích datech, narozdíl od knihoven pro řešení bezpečnosti aplikace. Dalším důvodem, proč zde hledání dopadlo lépe, může být, že zpracování JSON není podmíněno žádnou další knihovnou, zatímco řešení bezpečnosti je podmíněno použitým backendovou knihovnou, při použití populárnější knihovny jako např. Flask by byla doporučení zdárnější \cite{flask}.
-		
-		Na backendové straně bylo dokonce doporučeno nahradit seznam množinou, protože pro ověřování duplicity je vyhledávání v množině výrazně efektivnější (O(1) oproti O(n) u seznamu). Další doporučení zahrnovalo využití typu \verb|Enum| namísto ručního definování konstant nebo implementaci paralelizace pro volání API. Tyto doporučení jsou poznatky, na které bych při opakovaném procházení kódu došel sám, což poukazuje na to, že pomoc AI spíše spočívá v kontrole kódu než v jeho psaní \cite{meteo_parser} \cite{enum} \cite{dataclass}.
+		U výkonu Pythonu bylo doporučeno nahradit seznam množinou, protože pro ověřování duplicity je vyhledávání v množině výrazně efektivnější. Další doporučení zahrnovalo využití typu \verb|Enum| namísto ručního definování konstant nebo implementaci paralelizace pro volání API. Tyto doporučení jsou poznatky, na které bych při opakovaném procházení kódu došel sám, což poukazuje na to, že pomoc AI spíše spočívá v kontrole kódu než v jeho psaní \cite{meteo_parser} \cite{enum} \cite{dataclass}.
 		
 		\vspace{0.6em}
 		\begin{tcolorbox}[colback=white,colframe=black]
@@ -1215,15 +1210,15 @@
 			\end{enumerate}
 			... \cite{call_api}
 		\end{tcolorbox}
+
+		Je výhodné mít po ruce někoho, kdo dokáže teoretické principy čistého kódu přenést na konkrétní příklady v kontextu námi psaného kódu, včetně popisu, kde jsou různá pravidla porušena a proč. Jako příklad může sloužit opakované používání vzoru, kdy jsou potřebné objekty předávány do funkcí pomocí parametrů, což je označováno jako explicitní závislosti. Tímto způsobem se zvyšuje testovatelnost kódu, protože je možné nahradit potřebné objekty jejich falešnými implementacemi a tím dosáhnout testování nezávislého na externím stavu světa \cite{msft:dependency}.
 		
-		Je výhodné mít po ruce někoho, kdo dokáže teoretické principy čistého kódu přenést na konkrétní příklady v kontextu námi psaného kódu, včetně popisu, kde jsou různá pravidla porušena a proč. Další výhodou je možnost získat potřebné informace prostřednictvím dotazování se, což často zahrnovalo i doporučené následující otázky. Je patrné, že investice několika minut do ladění promptů přináší výrazně lepší výsledky. Tedy, spíše zamyšlení se nad očekávanými výsledky, včetně možné pomoci ze strany AI. 
+		Je patrné, že investice několika minut do ladění promptů přináší výrazně lepší výsledky. Pro napsání kvalitního promptu ale musíme vědět, co potřebujeme, a tím pádem musíme trochu rozumět dotazované problematice. Lze ale také využít AI, kdy iterativně získáváme kontext k problematice, který nám umožňuje vytvářet části promptu, a ty pak spojíme dohromody do jednoho. Iterativně můžeme takto prompt ladit, dokud nedostaneme požadovaný výsledek.
 		
-		Jako příklad může sloužit opakované používání vzoru, kdy jsou potřebné objekty předávány do funkcí pomocí parametrů, což je označováno jako explicitní závislosti. Tímto způsobem se zvyšuje testovatelnost kódu, protože je možné nahradit potřebné objekty jejich falešnými implementacemi a tím dosáhnout testování nezávislého na externím stavu světa \cite{msft:dependency}.
-		
-		Zajímavostí bylo vyzkoušet agenta se schopností uvažovat nad více soubory naráz a zjistit, zda by byl schopen poskytnout kritiku týkající se pokrytí originální funkce testy. To by mělo být možné díky přístupu k celé projektové složce a tedy i k oběma souborům současně. Bohužel tento pokus nebyl úspěšný, jelikož AI pouze odpovědělo, že ačkoliv soubor zaznamenalo, nemá přístup k jeho obsahu. Je pravděpodobné, že omezení spíše spočívá ve funkcionalitě IDE \cite{agent_coverage}.
+		Zajímavostí bylo vyzkoušet agenta se schopností uvažovat nad více soubory naráz a zjistit, zda by byl schopen poskytnout kritiku týkající se pokrytí originální funkce testy. To by mělo být možné díky přístupu k celé projektové složce a tedy k implemenčanímu souboru, i jeho testu. Bohužel tento pokus nebyl úspěšný, jelikož AI pouze odpovědělo, že ačkoliv soubor zaznamenalo, nemá přístup k jeho obsahu. Je pravděpodobné, že omezení spíše spočívá ve funkcionalitě IDE \cite{agent_coverage}.
 		
 		\subsection{Zlepšování testů}
-		Ačkoliv se testy také řadí do implementace, jsou zajímavější v tom, že jsou z většiny napsány skrze Copilot Chat. Nastává tedy otázka, jak se bude AI chovat, když bude muset kritizovat vlastní kód. Pro testování byl použit následující řetězec promptů, podobný tomu v minulé sekci:
+		Ačkoliv se testy také řadí do implementace, jsou z většiny napsány skrze Copilot Chat. Nastává tedy otázka, jak se bude AI chovat, když bude muset kritizovat vlastní kód. Pro testování byl použit následující řetězec promptů, podobný tomu v minulé sekci:
 		
 		\vspace{0.6em}
 		\begin{tcolorbox}[colback=white,colframe=black]
@@ -1237,7 +1232,7 @@
 			\end{enumerate}
 		\end{tcolorbox}
 		
-		Nepřekvapivě se zachovalo úplně stejně, jako když analyzovalo můj kód. Překvapila mne ale opět znalost knihoven a konceptů testování. To se projevilo hlavně ve formě parametrizovaného testování, které nám umožňuje spustit ten samý test, pouze s jinou sadou parametrů. Knihovny obou použitých testovacích jazyků toto podporují, ale neměl jsem o tom tušení \cite{parametrized_testing_be} \cite{parametrized_testing_fe}.
+		Nepřekvapivě se zachovalo úplně stejně, jako když analyzovalo můj kód. Překvapila mne ale opět znalost knihoven a konceptů testování. To se projevilo hlavně ve formě parametrizovaného testování, které nám umožňuje spustit ten samý test, pouze s jinou sadou parametrů. Knihovny obou použitých testovacích jazyků toto podporují, ale neměl jsem o tom tušení, jak o implementaci, tak o existenci \cite{parametrized_testing_be} \cite{parametrized_testing_fe}.
 		
 		
 		\vspace{0.6em}\begin{tcolorbox}[colback=white,colframe=black]
@@ -1251,7 +1246,7 @@
 			...Yes, you're correct. While PEP 8 does not strictly enforce the use of docstrings, it is highly recommended as per PEP 257, which provides the Docstring Conventions. Docstrings are important for understanding the purpose and usage of your classes, methods, and functions. They are especially useful in larger codebases and for people other than the original author who may need to work with the code... \cite{pep257_fail}
 		\end{tcolorbox}
 		
-		Vyhodnocování dodržování standardů PEP v případě Pythonu a ECMAScript v případě JavaScriptu bylo lehce matoucí. V rámci JavaScriptu se zdálo, že vyhodnocení proběhlo v pořádku, ale v případě Pythonu se model pokoušel automaticky vyhodnocovat podle standardu PEP 8. Ten však nezahrnuje povinné dokumentační komentáře k funkcím, modulům a třídám, které jsou obsaženy v PEP 257. Tyto dokumentační komentáře jsou nicméně kritickou částí dokumentace kódu v Pythonu. Model na tuto skutečnost upozornil až poté, co byl o ní informován, avšak očekával bych, že tato zásadní věc bude jednou z prvních, kterou model zmíní jako potenciální chybu. Nicméně lze namítnout, že jsem to explicitně nevyžadoval \cite{pep257_fail} \cite{PEP} \cite{ES}.
+		Vyhodnocování dodržování standardů PEP v případě Pythonu a ECMAScript v případě JavaScriptu bylo matoucí. V rámci JavaScriptu se zdálo, že vyhodnocení proběhlo v pořádku, ale v případě Pythonu se model pokoušel automaticky vyhodnocovat podle standardu PEP 8. Ten však nezahrnuje povinné dokumentační komentáře k funkcím, modulům a třídám, které jsou obsaženy v PEP 257. Tyto dokumentační komentáře jsou nicméně kritickou částí dokumentace kódu v Pythonu. Model na tuto skutečnost upozornil až poté, co byl informován, avšak očekával bych, že takto zásadní věc bude jednou z prvních, kterou model zmíní jako potenciální chybu. Nicméně lze namítnout, že jsem to explicitně nevyžadoval \cite{pep257_fail} \cite{PEP} \cite{ES}.
 		
 		\vspace{0.6em}
 		\begin{tcolorbox}[colback=white,colframe=black]
@@ -1259,7 +1254,7 @@
 			...The descriptions for the test cases could be more specific. Instead of saying "calls the handleUnitsChange function when the metric button is clicked", you could say "calls the handleUnitsChange function with 'metric' when the metric button is clicked". This gives a clearer idea of what the test is doing... \cite{test_desc}
 		\end{tcolorbox}
 		
-		Překvapením bylo, že Copilot Chat se nevyhýbá ani řešení jmen pro jednotlivé testy, která se na první pohled zdají nedůležitá. Avšak pokud programátor nevidí daný projekt několik let, najednou nabývají důležitosti. Tato situace mi připomíná principy extrémního programování, které se obvykle řeší spíše v seniorních kruzích \cite{parametrized_testing_fe} \cite{TDD}.
+		Překvapením bylo, že Copilot Chat se nevyhýbá ani řešení jmen pro jednotlivé testy, která se na první pohled zdají nedůležitá. Avšak pokud programátor nevidí daný projekt několik let, najednou důležitosti nabydou. Tato situace mi připomíná principy extrémního programování, které se obvykle řeší spíše v seniorních kruzích \cite{parametrized_testing_fe} \cite{TDD}.
 		
 		\vspace{0.6em}
 		\begin{tcolorbox}[colback=white,colframe=black]
@@ -1282,25 +1277,25 @@
 		\end{tcolorbox}
 		\vspace{0.6em}
 		
-		Odpovědi týkající se čitelnosti a výkonu se zaměřovaly na metody používané k efektivnímu nastavení testů. Zlepšila se i znalost knihoven v této oblasti. Vidím přínos například v upozornění, že proměnné nemusí být aktualizovány s každým testem a lze je nastavit pouze jednou, nebo v již zmíněném parametrizovaném testování. Dále AI uvedlo, jak zlepšit falešné implementace externích knihoven a systémů \cite{parametrized_testing_fe} \cite{testing}.
+		Odpovědi týkající se čitelnosti a výkonu se zaměřovaly na metody používané k efektivnímu nastavení testů. Vidím přínos například v upozornění, že proměnné nemusí být aktualizovány s každým testem a lze je nastavit pouze jednou, nebo v již zmíněném parametrizovaném testování. Dále AI uvedlo, jak zlepšit falešné implementace externích knihoven a systémů \cite{parametrized_testing_fe} \cite{testing}.
 		
 		
 		\subsection{Hodnocení dle seniority}
 		U juniorů a mediorů se můžeme ptát jakkoliv složitě pro svoji úroveň, a stejně model dokáže určité chyby vytknout, případně ukázat, jak je opravit nebo rovnou upravenou verzi. Junior by se mohl ptát pouze na jednoduché tipy na refactoring, medior na řetězec podobný mému. V obou případech ale dostane kritiku adekvátní jeho úrovni, a je schopen se z ní poučit pro další projekt, a opět v případě nejasností obdržet vysvětlení problematiky. 
 		
-		Pro postup na vyšší úroveň, zejména pro mediory, je důležité zdůraznit aspekty čistého a efektivního kódu, kde se hodí mít někoho, kdo je buď na stejné úrovni nebo má vyšší znalosti.
+		Pro postup na vyšší úroveň, zejména pro mediory, je důležité zdůraznit aspekty čistého a efektivního kódu, kde se hodí mít někoho, kdo je buď na stejné úrovni nebo má vyšší znalosti pro párové programování. AI může do určité kapacity tuto roli naplnit, ale seniorního programátora nenahradí.
 		
-		Ve svém pocitu že Copilot pomáhá při ověření kvality kódu nejsem sám. Podle článku od GitHubu se mnoho vývojářů cítí sebejistější ve svém kódu, pokud používají umělou inteligenci, konkrétně Copilota, pro jeho revizi. Na druhou stranu však existují i názory, které se stěžují na skutečnost, že nástroje AI jako Copilot mohou zhoršit kvalitu výsledného kódu a zvýšit jeho objem. 
+		Ve svém pocitu že Copilot pomáhá při ověření kvality kódu nejsem sám. Podle článku od GitHubu se mnoho vývojářů cítí sebejistější ve svém kódu, pokud používají umělou inteligenci, pro jeho revizi. Na druhou stranu však existují i názory, které se stěžují na skutečnost, že nástroje AI mohou zhoršit kvalitu výsledného kódu a zvýšit jeho objem, asi hlavně díky tomu, že lze kód pouze zkopírovat a při jeho funkčnosti jej dál neřešit. 
 		
 		Osobně se domnívám, že pravda leží někde uprostřed a že kód by měl vždy podstoupit určitou formu auditu před tím, než bude nasazen do produkce, ať už jde o kontrolu kvality ze strany člověka, který provádí audit kódu generovaného pomocí AI, nebo o kontrolu kvality kódu napsaného člověkem za pomoci AI \cite{copilot:code_churn} \cite{copilot:benefits}.
 		
 		
 		\section{Testování}
-		Máme obecně 3 typy testů. Unit testy, neboli také jednotkové testy, testují samotnou funkcionalitu malé jednotky kódu, například funkce, nebo třídy. Měli by být spolehlivé, rychlé a co nejvíce izolované od zbytku kódu \cite{testing}. Integrační testování se zabývá komunikací modulů a komponent uvnitř projektu, může se jednat o testování interakce backendu a databáze, nebo dvou tříd mezi sebou. Efektivní je hlavně ve velkých projektech, kde jsou jednotlivé komponenty vyvíjeny nezávisle na sobě, ale musí fungovat jako jeden celek \cite{testing}. End-to-end testing se zabývá testováním funkcionality, která zahrnuje několik částí systému, například vložení zboží do košíku v internetovém obchodě. Tyto testy jsou nejnáročnější, nebývá jich tedy mnoho \cite{testing}.
+		Máme obecně 3 typy testů. Unit testy, neboli také jednotkové testy, testují samotnou funkcionalitu malé jednotky kódu, například funkce, nebo třídy. Měli by být spolehlivé, rychlé a co nejvíce izolované od zbytku kódu. Integrační testování se zabývá komunikací modulů a komponent uvnitř projektu, může se jednat o testování interakce backendu a databáze, nebo dvou tříd mezi sebou. Efektivní je hlavně ve velkých projektech, kde jsou jednotlivé komponenty vyvíjeny nezávisle na sobě, ale musí fungovat jako jeden celek. End-to-end testing se zabývá testováním funkcionality, která zahrnuje několik částí systému, například vložení zboží do košíku v internetovém obchodě. Tyto testy jsou výkonem nejnáročnější, nebývá jich tedy mnoho \cite{testing}.
 		
 		\section{Testování s pomocí AI}
 		
-		Testy nelze pouze kopírovat, ale počet změn, které se musí provést, je opravdu minimální, alespoň co se týče unit testů a integračních testů \cite{testing}. End-to-end testování je trochu složitější, protože jazykový model nemá kód, podle kterého může určit, co je testováno. Musí se spoléhat na dostatečně přesný popis uživatelem, opět se vracíme k důležitosti exaktního popisu zadání a kontextu. Použitý prompt vypadal takto, případně následovala konverzace ohledně nejasností nebo ladění \cite{testing}.
+		Testy nelze pouze kopírovat, ale počet změn, které se musí provést, je opravdu minimální, alespoň co se týče unit testů a integračních testů. End-to-end testování je trochu složitější, protože jazykový model nemá příslušný implementační kód. Musí se spoléhat na dostatečně přesný popis uživatelem a opět se vracíme k důležitosti exaktního popisu zadání a kontextu \cite{testing}.
 		
 		\vspace{0.6em}
 		\begin{tcolorbox}[colback=white,colframe=black,title=Konverzace s opakovaním kódu]
@@ -1349,26 +1344,28 @@
 			... \cite{mocking_fail}
 		\end{tcolorbox}
 		
-		V případě potřeby složitějších testů, které zahrnují falešné implementace, Copilot Chat obvykle nedokáže napsat kód, který by fungoval na první pokus. Tím pádem uživatel často musí ladit testy a případně je upravovat, pokud chce dosáhnout vysokého pokrytí testů \cite{codecov}. Výhodou je schopnost ověřit, obecně nebo specificky, že jsou různé testovací scénáře pro danou funkci pokryty \cite{TDD} \cite{mocking} \cite{mocking_fail}.
+		V případě potřeby složitějších testů, které zahrnují falešné implementace, nedokáže Copilot Chat napsat kód, který by fungoval na první pokus. Stále ale je lepší mít základní testy než žádné testy. To podtrhuje fakt, že pokud uživatel nemá tušení, co píše, ani s pomocí AI se přes určité překážky nedostane. Příkladem toho jsou frontendové testy, ať už unit nebo end-to-end testy, se kterými jsem měl skoro nulovou zkušenost, u složitějších testů jsem se i s pomocí AI zasekl a stejně byl odkázán na prohlížeč \cite{canvas} \cite{firebase_auth} \cite{firebase}.
+
+    Tím pádem se uživatel ladění a úprávám složitějších testů vygenerovaných AI, pokud chce dosáhnout pokrytí všech testovacích scénářů \cite{codecov}. Výhodou AI je ale schopnost si ověřit, že jsou různé testovací scénáře pro danou implementaci pokryty, případně pomoc s uvažanováním nad okrajovými případy \cite{TDD} \cite{mocking} \cite{mocking_fail}.
 		
-		Stále ale je lepší mít základní testy než žádné testy. To ilustruje fakt, že pokud uživatel nemá tušení, co píše, ani s pomocí AI se přes určité překážky nedostane \cite{canvas} \cite{firebase_auth} \cite{firebase}. Příkladem toho jsou frontendové testy, ať už unit nebo end-to-end testy, se kterými jsem měl skoro nulovou zkušenost, u složitějších testů jsem se i s pomocí AI zasekl a stejně byl odkázán na prohlížeč.
+		S tím souvisí další pozorování, že AI buď poskytne odpověď, která funguje, nebo žádnou. Málokdy se mi stalo, že bych se zeptal na opravu odpovědi kvůli problému, a nedostal ten samý kód. V tom případě jsem raději použil vyhledávač. To může být známkou toho, že Copilot skutečně neví, kde je chyba, ale pokud to explicitně neoznámí, je obtížné určit, zda je to pravda. Jediným způsobem, jak se vymanit z tohoto cyklu, je restartovat konverzaci. To však není ideální, protože tím ztrácí AI kontext konverzace a podvědomí o problematice \cite{mocking_fail}.
 		
-		S tím souvisí další pozorování, že AI buď poskytne odpověď, která funguje, nebo žádnou odpověď. Málokdy se mi stalo, že bych se zeptal na opravu odpovědi kvůli problému, a nedostal ten samý kód. V tom případě jsem raději použil vyhledávač. To může být známkou toho, že Copilot skutečně neví, kde je chyba, ale pokud to explicitně neoznámí, je obtížné určit, zda je to pravda. Jediným způsobem, jak se vymanit z tohoto cyklu, je restartovat konverzaci. To však není ideální, protože tím ztrácíme předchozí kontext a také povědomí o problému \cite{mocking_fail}.
+		Vychází to asi z architektury transformerů, protože jde o předpověď následujícího slova, a pravděpodobnost slova „nevím“ bude dosti menší než slova týkajícího se tématiky v promptu. Nic v konverzaci nenaznačuje, že by měl napsat, že neví, proč nenapsat tedy velice podobnou odpověď té předchozí \cite{context_understand}? 
 		
-		Vychází to z architektury transformerů, protože jde o předpověď následujícího slova, a pravděpodobnost slova „nevím“ bude dosti menší než slova týkajícího se tematiky v promptu. Kontext aktuálního promptu je přeci jen podobný, jak u promptu předtím, a celá konverzace nenaznačuje, že by měl napsat, že neví, proč nenapsat tedy velice podobnou odpověď \cite{context_understand}? 
+		Jedním ze způsobů, jak toto omezit, je právě explicitně zmínit, že pokud model neví, tak nemá nic psát. To ale není zdaleka jistá cesta, jak se vyhnout opakování odpovědi, sice je nevědomí explicitní součástí kontextu, ale toho je v promptu podstatně více. Omezení halucinací je něco, co se v oblasti velkých jazykových modelů stále aktivně řeší \cite{jing2024fgaif}.
 		
-		Jedním ze způsobů, jak toto omezit, je právě explicitně zmínit, že pokud model neví, tak nemá nic psát. To ale není zdaleka jistá cesta, jak se vyhnout opakování odpovědi, protože se sice stane tato věta součástí kontextu, kterého je ale v promptu podstatně více. Omezení halucinací je něco, co se v oblasti velkých jazykových modelů stále aktivně řeší \cite{jing2024fgaif} .
+		Trochu mne mrzí absence jakéhokoliv dialogu ze strany AI. Například falešné implementace API nemusí být relevantní, pokud čas na získání odpovědi ze serveru není příliš dlouhý. Namísto toho, aby Copilot položil otázku, zda je použití falešných implementací vhodné, nebo aby požadoval délku trvání odpovědi ze serveru, AI pouze vykoná pokyn \cite{mocking_fail}. 
+
+    Dalo by se to připodobnit k stavebnicím LEGO, AI za Vás vcelku bezproblémově postaví jednotlivé bloky, může třeba i poskytnout návod, ale je již na člověku co si stavebnici koupí ji složit dohromady \cite{testing} \cite{mocking} \cite{mocking_fail}.
 		
-		Odpovědi ale nešly dostatečně „do hloubky“. Například falešné implementace API nemusí být relevantní, pokud čas na získání odpovědi ze serveru není příliš dlouhý, což snižuje pokrytí testů. Namísto toho, aby Copilot položil otázku, zda je použití falešných implementací vhodné, nebo aby požadoval délku trvání odpovědi ze serveru, AI pouze vykoná pokyn \cite{mocking_fail}. Dalo by se to připodobnit k stavebnicím LEGO, AI za Vás vcelku bezproblémově postaví jednotlivé bloky, může třeba i poskytnout návod, ale je již na člověku co si stavebnici koupí ji složit dohromady \cite{testing} \cite{mocking} \cite{mocking_fail}.
+		Znalost knihoven jako Jest nebo Pytest je na dobré úrovni, ale jakmile jsem potřeboval pro moji end-to-end testovací knihovnu Cypress poradit s rozšiřující knihovnou, která falšuje autentifikaci na platformě Firebase, byl jsem odkázán na dokumentaci a vlastní rozum. Jedná se ale o velice specifickou knihovnu, která ani nemusí být přítomna v datech modelu, je tedy pochopitelné, že mi s ní těžko poradí \cite{end2end_fb} \cite{firebase_auth} \cite{firebase} \cite{jest} \cite{pytest} \cite{cypress}. 
 		
-		Znalost knihoven jako Jest nebo Pytest je na dobré úrovni, ale jakmile jsem potřeboval pro moji end-to-end testovací knihovnu Cypress poradit s rozšiřující knihovnou, která falšuje autentifikaci na platformě Firebase, byl jsem odkázán na dokumentaci a vlastní rozum. Jedná se ale o velice specifickou knihovnu, která ani nemusí být přítomna v datech modelu, je tedy pochopitelné, že mi s ní těžko poradí. Podobně jako když jsem vyžadoval knihovnu ohledně bezpečnosti v \verb|FastAPI| \cite{end2end_fb} \cite{firebase_auth} \cite{firebase} \cite{jest} \cite{pytest} \cite{cypress}. 
-		
-		V ostatních projektech jsem ale přišel na to, že lze dokumentaci kopírovat přímo do kontextového okna modelu a zeptat se na specifický detail, úspěšnost je pak podstatně vyšší, protože zakládáme na reálných a aktuálních datech. Vzhledem ke kontextovým oknům v rámci statisíců tokenů lze čerpat i ze vcelku rozsáhlé dokumentace. Nebo využít právě hledání v dokumentech, najít nejrelevantnější kus dokumentace, a ten shrnout pomocí AI. Model tak donutíme uvažovat aktuální data. Bohužel mne ale toto při psaní aplikace nenapadlo \cite{PEG}.
+		V ostatních projektech jsem ale přišel na to, že lze dokumentaci kopírovat přímo do kontextového okna modelu a zeptat se na specifický detail, úspěšnost je pak podstatně vyšší, protože zakládáme na reálných a aktuálních datech. Vzhledem ke kontextovým oknům v rámci statisíců tokenů lze čerpat i ze vcelku rozsáhlé dokumentace. Nebo využít již zmíněné hledání v dokumentech, najít nejrelevantnější kus dokumentace, a ten shrnout pomocí AI. Model tak donutíme uvažovat aktuální data. Bohužel mne ale toto při psaní aplikace nenapadlo \cite{PEG}.
 		
 		\subsection{Hodnocení dle seniority}
-		Vidím přínos zejména pro začínající vývojáře, kteří se díky jednoduchosti psaní testů, které nevyžadují použití pokročilých konceptů, jako jsou například falešné implementace, mohou lépe seznamovat s testováním již od počátku své kariéry v softwarovém inženýrství. Tím pádem mohou psát kód s vyšší udržitelností, protože základní funkcionalita je pokryta testy. V případě složitějších testů se však člověk musí spoléhat na dokumentaci a vlastní chápání problematiky.
+		Vidím přínos zejména pro začínající vývojáře, kteří se díky jednoduchosti psaní testů, mohou lépe seznamovat s testováním již od počátku své kariéry v softwarovém inženýrství. Tím pádem mohou psát kód s vyšší udržitelností, protože základní funkcionalita je pokryta testy. V případě složitějších testů se však člověk musí spoléhat na dokumentaci a vlastní chápání problematiky.
 		
-		Pro středně pokročilou úroveň je Copilot užitečný při generování kostry kódu pro složitější testy, zlepšování čitelnosti testovacího kódu a psaní jednoduchých testů. Dále může sloužit k trénování různých přístupů k vývoji, jako je například, kdy se nejprve píší testy a poté se implementuje minimální funkčnost, která testy projde, a tento proces se opakuje \cite{TDD}.
+		Pro středně pokročilou úroveň je Copilot užitečný při generování kostry kódu pro složitější testy, zlepšování čitelnosti a psaní jednoduchých testů. Dále může sloužit k trénování různých přístupů k vývoji, jako je například, kdy se nejprve píší testy a poté se implementuje minimální funkčnost, která testy projde, a tento proces se opakuje, neboli extrémní programování \cite{TDD}.
 		
 		\section{Alternativní kopiloti}
 		Vzhledem k placené povaze služby Copilot Chat se tato práce krátce zabývá alternativami, které jsou k dispozici zcela zdarma nebo po omezenou dobu během konkrétních implementačních fází. Mezi kopie patří například Amazon CodeWhisperer \cite{codewhisperer}. 
@@ -1376,19 +1373,19 @@
 		Zmíněné nástroje jsou kvalitativně srovnatelné s Copilotem, avšak obsahují doplňkové prvky, které je činí vhodnějšími pro určité oblasti softwarového vývoje.
 		
 		\subsection{CodiumAI}
-		CodiumAI je kopilot zaměřený zejména na optimalizaci kódu. Pro tento účel nabízí prostředí, které zobrazuje různé nedostatky kódu spolu se štítky označujícími, na které části kódu se dané změny vztahují. Je možné definovat dodatečné parametry, jako je například zvýraznění čitelnosti kódu. Výsledné prostředí je přehledné a umožňuje dosáhnout podobného efektu jako v případě mého řetězce promptů v kapitole o refaktoringu, avšak bez nutnosti vynaložit úsilí na jeho vytvoření \cite{codium}.
+		CodiumAI je kopilot zaměřený zejména na optimalizaci kódu. Pro tento účel nabízí prostředí, které zobrazuje různé nedostatky kódu spolu se štítky označujícími, na které části kódu se dané změny vztahují. Je možné definovat dodatečné parametry, jako je například důraz na čitelnost kódu. Výsledné prostředí je přehledné a umožňuje dosáhnout podobného efektu jako v případě mého řetězce promptů v kapitole o refaktoringu, avšak bez nutnosti vynaložit úsilí na jeho vytvoření \cite{codium}.
 		
 		Nástroj také poskytuje prostředí pro generování testů, které zobrazuje různé testovací scénáře a umožňuje přidání dalších testů. Pokrytí testování je překvapivě detailní. Zajímavou funkcí je možnost automatické opravy kódu, avšak tato funkce je vázána na spuštění testů přímo v prostředí CodiumAI. Při pokusu o spuštění této funkce jsem však narazil na chybu kvůli chybějícím knihovnám v interním spouštěči kódu.
 		
 		\subsection{Cody}
 		Cody je víceúčelový kopilot. Jedním z jeho zajímavých rysů je možnost změny modelu používaného na pozadí. Ve verzi zdarma je možné využívat API klíče k výměně modelů. Podporuje jak OpenAI API, tak i Ollama, což je program umožňující lokální běh modelů přímo na uživatelově počítači. Tato možnost je užitečná zejména v případech, kdy uživatel nechce publikovat svůj kód třetím stranám. Vyžaduje však významný výpočetní výkon \cite{ollama}.
 		
-		Cody obsahuje podobné funkce jako Copilot Chat, umožňuje optimalizaci kódu, tvorbu jednotkových testů a další. Jedním ze speciálních prvků je funkce pro vyhledávání v projektu pomocí textu. Avšak i když samotné vyhledávání poskytuje relevantní výsledky, zahrnuje i kódy knihoven, které nemusí být relevantní pro konkrétního programátora \cite{cody}.
+		Cody obsahuje podobné funkce jako Copilot Chat, umožňuje optimalizaci kódu, tvorbu jednotkových testů a další. Jedním ze speciálních prvků je funkce pro vyhledávání v projektu pomocí textu. Avšak i když samotné vyhledávání poskytuje relevantní výsledky, zahrnuje i kódy knihoven, které nemusí být relevantní \cite{cody}.
 		
 		\subsection{Cursor}
 		Cursor je vývojové prostředí založené na platformě VSCode. Obsahuje několik zajímavých prvků, které ho odlišují od Copilot (Chat) ve VSCode. Ve variantě zdarma nabízí omezené využívání modelů GPT-4 a plné využití GPT-3.5 Turbo.
 		
-		Prvním unikátním prvkem je možnost ladění pomocí umělé inteligence. V případě chyby AI přebírá kontrolu nad vývojovým prostředím a snaží se samostatně najít řešení. Podle výstupu v terminálu je pravděpodobně využívána metoda prompt engineering ve formě metody CoT, která rozkládá problém na menší části a snaží se je řešit individuálně.
+		Prvním unikátním prvkem je možnost ladění pomocí umělé inteligence. V případě chyby AI přebírá kontrolu nad vývojovým prostředím a snaží se samostatně najít řešení. Podle výstupu v terminálu je pravděpodobně využívána metoda CoT, která rozkládá problém na menší části a snaží se je řešit individuálně.
 		
 		Druhým prvkem je režim Interpreter Mode, ve kterém AI samostatně upravuje kód, vytváří soubory a snaží se identifikovat problémy. Uživatel je pouze žádán o potvrzení nebo poskytnutí dalších informací \cite{cursor}. Ukázka této funkcionality je dostupná zde \cite{cursor_showcase}.
 		
@@ -1397,7 +1394,7 @@
 		
 		\section{Nasazení do produkce s pomocí AI}
 		
-		Pro nastavení CI/CD toků jsme využili prostředí GitHub Actions, které nám umožňuje zdarma provádět různé úkony pomocí kontejnerů \cite{ibm:containers} \cite{docker}. Požadované operace se deklarují pomocí YAML souborů. Od Copilot Chat jsem dostal soubor YAML, který stačilo pouze zkopírovat, a aktualizovat verze určitých skriptů. Vzhledem k tomu, že deklarativní způsob psaní těchto souborů je dělá jednoduše hledatelnými, nebylo by tak těžké si podobný skript najít na internetu a upravit ho ka našim potřebám. Skript by ale pravděpodobně nebyl vysvětlen přesně dle našich potřeb, tím pádem bychom se z něho nepoučili, a neměli šanci skript opravit v případě chyby, či rozšířit naše znalosti nasazení do produkce.
+		Pro nastavení CI/CD toků jsme využili prostředí GitHub Actions, které nám umožňuje zdarma provádět různé úkony pomocí kontejnerů. Požadované operace se deklarují pomocí YAML souborů. Od Copilot Chat jsem dostal soubor YAML, který stačilo pouze zkopírovat, a aktualizovat verze určitých skriptů. Vzhledem k tomu, že deklarativní způsob psaní těchto souborů je dělá jednoduše hledatelnými, nebylo by tak těžké si podobný skript najít na internetu a upravit ho ka našim potřebám \cite{ibm:containers} \cite{docker}.
 		
 		Všechny automatizace se povedlo úspěšně zprovoznit v GitHub Actions \cite{GHA} \cite{cicd_t}, právě v nemalé části díky AI. V procesu tvoření toku jsem ale došel k určitým problémům. Hlavní byly ohledně zastaralých verzí skriptů. Raději jsem se tedy při automatickém vytvoření dokumentace, analýze kódu a zpráv ohledně pokrytí kódu testy, opět odkázal na internet. Při zpětné kontrole ale příkazy pro knihovny na automatické vytvoření dokumentace a kontrolu kódu zvládl bez problému \cite{codecov} \cite{static_ana}. Způsobeno to může být tím, že se opět jedná o známé knihovny, tedy obsahují větší část trénovacích dat modelu.
 		
@@ -1416,28 +1413,23 @@
 		\end{tcolorbox}
 		\vspace{0.6em}
 		
-		Zkusil jsem i využít agenta, který má přístup do kontextu celé složky, s tím, jestli nebude efektivnější. Ačkoliv jsem na první pohled byl odpovědí mile, používal již zastaralou verzi Python 3.8. Takto zastaralá verze nemusí mít nejnovější aktualizace, což je v nejlepším případě akorát nešikovné, ale může způsobovat i bezpečnostního rizika \cite{agent_deploy}.
+		Zkusil jsem i využít agenta, který má přístup do kontextu celé složky, s tím, jestli mi nedokáže vytvořit soubor pro vytvoření Docker kontejneru. Používal ale již zastaralou verzi Python 3.8. Takto zastaralá verze nemusí mít nejnovější aktualizace, což je v nejlepším případě akorát nešikovné, ale může způsobovat i bezpečnostního rizika \cite{agent_deploy}.
 		
 		\subsection{Hodnocení dle seniority}
-		Dle mého zde budou profitovat všechny úrovně podobně, protože o nasazení do produkce se většinou v rámci firmy stará DevOps tým. Je proto výhodné mít umělou inteligenci, která má základní znalosti v oblasti DevOps a dokáže vytvořit konfigurační soubory pro nasazení, ať už na platformy pro kontinuální integraci a nasazení (CI/CD) jako GitHub Actions, nebo do cloudového prostředí, a případně i skripty pro řešení ad-hoc problémů a automatizaci procesů. 
+		Dle mého zde budou profitovat všechny úrovně podobně, protože o nasazení do produkce se většinou v rámci firmy stará DevOps tým. Je proto výhodné mít umělou inteligenci, která má základní znalosti v oblasti DevOps a dokáže vytvořit konfigurační soubory pro nasazení, ať už na platformy pro kontinuální integraci a nasazení (CI/CD) jako GitHub Actions, nebo do cloudového prostředí, jako Heroku, a případně i skripty pro řešení ad-hoc problémů a automatizaci procesů. 
 		
-		Při práci s cloudovými službami bych však spíše doporučil konzultovat dokumentaci, protože se může stát, že dokumentace API v trénovacích datech modelů bude již zastaralá, což se mi již několikrát stalo právě s platformou Firebase a přidruženou knihovnou \cite{firebase} \cite{cicd} \cite{cicd2}.
+		Při práci s cloudovými službami bych však spíše doporučil konzultovat dokumentaci, protože se může stát, že dokumentace API v trénovacích datech modelů bude již zastaralá, což se mi již několikrát stalo právě s platformou Firebase a přidruženou knihovnou v Pythonu \cite{firebase} \cite{cicd} \cite{cicd2}.
 		
-		Jediné, co mě lehce znepokojuje, jsou neaktualizované verze skriptů, které sice dávají smysl vzhledem k časovým omezením trénovacích dat modelů, ale na juniorské úrovni by mohly představovat potíže, protože například daný junior nemusí být informován o existenci novější verze. 
-		
-		Na pokročilejších úrovních to může vést k problémům s kompatibilitou, když programátor nainstaluje nejnovější verze knihoven, které však vyžadují nejnovější verze závislých knihoven, a tím vznikne těžko řešitelná chyba. 
-		
-		Proto je důležité ověřit verze použitých služeb, aplikací a knihoven a zajistit, že jsou vždy nejnovější, a ne slepě se spoléhat na doporučení umělé inteligence. Zároveň vytváříme nepotřebné bezpečnostní riziko při použití zastaralých verzí knihoven.
-		
+		Zastaralé verze skriptů sice dávají smysl vzhledem k časovým omezením trénovacích dat modelů, ale na juniorské úrovni by mohly představovat potíže, protože například daný junior nemusí být informován o existenci novější verze. Na pokročilejších úrovních to může vést k problémům s kompatibilitou, když programátor nainstaluje nejnovější verze knihoven, které však vyžadují nejnovější verze závislých knihoven, a tím vznikne těžko řešitelná chyba. Proto je důležité ověřit verze použitých služeb, aplikací a knihoven a zajistit, že jsou vždy nejnovější, a ne slepě se spoléhat na doporučení umělé inteligence.
 		
 		\chapter{Závěr} 
-		Přestože práce zmiňuje několik negativních aspektů, stále hodnotím přínos umělé inteligence (AI) při tvorbě softwarových projektů jako kladný. Bez ohledu na to, zda se jedná o generování boilerplate kódu, vyhledávání příkazů v existujících knihovnách nebo tvorbu základní struktury kódu, tyto činnosti často zaberou významnou část času při vývoji softwaru. To platí i pro testování a vylepšování kódu. I když umělá inteligence může pomoci s návrhem a analýzou, stále je zapotřebí mít znalost oblasti, ve které pracujeme, a představu o architektuře aplikace. Umělá inteligence může být užitečným pomocníkem při diskuzích o aplikaci s ostatními zainteresovanými stranami. Při nasazení do produkce však model umělé inteligence neposkytuje významnou podporu, neboť se jedná o soubor technologií propojených dohromady, jejichž dokumentace je vždy aktuálnější online.
+		Přestože práce zmiňuje mnoho negativních aspektů, stále hodnotím přínos umělé inteligence (AI) při tvorbě softwarových projektů jako slině kladný. Bez ohledu na to, zda se jedná o generování boilerplate kódu, vyhledávání příkazů v existujících knihovnách nebo tvorbu základní struktury kódu, tyto činnosti často zaberou významnou část času při vývoji softwaru. To platí i pro testování a vylepšování kódu. I když umělá inteligence může pomoci s návrhem a analýzou, stále je zapotřebí mít znalost oblasti, ve které pracujeme, a představu o architektuře aplikace. Umělá inteligence může být užitečným pomocníkem při diskuzích o aplikaci s ostatními zainteresovanými stranami. Při nasazení do produkce však model umělé inteligence neposkytuje významnou podporu, neboť se jedná o soubor technologií propojených dohromady, jejichž dokumentace je vždy aktuálnější online.
 		
 		Většina kódu byla napsána bez mého zásahu. I když jsem ušetřil čas při návrhu, občas jsem přesto musel sáhnout po vyhledávači. Důležitá otázka se také týká toho, jak mnoho nových věcí se díky tomu člověk naučí. Je tedy vhodné používat umělou inteligenci opatrně, zvláště v junorní roli. Programování v podstatě spočívá v řešení problémů pomocí technologií, a pokud umělá inteligence řeší problémy za nás, nezvýšíme tím své dovednosti. Proto je vhodné delegovat úkoly umělé inteligenci až v okamžiku, kdy je základní princip jejich řešení plně pochopen, a máme s nimi dostatečné praktické zkušenosti.
 		
 		Zajímavým aspektem je, že spolupráce s umělou inteligencí může zlepšit naši schopnost formulovat a vysvětlit problémy, například juniorům v týmu. I když se možná nenaučíme psát kód sami, zlepšíme svou schopnost komunikovat o kódu, což přispívá k rozvoji naší technické a netechnické komunikace, což může posílit naši kariéru v oblasti programování.
 		
-		V poslední době je živou diskusí otázka, zda může umělá inteligence nahradit programátory. Bez ohledu na konkrétní model silně pochybuji, že by v příštích letech mohla umělá inteligence plně nahradit zkušeného programátora. Ačkoli je schopna vytvářet samostatné uzly v grafu, propojení a porozumění jim stále vyžaduje lidskou zkušenost. 
+		V poslední době je živou diskusí otázka, zda může umělá inteligence nahradit programátory. Bez ohledu na konkrétní model silně pochybuji, že by v příštích letech mohla umělá inteligence plně nahradit mediorního programátora. Ačkoli je schopna vytvářet samostatné uzly v grafu, propojení a porozumění jim stále vyžaduje lidskou zkušenost. 
 		
 		Nicméně nelze vyloučit, že se způsob, jakým programujeme s časem změní z kódu na jazyk (například angličtinu nebo češtinu), protože schopnost umělé inteligence psát kód je pozoruhodná. Nicméně stále bude prostor pro programátory, protože jejich práce spočívá v řešení problémů a nikoliv pouze v exaktní znalosti programovacích jazyků nebo knihoven.
 		
