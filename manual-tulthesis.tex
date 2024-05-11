@@ -160,7 +160,7 @@
 		\vspace{1cm}
 		
 		\begin{abstractEN}
-			This thesis will focus on using AI in software engineering. First, it will focus on neural networks, word embeddings, and transformer models, along with fine-tuning said networks. Then, it will evaluate the usage of this technology throughout the software development lifecycle, mainly in analysis, design, implementation, testing, and CI/CD. In the end, we will evaluate the benefits of using said technologies.
+			This thesis will focus on using AI in software engineering. First, it will focus on neural networks, word embeddings, and transformer models, along with fine–tuning said networks. Then, it will evaluate the usage of this technology throughout the software development lifecycle, mainly in analysis, design, implementation, testing, and CI/CD. In the end, we will evaluate the benefits of using said technologies.
 		\end{abstractEN}
 		
 		\begin{keywordsEN}
@@ -169,43 +169,45 @@
 		
 		\clearpage
 		
+		\begin{acknowledgement}
+			Rád bych v první řadě vyjádřil své díky Ing. Romanu Špánkovi, Ph.D., za vypsání takto fascinujícího a netradičního tématu, a za ověření prvních prototypů aplikace i samotné práce. Dále bych chtěl vyjádřit vděk společnosti OpenAI za poskytnutí svého modelu ChatGPT volně k dispozici, čímž bylo možné realizovat tuto práci. Totéž platí i o platformě Huggingchat, která mi poskytla zázemí pro testování open source modelů, jež bych nemohl spustit lokálně. Nakonec bych chtěl poděkovat mnoha YouTube kanálům, které mi pomohly porozumět fungování velkých jazykových modelů do velmi detailní úrovně, a také své rodině a přátelům za ověření práce a podporu během jejího vytváření.
+		\end{acknowledgement}
+		
+		\clearpage
+		
 		\tableofcontents
 		
 		\clearpage
 		
 		\begin{abbrList}
-			SDLC - Software Development Life Cycle \\
-			AI - Artificial Intelligence \\
-			CI/CD - Continuous Integration / Continuous Development \\
-			API - Application Programming Interface \\
-			IDE - Integrated Development Environment \\
-			JSON - JavaScript Object Notation \\
-			HTML - Hyper Text Markup Language \\
-			CSRF - Cross Site Request Forgery \\
-			UX - User Experience \\
-			UML - Unified Modeling Language \\
-			CBOW - Continuous Bag Of Words \\
-			RAG - Retrieval Augmented Generation \\
-			EOS - End Of Sequence \\
-			NLP - Natural Language Processing \\
-			MNIST - Modified National Institute of Standards and Technology database \\
-			LLM - Large Language Model \\
-			LRU - Least Recently Used \\
-			PaLM - Pathways Language Model \\
-			GPT - Generative pre-trained transformer \\
-			LLaMA - Large Language Model Meta AI \\
-			CoT - Chain of Thoughts \\
-			ToT - Tree of Thoughts \\
-			BPE - Byte Pair Encoding \\
-			WCAG - Web Content Accessibility Guidelines \\
+			SDLC – Software Development Life Cycle, životní cyklus vývoje software \\
+			AI – Artificial Intelligence, umělá inteligence \\
+			CI/CD – Continuous Integration / Continuous Development, Kontinuální integrace a vývoj \\
+			API – Application Programming Interface, programové rozhraní aplikace \\
+			IDE – Integrated Development Environment, vývojové prostředí \\
+			JSON – JavaScript Object Notation \\
+			HTML – Hyper Text Markup Language \\
+			CSRF – Cross Site Request Forgery \\
+			UX – User Experience, uživatelský zážitek \\
+			UML – Unified Modeling Language \\
+			CBOW – Continuous Bag Of Words \\
+			RAG – Retrieval Augmented Generation, hledání v dokumentech \\
+			EOS – End Of Sequence, konec sekvence \\
+			NLP – Natural Language Processing, počítačové zpracování jazyka \\
+			MNIST – Modified National Institute of Standards and Technology database \\
+			LLM – Large Language Model, velký jazykový model \\
+			LRU – Least Recently Used, posledně použito \\
+			PaLM – Pathways Language Model \\
+			GPT – Generative pre–trained transformer \\
+			LLaMA – Large Language Model Meta AI \\
+			CoT – Chain of Thoughts, řetězec myšlenek \\
+			ToT – Tree of Thoughts, strom myšlenek \\
+			BPE – Byte Pair Encoding, zakódování bajtových dvojic \\
+			WCAG – Web Content Accessibility Guidelines \\
 		\end{abbrList}
-
-    \clearpage
-
-    \begin{acknowledgement}
-    Chtěl bych nejdříve poděkovat Ing. Romanu Špánkovi Ph.D. za vypsání takto zajímavého a netradičního tématu, a za validaci prvních prototypů aplikace i práce jako takové. Dále bych chtěl poděkovat OpenAI, za to, že svůj model ChatGPT dává bez omezení volně k dispozici, a tím pádem byla možnost takovou práci vůbec vytvořit. To samé platí pro platformu Huggingchat, která mi posktyla zázemí pro testování open source modelů, které bych nemohl lokálně spustit. V neposlední řadě chci poděkovat mnoha YouTube kanálům, které mi pomohli pochopit, jak fungují velké jazykové modely do velice podrobné úrovně, a rodině a přátelům za validaci práce a podporu při jejím psaní.
-    \end{acknowledgement}
-	
+		
+		
+		
 		\clearpage
 		\phantomsection
 		\listoffigures
@@ -219,17 +221,17 @@
 		
 		Dále se zaměříme na neuronové sítě specializované na zpracování lidského jazyka a na velké jazykové modely (LLM), jako je například ChatGPT. Prozkoumáme postup, jak převedeme slova do podoby, které neuronová síť dokáže porozumět, pomocí zakódování významu do vektorů a tokenizace. Následně si vysvětlíme architekturu transformerů, která je základem většiny velkých jazykových modelů. Nakonec se zaměříme na techniky optimalizace vstupních dat, abychom dosáhli co nejlepších výsledků z modelu, včetně metody „prompt engineering“ a pokročilých přístupů, jako je doplňování kontextu modelu (RAG).
 		
-		Následuje vytvoření projektu s využitím umělé inteligence a hodnocení jejího přínosu v jednotlivých fázích vývoje softwaru. Na začátku této kapitoly bude specifikován rozsah testované aplikace, kritéria a metodika hodnocení. Hodnocení bude zohledňovat přínos umělé inteligence z hlediska juniorní a mediorní úrovně vývoje. Dále budeme hodnotit i obecnější hlediska, jako je například aktuálnost a relevance odpovědí k dané otázce. V závěru zhodnotíme přínos neuronových sítí při návrhu aplikace v jednotlivých fázích vývoje softwaru a jejich přínos v dalších aspektech vývoje, a také poskytneme pohled do budoucnosti využití AI jako pomocníka programátora, případně jeho náhradu.
+		Následuje vytvoření projektu s využitím umělé inteligence a hodnocení jejího přínosu v jednotlivých fázích vývoje softwaru. Bude specifikován rozsah testované aplikace, kritéria a metodika hodnocení. Hodnocení bude zohledňovat přínos umělé inteligence z hlediska juniorní a mediorní úrovně vývoje. Dále budeme hodnotit i obecnější hlediska, jako je například aktuálnost a relevance odpovědí k dané otázce. V závěru zhodnotíme přínos neuronových sítí při návrhu aplikace v jednotlivých fázích vývoje softwaru, a také poskytneme pohled do budoucnosti využití AI jako pomocníka programátora, případně jeho náhradu.
 		
 		\chapter{Neuronové sítě} \label{nns}
 		\section{Základní pojmy}
-		Neuronová síť je složena z neuronů. Propojení mezi neurony mají danou váhu a doplněk (bias). Celá struktura si bere inspiraci z lidského mozku, který sám obsahuje miliardy propojených biologických neuronů \cite{general}. Neuron je tvořen vstupy $x_i$, aktivační funkci a výstupem. Vstupy $x_i$ jsou násobeny vahou $w_i$, která udává důležitost vstupu. Celý výstup lze ještě upravit doplňkem $b$. Výstup neuronu je definován následující rovnicí.
-
+		Neuronová síť se skládá z neuronů. Propojení mezi neurony mají určenou váhu a doplněk (bias). Tato struktura čerpá inspiraci z lidského mozku, který obsahuje miliardy propojených biologických neuronů \cite{general}. Neuron se skládá z vstupů $x_i$, aktivační funkce a výstupu. Vstupy $x_i$ jsou násobeny vahou $w_i$, která určuje důležitost vstupu. Celkový výstup lze dále upravit doplňkem $b$. Výstup neuronu je definován následující rovnicí:
+		
 		\begin{equation}
 			\sum_{i=1}^{n} w_i x_i + b
 		\end{equation}
 		
-		Výstup je poslán dále, do aktivační funkce $\phi(v)$ . Ta může, ale nemusí, upravit hodnotu výstupu. Výstup může poté putovat buď do dalšího neuronu, nebo rovnou na výstup celé neuronové sítě. Tento proces je vykonán napříč všemi neurony v síti. Nazývá se také dopředná propagace \cite{general}.
+		Výstup je následně odeslán do aktivační funkce $\phi(v)$. Tato funkce může, ale nemusí, upravit hodnotu výstupu. Výstup může být dále předán buď dalšímu neuronu nebo přímo na výstup celé neuronové sítě. Tento proces se provádí napříč všemi neurony v síti a nazývá se dopředná propagace \cite{general}.
 		
 		\begin{figure}[H]
 			\centering
@@ -239,24 +241,24 @@
 		\end{figure}
 		
 		\subsection{Aktivační funkce}
-		Jedná se o matematickou funkci, která upravuje výstup neuronu \cite{deepai_act}. Příkladem může být pravděpodobnost. Pokud výstup z neuronu bude v řádu tisíců, nelze bez aktivační funkce ze sítě dostat hodnotu mezi 0 a 1. Aktivačních funkcí máme několik, např. ReLU která vrací hodnotu pouze, pokud je kladná, záporné hodnoty jsou nulovány.
-
+		Jedná se o matematickou funkci, která upravuje výstup neuronu \cite{deepai_act}. Příkladem může být pravděpodobnost určité události. Pokud je výstup neuronu v řádu tisíců, nelze bez aktivační funkce získat z sítě hodnotu mezi 0 a 1. Pro převedení nám poslouží funkce sigmoidy. Existuje několik typů aktivačních funkcí, například ReLU, která vrací hodnotu pouze v případě, že je kladná, záporné hodnoty jsou nulovány.
+		
 		\begin{equation}
 			f(x) = max(0,x)
 		\end{equation}
-	
+		
 		Pokud bychom měli určit pravděpodobnost více než dvou událostí, použili bychom funkci softmax, která převádí vektor hodnot na pravděpodobnostní distribuci \ref{eq:sig} \cite{neuralnetwork101_act}.
-
+		
 		\begin{equation}
 			\sigma(z)_j = \frac{e^{z_j}}{\sum_{k=1}^K e^{z_k}}
 		\end{equation}
-
+		
 		\subsection{Vícevrstvé perceptrony (MLP)}
-		Neurony jsou seskupeny do vrstev. Neuronová síť se skládá z libovolného množství skrytých vrstev, které se nachází mezi vstupní a výstupní vrstvou \cite{neuralnetwork101}. Příkladem může být rozpoznávání číslic na datasetu MNIST. 
+		Neurony jsou uspořádány do vrstev. Neuronová síť se skládá z libovolného počtu skrytých vrstev umístěných mezi vstupní a výstupní vrstvou \cite{neuralnetwork101}. Jedním z příkladů využití je rozpoznávání číslic na datasetu MNIST.
 		
-		Vstupní vrstva přijme šedotónovou hodnotu pixelů uvnitř obrázku, která je zredukována z matice na vektor. Skryté vrstvy se naučí prvky obrázku, třeba křivky, díky kterým rozpozná, jestli se jedná o číslo 1, nebo číslo 8. Výstupní vrstva poté identifikuje danou číslovku. 
+		Vstupní vrstva přijímá hodnoty šedotónových pixelů uvnitř obrázku, které jsou redukovány z matice na vektor. Skryté vrstvy se naučí charakteristiky obrázku, jako jsou například křivky, což umožní rozpoznat, zda se jedná o číslo 1 nebo 8. Výstupní vrstva pak identifikuje danou číslici.
 		
-		Tento typ sítě se označuje jako vícevrstvý perceptron (MLP) \cite{mnist}. Velikost výstupní vrstvy může být jakákoliv. Důležité je pouze, aby výstup z vrstvy měl stejnou dimenzi jako vstup vrstvy následující, a to napříč celou sítí, včetně výstupní vrstvy \cite{mnist}.
+		Tento typ sítě je nazýván vícevrstvým perceptronem (MLP) \cite{mnist}. Velikost výstupní vrstvy může být libovolná. Důležité je, aby výstup z vrstvy měl stejnou dimenzi jako vstup následující vrstvy, a to po celé síti \cite{mnist}.
 		
 		\begin{figure}[H]
 			\centering
@@ -266,14 +268,16 @@
 		\end{figure}
 		
 		\section{Učení neuronové sítě} \label{training}
-		V učení neuronových sítí hrají klíčovou roli data, která již obsahují správnou odpověď na to, co se snažíme neuronovou sítí předpovědět. Jedná se tedy o typ učení s učitelem. Kvalita dat tedy přímo limituje kvalitu konečné předpovědi od neuronové sítě. 
+		V učení neuronových sítí hrají klíčovou roli data, která obsahují správné odpovědi na to, co se snažíme neuronovou sítí předpovědět. Tento typ učení je nazýván učením s učitelem. Kvalita dat přímo ovlivňuje kvalitu konečné předpovědi neuronové sítě.
 		
-		Data ale musí být pečlivě předzpracována, tak, abychom maximalizovali pravděpodobnost správné předpovědi. Po zpracování dat dostáváme rysy dat. Nejjednodušejji si lze představit sloupce v tabulárních datech. Např. bias, tedy, že data nemají ekvivalentní počet bodů z libovolně daných skupin. V kontextu velkých jazykových modelů by se například mohlo jednat o nepoměrné rozložení programovacích příspěvků ku příspěvkům o zahrádkaření \cite{rubiks_code}.
+		Data musí být pečlivě předzpracována tak, aby byla maximalizována pravděpodobnost správné předpovědi. Po zpracování dat získáváme rysy dat, nejjednodušeji si je lze představit sloupce v tabulárních datech. 
 		
-		Data projdou skrze různé vrstvy neuronů, jak bylo zmíněno výše, v procesu dopředné propagace. Následně proběhne zpětná propagace, kde se odehrává učení neuronové sítě. Jde o proces, kdy se iterativně váhy a doplňky přizpůsobují tak, aby síť provedla předpověď co nejpodobnější správné odpovědi v datech \cite{rubiks_code}.
+		Při rozdělení dat musíme ale dávat pozor například na bias, který nastává, pokud data nemají ekvivalentní počet bodů z různých skupin. V kontextu velkých jazykových modelů by to například mohlo znamenat nerovnoměrné rozložení programovacích příspěvků a příspěvků o zahradničení v datech, to ale může být žádoucí, pokud trénujeme model na programování, a ne na zahradničení \cite{rubiks_code}.
+		
+		Data procházejí různými vrstvami neuronů v procesu dopředné propagace, jak bylo zmíněno výše. Následně se provádí zpětná propagace, kdy probíhá učení neuronové sítě. Jedná se o proces, při kterém se iterativně upravují váhy a doplňky tak, aby síť provedla předpověď co nejpodobnější správným odpovědím \cite{rubiks_code}.
 		
 		\subsection{Chybová funkce}
-		Pro pochopení zpětné propagace je ale potřeba vědět, co je to chybová funkce. Jedná se o funkci, která měří rozdíl mezi správnou a předpovězenou hodnotou a „penalizuje“ neuronovou síť za špatné předpovědi. V procesu učení se neuronová síť snaží tuto chybovou funkci minimalizovat. 
+		Pro pochopení zpětné propagace je ale potřeba vědět, co je to chybová funkce. Jedná se o funkci, která měří rozdíl mezi správnou a předpovězenou hodnotou a „penalizuje“ neuronovou síť za špatné předpovědi. Účelem trénování je minimalizovat hodnotu chybové funkce, což znamená, že síť se snaží najít takové parametry (váhy), které minimalizují rozdíl mezi jejími předpověďmi a skutečností.
 		
 		Chybovou funkcí může být např. odmocnina střední kvadratické odchylky, definována tímto vzorcem \cite{RMSE}.
 		
@@ -281,17 +285,17 @@
 			RMSE = \sqrt{\frac{1}{n}\sum_{i=1}^{n}(y_i ‑ \hat{y_i})^2}
 		\end{equation}
 		
-		Kdy $n$ značí počet dat, $\hat{y_i}$ značí předpovězenou hodnotu a $y_i$ značí cílovou hodnotu.
+		Kdy $n$ značí počet dat, $\hat{y_i}$ značí předpovězenou hodnotu a $y_i$ značí cílovou hodnotu. 
 		
 		\subsection{Optimizéry}
-		Jak ale neuronová síť hledá minimum dané chybové funkce? Metod pro hledání minima existuje mnoho, ale v oblasti strojového učení jsou nejčastěji používány varianty metody největšího spádu. Ta využívá gradientu, který udává změnu funkce. Algoritmus se pohybuje ve směru největšího záporného gradientu a konverguje k minimu funkce \cite{gradient_descent}. V terminologii neuronových sítí se tyto algoritmy značí jako optimizéry.
+		Optimizéry jsou algoritmy používané k aktualizaci vah neuronové sítě během trénování s cílem minimalizovat chybovou funkci. Nejčastěji používaným optimizérem je metoda největšího spádu (gradient descent), který využívá gradientu chybové funkce k určení směru nejrychlejšího poklesu chyby. Existuje několik variant tohoto algoritmu, které se liší v tom, jakým způsobem aktualizují váhy sítě, jako např. SGD nebo Adam \cite{gradient_descent}.
 		
-
+		
 		\begin{equation}
 			\theta_{j+1} = \theta_j ‑ \alpha \frac{\partial J(\theta)}{\partial \theta}
 		\end{equation}
-
-	
+		
+		
 		\begin{figure}[H]
 			\centering
 			\includegraphics[width=1\linewidth]{img/loss.png}
@@ -299,32 +303,39 @@
 			\label{fig:sgd}
 		\end{figure}
 		
+		\subsection{Zpětná propagace}
+		Zpětná propagace je klíčovým procesem v trénování neuronových sítí. Spočívá v aktualizaci vah sítě tak, aby minimalizovaly chybovou funkci. Tento proces využívá derivace chybové funkce podle vah sítě. Každá vrstva sítě obdrží část chyby a vypočte gradienty chybové funkce. Tyto gradienty určují směr a velikost, jakým by se měly váhy aktualizovat, aby se minimalizovala chybová funkce. Zpětná propagace umožňuje sítím učit se a zlepšovat své schopnosti předvídání na základě trénovacích dat \cite{nielsen2015neural} \cite{brilliant}. 
+		
+		\begin{equation}
+			\frac{\delta J}{\delta w_n}
+		\end{equation}
+		
 		\subsection{Trénování neuronové sítě}
-		Zmíněný proces je ale pouze jedním krokem při trénování jednoho neuronu uvnitř neuronové sítě. Kroků je ale potřeba tisíce, na miliardách neuronů, než se neuronová síť naučí správně předpovídat. Jedná se také o proces „trénování“ neuronové sítě \cite{tds_train}.
+		Během trénování neuronové sítě jsou data nejprve předána síti, která provede přepočet hodnot všech vrstev s aktuálními vahami. Následně je vypočtena chybová funkce, která měří rozdíl mezi předpovězenými a skutečnými výsledky. Poté probíhá zpětná propagace chyby, během které jsou gradienty chybové funkce vypočteny pomocí algoritmu zpětné propagace, což umožňuje aktualizaci vah sítě tak, aby minimalizovaly chybu predikce. Tento proces se opakuje pro vícero dat, dokud není dosaženo dostatečné úrovně přesnosti \cite{tds_train}. 
 		
-		Při trénování data nejdříve projdou všemi vrstvami neuronové sítě s aktuálními vahami. Dojde k vypočtení chybové funkce vůči požadovanému výsledku. Následuje zpětná propagace. Vypočtené derivace jsou využity při výpočtu metody největšího spádu, kde je nalezeno minimum derivace chybové funkce vzhledem k parametrům sítě a dochází k přepočtu vah. Proces se opakuje s vícero daty, dokud neminimalizujeme chybu mezi předpovědí a realitou. Data vstupují do sítě ve várkách, což umožňuje paralelní zpracování a rychlejší trénování \cite{tds_train}. 
+		Zmíněný proces je ale pouze jedním krokem při trénování jednoho neuronu uvnitř neuronové sítě. Kroků je ale potřeba tisíce, na miliardách neuronů, než se neuronová síť naučí správně předpovídat. Jedná se také o proces „trénování“ neuronové sítě. Jak ale natrénovanou síť použijeme pro předpověď? Neznámá hodnota je vstupem do natrénované neuronové sítě. Následuje proces dopředné propagace a výstupem je předpověď pro danou hodnotu  \cite{tds_train}. 
 		
-		Jak ale natrénovanou síť použijeme pro předpověď? Neznámá hodnota je vstupem do natrénované neuronové sítě. Následuje proces dopředné propagace a výstupem je předpověď pro danou hodnotu. To je důležité v procesu validace, kdy před procesem trénování odebereme část našich dat, jejichž výstup následně otestujeme na natrénované síti. Tím lze zhodnotit schopnost předpovídat neznámá data.
+		To je důležité v procesu validace, kdy před procesem trénování odebereme část našich dat, jejichž výstup následně otestujeme na natrénované síti. Tím lze zhodnotit schopnost předpovídat neznámá data. Při procesu validace lze využít další funkce, které určí kvalitu neuronové sítě. Pro pravděpodobnostní modely by se mohlo jednat o přesnost, tedy podíl správných předpovědí ku všem předpovědím neuronové sítě. Obecně je možné využít jakoukoliv metriku, kterou lze vypočítat z výstupů neuronové sítě \cite{tds_train}.
 		
-		Při procesu validace lze využít další funkce, které určí kvalitu neuronové sítě. Pro pravděpodobnostní modely by se mohlo jednat o přesnost, tedy podíl správných předpovědí ku všem předpovědím neuronové sítě. Obecně je možné využít jakoukoliv metriku, kterou lze vypočítat z výstupů neuronové sítě.
+		Jedna „epocha“ trénování značí bod, kdy síť využila všechna trénovací data. Trénink se může pohybovat od pár epoch po několik stovek. Trénovací data jsou s každou epochou náhodně rozdělena, aby se síť nenaučila předpovídat pouze pořadí dat. Jak moc je potřeba síť trénovat se odvíjí od prvně nastavených náhodných hodnot \cite{tds_train}. 
 		
-		Jedna „epocha“ trénování značí bod, kdy síť využila všechna trénovací data. Trénink se může pohybovat od pár epoch po několik stovek. Trénovací data jsou s každou epochou náhodně rozdělena, aby se síť nenaučila předpovídat pouze pořadí dat. Jak moc je potřeba síť trénovat se odvíjí od nastavených náhodných hodnot \cite{tds_train}. 
-		
-		Hodnoty vah lze uložit do binárního formátu, to vede k metodě „přenášeného učení“. Myšlenkou je využití existující neuronové sítě s natrénovanými vahami pro podobný úkol \cite{wiki:transfer}. Síť tak akorát v tréninku „doladíme“ na našich datech a tím zlepšíme kvalitu pro náš úkol \cite{hgf:finetune}. Tato metoda je obzvláště využívaná u velkých jazykových modelů, jenž jsou velice finančně náročné na trénink, ale ne tak moc na odladění.
+		Hodnoty vah lze uložit do binárního formátu, čehož lze využít k „přenášenému učení“. Myšlenkou je využití existující neuronové sítě s natrénovanými vahami pro podobný úkol \cite{wiki:transfer}. Síť tak akorát při tréninku „doladíme“ na našich datech a tím zlepšíme kvalitu pro náš úkol \cite{hgf:finetune}. Tato metoda je obzvláště využívaná u velkých jazykových modelů, jenž jsou velice finančně náročné na trénink, ale ne tak moc na odladění.
 		
 		\chapter{Zpracování jazyka}
 		Doména zpracování jazyka (NLP) s pomocí strojového učení, případně neuronových sítí je o mnoho starší, než velké jazykové modely jako GPT nebo LLaMA. Pro pochopení LLM potřebujeme znalost „embedding“ a „transformer“ modelů, spolu s procesem „tokenizace“. Při tom si i vysvětlíme proces od předání vstupu LLM, až po výslednou odpověď.
 		
 		\section{Parametry modelů}
-		Předtím, než se podíváme na transformery jako takové, je dobré si přiblížit různé parametry, které hrají roli v kvalitě modelu. Velikost označuje počet vah v neuronové síti, čím vyšší je, tím výkonnější je model, také se někdy označuje jako počet parametrů modelu. Důležitým faktorem jsou také data, na kterých byl model trénován. Například v průběhu práce zjistíme, že menší model, jako je CodeLLaMA-34B oproti Falcon-180B, podává lepší výsledky, protože byl trénován hlavně na programovacích úlohách \cite{llm_parameters} \cite{embeddings}.
+		Předtím, než se podíváme na transformery jako takové, je dobré si přiblížit různé parametry, které hrají roli v kvalitě modelu. Velikost modelu označuje jak počet jeho parametrů, což zvyšuje jeho kvalitu, tak i např. velikost na disku, což zvětšuje obecnou náročnost modelu \cite{llm_parameters}. 
 		
-		Dalším důležitým parametrem je kontextové okno, neboli počet tokenů, které model uvažuje při tvorbě odpovědi. Tento parametr se může pohybovat od několika set po stovky tisíc. V našem testování jsme nedosáhli limitu u žádného modelu, ale pokud bychom například chtěli analyzovat dokumentaci knihovny, kontextové okno o sto tisících tokenech by přišlo vhod. 
+		Neméně důležitým faktorem jsou data, na kterých byl model trénován. Například v průběhu práce zjistíme, že menší model, jako je CodeLLaMA-34B oproti Falcon-180B, podává lepší výsledky, protože byl, dle dostupných informací, trénován hlavně na programovacích úlohách \cite{llm_parameters} \cite{falcon}.
 		
-		Teplota v případě velkých jazykových modelů určuje míru náhodnosti předpovědi dalšího slova. Vyšší teplota zplošťuje distribuci pravděpodobností, což zvyšuje šanci na výběr méně pravděpodobného slova \cite{llm_parameters}.
+		Dalším důležitým parametrem je kontextové okno, neboli počet tokenů, které model uvažuje při tvorbě odpovědi. Tento parametr se může pohybovat od několika set po stovky tisíc. V našem testování jsme nedosáhli limitu u žádného modelu, ale pokud bychom například chtěli analyzovat dokumentaci knihovny, kontextové okno o sto tisících tokenech by přišlo vhod \cite{llm_parameters}. 
 		
-		Nebo tzv. „systémový prompt“, který umožňuje předdefinovat formát odpovědi umělé inteligence a omezit ji. Tyto prompty se pak projeví v odpovědi v rámci určitého bloku textu, odděleného speciálními tokeny, aby model pochopil, že se jedná o systémový prompt. 
+		Teplota v případě velkých jazykových modelů určuje míru náhodnosti předpovědi dalšího slova. Vyšší teplota zplošťuje distribuci pravděpodobností z funkce softmax, což zvyšuje šanci na výběr méně pravděpodobného slova \cite{llm_parameters}.
 		
-		Nastavení teploty a systémového promptu je možné pouze u CodeLLaMA a Claude-instant, zatímco ChatGPT umožňuje nastavit pouze systémový prompt, ale u ostatních chatbotů tyto nastavení nejsou k dispozici \cite{llm_parameters}.
+		Nebo tzv. „systémový prompt“, který umožňuje předdefinovat formát odpovědi umělé inteligence a omezit ji. Tyto prompty se dávají do speciálního bloku textu, odděleného speciálními tokeny, aby model pochopil, že se jedná o systémový prompt. 
+		
+		Nastavení teploty a systémového promptu je možné pouze u CodeLLaMA a Claude-instant, zatímco ChatGPT umožňuje nastavit pouze systémový prompt, ale u ostatních chatbotů tyto nastavení, v čase vytváření aplikace, nebyly k dispozici \cite{llm_parameters}.
 		
 		\section{Tokenizace}
 		Tokenizace rozděluje text na tokeny, které délkou zahrnují písmena až slova. Pro efektivní zpracování tokenů se snažíme ale vstup s tokenizací i velikostně zmenšit. Ke kompresi vstupu se využívá algoritmu BPE, který rekurzivně bere nejčastěji se objevující dvojici tokenů, a vytvoří z ní nový token, dokud nedosáhneme omezení velikosti slovníku. Slovník mapuje tokeny na jejich původní reprezentaci v textovém řetězci. Obsahuje i speciální tokeny, které určují např. konec textového řetězce \cite{rothman2021transformers}. 
@@ -336,13 +347,25 @@
 		
 		Pomocí vzdálenosti tenzorů lze určit podobná slova. Slovo „král“ a „muž“ mají podobnou vzdálenost po zakódování do vektorů jako slova „žena“ a „královna“. To je dáno právě tím, že vektory zachycují význam slov, tím pádem vzdálenost mezi vektory, ať už kosinová, nebo euklidovská, poskytuje informaci o rozdílu významů slov, kterou lze přenést i na jinou slovní dvojici. Velké jazykové modely používají pro převod ze slov do tenzorů právě embedding modely \cite{embeddings} \cite{embeddings2}.
 		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.75\linewidth]{img/embeddings1.png}
+			\caption{Ukázka embedding vektorů \cite{embeddings_img1}}
+			\label{fig:e1}
+		\end{figure}
+		
 		Úkolem neuronové sítě je předpovědět slovo na základě jeho okolí. Znalost slov je dána slovníkem. Slovník obsahuje všechna známá slova pro neuronovou síť, také speciální tokeny, např. \verb|</EOS>|, který určuje konec textového řetězce \cite{embeddings2}. 
 		
-		Jak ale takový model funguje? Nejdříve je text předzpracován. To zahrnuje převedení na malá nebo velká písmena, vyloučení nepotřebné interpunkce a tokenizaci. Cílem neuronové sítě je na základě kontextového okna tokenů velikosti $w$ předpovědět slovo uprostřed kontextového okna. Každému tokenu, v našem příkladě slovu, jsou ve slovníku přiřazeny váhy, které jsou v počátečním stavu náhodné \cite{ytb:word2vec}. 
+		Jak ale takový model funguje? Nejdříve je text předzpracován. To zahrnuje převedení na malá nebo velká písmena, vyloučení nepotřebné interpunkce a tokenizaci. Cílem neuronové sítě je na základě kontextového okna tokenů velikosti $w$ předpovědět slovo uprostřed kontextového okna. Vstup je převeden na počáteční vektory tak, že z každého slova vznikne vektor o velikosti slovníku, který má pouze jednu jedničku a samé nuly, jedničku právě na pozici daného slova ve slovníku.
 		
-		Slova se převedou na „one hot“ vektory, o velikosti celého slovníku. Každé číslo představuje výskyt jednoho slova ze slovníku v binární formě. Hodnota pro dané slovo bude tedy jedna, a pro ostatní slova ve slovníku hodnotu nula. Pokud bychom měli velikost slovníku pět, a pět slov v našem vstupu, budeme mít pět vektorů, které budou mít jedničku vždy na jiné pozici. Průměrem hodnot těchto pěti vektorů pro dané kontextové okno dostaneme vektor $x$, který bude vstupem do neuronové sítě \cite{ytb:word2vec}.
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.75\linewidth]{img/embeddings2.png}
+			\caption{Ukázka embedding vektorů \cite{embeddings_img2}}
+			\label{fig:e2}
+		\end{figure}
 		
-		Tento vektor prochází skrze ReLU vrstvu, dále putuje do skryté vrstvy, kde se vynásobí s vahami sítě, následně přejde do funkce softmax, která určí pravděpodobnostní distribuci výsledků. Na výstupu dostáváme pravděpodobnost slova ve středu daného kontextového okna, opět v rámci velikosti celého slovníku. Skrze trénování modelu dostaneme váhy pro správnou předpověď slova. Ty tvoří náš významový tenzor \cite{paper:word2vec} \cite{tokenization}. Pro vizuální ukázku procesu se doporučuji podívat na následující videa \cite{ytb:embeddings} \cite{ytb:word2vec}.
+		Vstup prochází skrze ReLU vrstvu, dále putuje do skryté vrstvy, následně přejde do funkce $softmax$, která určí pravděpodobnostní distribuci výsledků. Na výstupu dostáváme pravděpodobnost slova ve středu daného kontextového okna, opět v rámci velikosti celého slovníku. Skrze trénování modelu se skryté vrstvy naučí vektorovou reprezentaci slov v okolí. Ty pak tvoří náš významový tenzor pro jednotlivá slova \cite{paper:word2vec} \cite{tokenization}. Pro vizuální ukázku procesu se doporučuji podívat na následující videa \cite{ytb:embeddings} \cite{ytb:word2vec}.
 		
 		\section{Transformer modely} \label{transformers}
 		Velké jazykové modely jsou založeny na architektuře tzv. „transformerů“. Transformer obsahuje dvě hlavní části, enkodér a dekodér. LLM ale obsahují pouze dekodér \cite{rothman2021transformers}. Proces průchodu vstupem skrze transformer je následující.
@@ -350,7 +373,13 @@
 		\subsection{Kódování pozice}
 		Vstupem je význam slov, zakódován ve vektoru o určitých rozměrech $W$. Prvním krokem je zakódovat pozici slov. Jak ale zachytíme pozici slova? Opět pomocí vektoru. Pozicový vektor se skládá z hodnot $y$ přiřazených funkcí $sin$ nebo $cos$, hodnotu $x$ tvoří aktuální pozice $p$ slova v textu. Výsledkem $P$ je součet pozicového a vstupního vektoru. 
 		
+		\begin{equation}
+			PE_{(pos2_i)} = sin(\frac{pos}{10000^{\frac{2i}{d_{model}}}})
+		\end{equation}
+		
 		Například pokud bychom měli rozměr vstupního vektoru $5 \times 1$, měli bychom pět unikátních funkcí $sin$. Z každé bychom extrahovali hodnotu $y$ pro pozici aktuálního slova ve větě $p$, což by byl také vektor $5 \times 1$, ten bychom přičetli k původnímu vstupnímu vektoru $W$. Tento proces se opakuje pro všechna slova ve větě \cite{rothman2021transformers}. 
+		
+		Hodnoty pozičního vektoru se dále přičtou zpět k embedding vektoru, tím získáváme poziční kódování slova.
 		
 		\subsection{Masked self-attention}
 		Centrálním konceptem pro architekturu transformerů je pozornost (self-attention). Její princip spočívá v tom, že každé slovo v textu je porovnáváno se všemi ostatními slovy v textu, aby byla určena jejich vzájemná podobnost. Tento proces se opakuje pro každé slovo v textu. Varianta maskované pozornosti (masked self-attention) se zaměřuje pouze na předcházející slova v posloupnosti. Model tak může reprezentovat vazby v textu a tím pádem zlepšit jeho pochopení.
@@ -361,24 +390,37 @@
 		
 		Podobnost klíče $K_x$ a dotazu $Q_y$ vypočítáme pomocí skalárního součinu. Pro výpočet ale použijeme tenzoru hodnoty $V_y$, která prostoupí funkcí softmax a dostáváme, jenž značí, jak moc bude dané slovo $W_y$ ovlivňovat celkovou pozornost $A_x$ slova $W_x$. Poté vynásobíme všechny hodnoty slov $V_i$ s koeficienty danými funkcí softmax a sečteme, získáváme tak hodnotu pozornosti $A_x$ pro slovo $W_x$. \cite{vaswani2023attention} \cite{rothman2021transformers}.
 		
-		Tento proces se označuje jako jedna „hlava“. Hlav ale může být více, s různou hodnotou vah pro vypočtení $K$, $Q$ a $V$. Tím pádem můžeme zakódovat vícero vztahů mezi slovy, podobně jako vztah mezi slovem „apple“ a „phone“ v předchozím příkladu. Hodnoty $A_i$ získané z těchto hlav se sečtou s původními pozičními hodnotami, výsledku se také říká reziduální propojení, značme je třeba $R_i$ \cite{vaswani2023attention} \cite{rothman2021transformers}.
+		\begin{equation}
+			A(Q, K, V) = softmax(\frac{QK^T}{\sqrt{d_k}})*V
+		\end{equation}
+		
+		Tento proces se označuje jako jedna „hlava“. Hlav ale může být více, s různou hodnotou vah pro vypočtení $K$, $Q$ a $V$. Tím pádem můžeme zakódovat vícero vztahů mezi slovy, podobně jako vztah mezi slovem „apple“ a „phone“ v předchozím příkladu. 
+		
+		\begin{equation}
+			MultiHead(Q, K, V) = Concat(h_1,...,h_h)*W_0
+		\end{equation}
+		
+		Hodnoty $A_i$ získané z těchto hlav se sečtou s původními pozičními hodnotami, výsledku se také říká reziduální propojení, značme je třeba $R_i$ \cite{vaswani2023attention} \cite{rothman2021transformers}.
 		
 		Pro vygenerování textu použijeme jako konečný prvek vícevrstvý perceptron (MLP). Vstup bude mít rozměr stejný, jako dimenze reziduálních propojení $R_i$, a výstup bude mít dimenze velikosti slovníku. Opět využijeme softmax funkce, abychom dostali nejpravděpodobnější následující slovo. Pro vizuální ukázku procesu se doporučuji podívat na toto video \cite{ytb:transformers} \cite{vaswani2023attention} \cite{rothman2021transformers}.
 		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.75\linewidth]{img/trans_img.png}
+			\caption{Blokové schéma transformeru \cite{trans_img}}
+			\label{fig:trans}
+		\end{figure}
+		
 		\section{Techniky použití AI} 
 		\subsection{Prompt engineering}
-		„Prompt engineering“ označuje praktiku strukturování textového vstupu pro dosažení co nejlepší odpovědi od LLM. Jedním z přístupů je uvést jeden nebo více příkladů úspěšného výstupu, což jasně specifikuje požadavek kladený na model. Další metodou je tzv. CoT (Chain of Thought), kde požadujeme, aby model rozložil problém do jednotlivých kroků a až poté odpověděl. Tento přístup lze připodobnit k rozkladu složitých matematických problémů na jednodušší kroky. Pokud bychom pouze odhadovali výsledek, pravděpodobnost úspěchu by byla malá \cite{PEG}. 
-
-Pokud si ale problém rozdělíme do menších celků, a ty individuálně vypočítáme, šance úspěchu se zvýší, máme totiž čas na uvažování nad problémem. AI nemá pojem o čase, ale tím, že rozdělíme problém, zvětšíme prostor kontextu k uvažování nad problémem, což je podobné, jako když člověku dáte víc času se nad problémem zamyslet. Můžeme se odkázat zpět na architekturu transformeru, čím více kontextu máme, tím přesnější je odhad následujicího slova v rámci daného kontextu, a tím větší šance je, že se nám problém podaří úspěšně vyřešit.
+		„Prompt engineering“ označuje praktiku strukturování textového vstupu pro dosažení co nejlepší odpovědi od LLM. Jedním z přístupů je uvést jeden nebo více příkladů úspěšného výstupu, což jasně specifikuje požadavek kladený na model. 
 		
-		Tento přístup se často využívá u komplexních logických nebo matematických problémů. Vylepšením nad CoT je metoda ToT (Tree of Thoughts), kde LLM funguje jako sbor expertů pro danou problematiku. Každý expert generuje další možný krok k řešení problému a poté jsou v rámci skupiny tito experti porovnáni a jejich řešení diskutována. Pokud některý expert poskytne neplatné řešení, je vyloučen ze skupiny. Díky tomu se účinně minimalizuje riziko vzniku halucinací \cite{PEG}.
-		
-		Slabinou LLM jsou hlavně matematické výpočty. Zde přijdou vhod různé nástroje. Jedná se o funkce, které si AI sama zavolá v procesu vytváření odpovědi, pokud je potřebuje. U výpočtů se často používá funkce, která umí spustit skript v Pythonu. LLM vygeneruje kód pro výpočet, který Python vyhodnotí. Další funkce zahrnují např. hledání v prohlížeči \cite{PEG}.
+		Další metodou je tzv. CoT (Chain of Thought), kde požadujeme, aby model rozložil problém do jednotlivých kroků a až poté odpověděl. Tento přístup lze připodobnit k rozkladu složitých matematických problémů na jednodušší kroky. Pokud bychom pouze odhadovali výsledek, pravděpodobnost úspěchu by byla malá. AI nemá pojem o čase, ale tím, že rozdělíme problém, zvětšíme prostor kontextu k uvažování nad problémem, což je podobné, jako když člověku dáte víc času se nad problémem zamyslet. Můžeme se odkázat zpět na architekturu transformeru, čím více kontextu máme, tím přesnější je odhad následujícího slova v rámci daného kontextu, a tím větší šance je, že se nám problém podaří úspěšně vyřešit \cite{PEG}.
 		
 		V kontextu naší práce, hlavně fáze implementace, nebudeme ale naše otázky intenzivně optimalizovat. Proč? Nepředpokládám, že by se programátorovi chtělo ladit prompt např. půl hodiny za cílem dostat ideální odpověď. Textové vstupy budou různé kvality, také v závislosti na tom, jestli zrovna chceme ukázat určitou slabinu AI nebo ne. 
 		
 		\subsection{Hledání v dokumentech}
-		Vzhledem k tomu, že se naše práce v implementační fázi zaměřuje také na vyhledávání napříč několika soubory kódu, je důležité zmínit, jak toho může AI dosáhnout. Metoda RAG (Retrieval Augmented Generation) je v současné době populární technika, která nám umožňuje snížit úroveň halucinací u LLM tím, že obohacuje odpovědi o informace z dokumentů. Princip této metody je relativně jednoduchý - spolu s otázkou poskytneme AI relevantní kontext a explicitně ji „nasměrujeme“ k použití tohoto kontextu v daném promptu. Kontext je nalezen jiným modelem, který hledá pomocí zakódovaných vektorů významu nejpodobnější kontext položené otázce \cite{paper:RAG}.
+		Vzhledem k tomu, že se naše práce v implementační fázi zaměřuje také na vyhledávání napříč několika soubory kódu, je důležité zmínit, jak toho může AI dosáhnout. Metoda RAG (Retrieval Augmented Generation) je v současné době populární technika, která nám umožňuje snížit úroveň halucinací u LLM tím, že obohacuje odpovědi o informace z dokumentů. Princip této metody je relativně jednoduchý, spolu s otázkou poskytneme AI relevantní kontext a explicitně ji „nasměrujeme“ k použití tohoto kontextu v daném promptu. Kontext je nalezen jiným modelem, který hledá pomocí zakódovaných vektorů významu nejpodobnější kontext položené otázce \cite{paper:RAG}.
 		
 		Zde nám opět pomohou embedding modely. Postup je následující.
 		\begin{enumerate}
@@ -390,19 +432,17 @@ Pokud si ale problém rozdělíme do menších celků, a ty individuálně vypo�
 			\item Do vstupu $P$ dosadíme $T_{best}$ na místo $X$ a uživatelský dotaz na místo $Y$.
 		\end{enumerate}
 		
-		Stále se zatím jedná o jednu z nejméně náročných cest, jak odladit LLM pro náš případ užití. Označuje se také jako „učení v kontextu“. Halucinace jsou minimalizovány jak poskytnutím kontextu, který by měl odpovídat otázce, tak omezením modelu samotným textovým vstupem, protože pokud informace nenajde, má odpovědět „Nevím“. Stále se ale mohou objevit. Navíc se objevují nové problémy, jak najdeme nejrelevatnější kus dokumentu? Jak zajistíme, že odpověď od AI odpovídá našemu očekávání?
-		
-		Jak již bylo zmíněno, kontext je klíčový pro správné použití AI. I proto se zdá, že si tato metoda udržuje popularitu, i když LLM mají kontextová okna až 150 tisíc slov \cite{paper:RAG}. Nicméně tento "naivní" přístup stále potřebuje zdokonalení, což je cílem dnešních RAG systémů, i když samotná problematika je poměrně nová. AI v dnešní podobě existuje teprve necelý rok. Mezi populární metody patří například kombinace hledání pomocí klíčového slova a vektorů významu nebo hledání pomocí metadat \cite{paper:RAG}.
+		Stále se zatím jedná o jednu z nejméně náročných cest, jak odladit LLM pro náš případ užití. Označuje se také jako „učení v kontextu“. Halucinace jsou minimalizovány jak poskytnutím kontextu, který by měl odpovídat otázce, tak omezením modelu samotným textovým vstupem, protože pokud informace nenajde, má odpovědět „Nevím“. Stále se ale mohou objevit. Navíc se objevují nové problémy, např jak najedeme nejrelevantnější kus dokumentu \cite{paper:RAG}?
 		
 		\chapter{Vytvoření projektu s AI}
 		\section{Úvodem...}
 		Před zahájením vypracování projektu s využitím umělé inteligence je nezbytné stanovit podmínky testování. Pro tento účel poslouží sedm rozmanitých modelů. Mezi ně patří tři instance GPT: Copilot Chat (GPT-4), Bing Copilot (GPT-4) a ChatGPT (GPT-3.5) , dále Claude (Claude-instant), a Google Bard (PaLM-2). Kromě toho jsou zahrnuty dva open-source modely, CodeLLama-34B a Falcon-180B.
 		
 		Konverzace probíhaly v anglickém jazyce, neboť trénování proběhlo na datech z internetu, jehož je angličtina hlavním jazykem \cite{internetLanguages}. Tato skutečnost přispívá k lepší tokenizaci anglického textu a v důsledku i ke kvalitnějším odpovědím. Tuto vlastnost mi potvrdil například ChatGPT \cite{chatgpt_jazyk}. Konverzace probíhaly v základní konfiguraci, což znamená, že byly prováděny v kontextu průměrného programátora, který nemusí tušit, jak model dále ladit. Nejvýznamnější části těchto konverzací budou přímo citovány v práci. 
-
-    Kompletní seznam konverzací, v případě nefunkčnosti odkazů, je k dispozici v přiložených souborech ve složce \verb|konverzace| nebo v GitHub repozitáři \cite{promptsRepo}. Práce se bude odkazovat buď na použité velké jazykové modely, které jsou označeny názvem, a nebo zkráceně jako „model“. Případně na jejich kolektivní odpověď, dále značeno jako „AI“ nebo „umělá inteligence“.
-
-    Kompletní testovací aplikace bude taktéž přiložena, a to ve složce \verb|aplikace|, není ale plně lokálně spustitelná, proto se pro její zobrazení doporučuji podívat na odkaz \cite{final_app}. Absence lokální spustitelnosti je způsobena nucenou přítomností senzitivních údajů ke cloudovým službám apod. Pro zobrazení kódu ale doporučují spíše navštívit GitHub repozitář \cite{gh_final_app}, kde bude vždy nejaktuálnější verze aplikace, narozdíl od přiloženého média. 
+		
+		Kompletní seznam konverzací, v případě nefunkčnosti odkazů, je k dispozici v přiložených souborech ve složce \verb|konverzace| nebo v GitHub repozitáři \cite{promptsRepo}. Práce se bude odkazovat buď na použité velké jazykové modely, které jsou označeny názvem, a nebo zkráceně jako „model“. Případně na jejich kolektivní odpověď, dále značeno jako „AI“ nebo „umělá inteligence“.
+		
+		Kompletní testovací aplikace bude taktéž přiložena, a to ve složce \verb|aplikace|, není ale plně lokálně spustitelná, proto se pro její zobrazení doporučuji podívat na odkaz \cite{final_app}. Absence lokální spustitelnosti je způsobena nucenou přítomností senzitivních údajů ke cloudovým službám apod. Pro zobrazení kódu ale doporučují spíše navštívit GitHub repozitář \cite{gh_final_app}, kde bude vždy nejaktuálnější verze aplikace, narozdíl od přiloženého média. 
 		
 		\section{Hodnocení}
 		Vyhodnocení přínosů umělé inteligence proběhne v několika různých formách. Budeme porovnávat mé předpokládané odpovědi s odpověďmi umělé inteligence v jednotlivých fázích vývoje softwaru, konkrétně během analýzy, návrhu, implementace, testování a CI/CD procesu. Tato práce se bude zaměřovat především na identifikaci nedostatků, protože pozitivní aspekty jsou natolik rozmanité, že vyžadují shrnutí do širšího kontextu. Zaměříme se na časté chyby na straně promptu, jako třeba nedostatek kontextu, ale i na straně umělé inteligence, jako neaktuální znalosti nebo komprese historického kontextu. Pokusíme se i navázat problém k teoretické částí, a dojít k tomu, proč se tak mohlo stát.
@@ -477,7 +517,7 @@ Pokud si ale problém rozdělíme do menších celků, a ty individuálně vypo�
 		
 		V době, kdy je ChatGPT dostupný i na chytrých telefonech, je užitečné mít takového pomocníka. Počet otázek, které bych mohl při jednání se zákazníkem přehlédnout, není zanedbatelný a mohl by výrazně ovlivnit cenu celého projektu. Pomocí takového nástroje lze připravit otázky například pro pochopení konkrétního problému v oblasti, pro kterou vytváříme řešení. Raději bych však v těchto případech využil model, který k odpovědi poskytuje i zdroje, ze kterých čerpal, jako například Bing Copilot (GPT-4) nebo Perplexity AI (GPT-3.5), zejména kvůli schopnosti modelů halucinovat \cite{bingCopilot}, \cite{perplexity}.
 		
-		Narážíme však na první problém umělé inteligence, který se bude opakovat v průběhu práce. Musíme být přesní v tom, co od ní požadujeme. Pokud potřebujeme pouze produktové požadavky, musíme je jasně formulovat v textovém vstupu. Není možné jen napsat obecné zadání a doufat, že si umělá inteligence domyslí zbytek. Pokud se podíváme na architekturu transformeru, pravděpodobně tento jev souvisí s vrstvou self-attention. Čím delší je vstupní sekvence slov, tím lepší je predikce následujícího slova a tím přínosnější text z modelu obdržíme. Tento jev lze přirovnat k situaci dítěte, které zná celý internet, ale nemá přesnou představu o fungování podaných informací, protože mu chybí praktické zkušenosti, musíme dítě tedy dost nasměrovat, abychom dostali, co chceme \ref{transformers}.
+		Narážíme však na první problém umělé inteligence, který se bude opakovat v průběhu práce. Musíme být přesní v tom, co od ní požadujeme. Pokud potřebujeme pouze produktové požadavky, musíme je jasně formulovat v textovém vstupu. Není možné jen napsat obecné zadání a doufat, že si umělá inteligence domyslí zbytek. Pokud se podíváme na architekturu transformeru, pravděpodobně tento jev souvisí s vrstvou self-attention. Čím delší je vstupní sekvence slov, tím lepší je predikce následujícího slova a tím přínosnější text z modelu obdržíme \cite{rothman2021transformers} \cite{context_understand}.
 		
 		%TODO FIX: teorie, uvod prakticka, hodnoceni
 		
@@ -499,9 +539,6 @@ Pokud si ale problém rozdělíme do menších celků, a ty individuálně vypo�
 				\item The app should be able to maintain itself long after it is developed 
 				\item The app should have standard security measures
 			\end{enumerate}
-			
-			
-			\vspace{0.6em}
 			
 			\paragraph{Claude}
 			\begin{enumerate}
@@ -623,7 +660,7 @@ Pokud si ale problém rozdělíme do menších celků, a ty individuálně vypo�
 		\end{tcolorbox}
 		\vspace{0.6em}
 		
-		Opět se zde objevilo mnoho věcí, které mne v konverzaci se zákazníkem nemuselo napadnout. První se týkaly produktu samotného, druhé se zaměřili na obecnější hledisko. Z produktové kategorie se může jednat o notifikace uživatele, integrace sociálních sítí pro autentifikaci nebo možnost uživatelů hodnotit přesnost počasí \cite{bard_analyza} \cite{chatgpt_analyza} \cite{codellama_analyza} \cite{gitCopilot_analyza} \cite{claude_analyza}. Z obecnějších např. zmíněná strategie obsahu na sociálních médiích nebo platební model. Pokud tedy brainstormujeme přídavné prvky, je na to AI skvělým parťákem \cite{bingCopilot_analyza} \cite{falcon_analyza}.
+		Opět se zde objevilo mnoho věcí, které mne v konverzaci se zákazníkem nemuselo napadnout. První se týkaly produktu samotného, druhé se zaměřily na obecnější hledisko. Z produktové kategorie se může jednat o notifikace uživatele, integrace sociálních sítí pro autentifikaci nebo možnost uživatelů hodnotit přesnost počasí \cite{bard_analyza} \cite{chatgpt_analyza} \cite{codellama_analyza} \cite{gitCopilot_analyza} \cite{claude_analyza}. Z obecnějších např. zmíněná strategie obsahu na sociálních médiích nebo platební model. Pokud tedy brainstormujeme přídavné prvky, je na to AI skvělým parťákem \cite{bingCopilot_analyza} \cite{falcon_analyza}.
 		
 		% \subsection{Agile nebo Waterfall?}
 		
@@ -674,9 +711,11 @@ Pokud si ale problém rozdělíme do menších celků, a ty individuálně vypo�
 		Při brainstormingu je tedy vhodné mít AI jako "generátor nápadů", zejména pokud jde o rizika, která nejsou běžnou součástí práce programátora \cite{falcon_analyza} \cite{claude_analyza} \cite{codellama_analyza}. Jsem znovu příjemně překvapen brainstormingem od AI a při návrhu plánu vývoje projektu bych se neváhal obrátit na AI k identifikaci rizik. Nicméně, při podrobnějším zkoumání konkrétní oblasti bych dával přednost modelům, které poskytují odkazy na zdroje, ze kterých čerpají.
 		
 		\subsection{Hodnocení dle seniority}
-		Přínos bych zde viděl hlavně pro juniory, kteří nemají např. ani jeden projekt za sebou, tím pádem neví, co postavení webové aplikace vlastně obnáší. Většina odpovědí jsou věci, na které by si jinak museli přijít v průběhu procesu, kde by oprava mohla přidat na časové náročnosti projektu. Pro juniorní úroveň se bude ale potřeba se oproti původní konverzaci podstatně více doptávat na různé detaily, nebo tento fakt uvést předem. Co zde ale vidím jako problémové je, že junior pravděpodobně nebude mít znalost o propojení různých aspektů software. Tím pádem by mohl opravdu ignorovat např. vytvoření databáze, i když je nutná pro zabudování rozdělení mezi platícím a neplatícím uživatelem.
+		Přínos bych zde viděl hlavně pro juniory, kteří nemají např. ani jeden projekt za sebou. Ti často neznají kompletní proces vývoje webové aplikace a museli by získat potřebné znalosti postupně během samotného vývoje, což by mohlo zvýšit časovou náročnost projektu. Na juniorské úrovni je však nezbytné klást mnohem více otázek ohledně různých detailů nebo tyto aspekty explicitně uvést dopředu.
 		
-		Přínos pro mediory, jak jsem již shrnul v předchozích sekcích, je neméně zásadní. Mnoho z nápadů, na které AI přišlo, by mi na místě nedošlo, a musel bych je poté řešit v průběhu SDLC a tím pádem prodloužit časovou náročnost celého projektu. Např. vyhodnocení využití serverless architektury na základě nulového rozpočtu pro vytvoření aplikace, jenž také není úplně očividné. 
+		Jedním z potenciálních problémů je, že začínající vývojář pravděpodobně nemá dostatečné znalosti o propojení různých částí softwaru. To by mohlo vést k opomenutí důležitých prvků, na popud AI, jako je například vytvoření databáze, i když je to nezbytné pro implementaci funkcí rozlišení mezi placenými a neplacenými uživateli.
+		
+		Přínos pro středně pokročilé vývojáře, jak jsem již dříve uvedl, je rovněž významný. Mnoho nápadů, které vzešly z diskuse s umělou inteligencí, by mne samovolně nenapadlo a musel bych je řešit až v průběhu životního cyklu softwarového vývoje, což by zvýšilo časovou náročnost projektu. Například zhodnocení využití serverless architektury při nulovém rozpočtu pro tvorbu aplikace není zcela triviální, a nemusí být na první pohled zřejmé.
 		
 		\section{Návrh struktury aplikace}
 		Zahrnuje rozhodnutí, jak naši aplikaci rozdělit na jednotlivé funkční celky. Rozhodnutí v této fázi dramaticky ovlivní implementaci a její kvalitu. Může i probíhat paralelně s implementací \cite{knuth1989notes} \cite{wikipedia:soft_design}. Rozhodnutí zahrnují např. výběr programovacího paradigmatu, programovacího jazyka, případně k němu vázané knihovny a platformy. Také jsou rozvrženy různé třídy, funkce, datových struktury a algoritmy. Návrh může být doprovázen diagramem který představuje konečnou strukturu aplikace, např. v jazyce UML.
@@ -869,12 +908,12 @@ Pokud si ale problém rozdělíme do menších celků, a ty individuálně vypo�
 		\end{figure}
 		
 		\subsection{Hodnocení dle seniority}
-		V této části SDLC vidím pro juniory podobné problémy, jako v analýze, ale v intenzivnější formě. AI vypíše velké množství technologií. Sice přesně víme, co se máme naučit, abychom projekt zvládli. AI ale neuvažuje, zda-li jsou technologie potřeba, a to junior pravděpodobně nedokáže vyhodnotit. Neví, že něco neví, a z toho plynou větší problémy, než když pouze neví, například menší udržitelnost nebo škálovatelnost.
+		V této fázi životního cyklu softwarového vývoje identifikuji podobné obtíže pro začínající vývojáře jako v předchozí analýze, avšak v intenzivnější míře. Umělá inteligence uvádí široké spektrum technologií. Sice přesně víme, co se potřebujeme naučit pro zvládnutí projektu, umělá inteligence ale nepřihlíží k tomu, zda jsou tyto technologie skutečně nezbytné, což začínající vývojář pravděpodobně nedokáže správně vyhodnotit. Nevědomí toho, co nevíme, může často vést k větším problémům než pouhé nevědomí, například snížené udržitelnosti nebo škálovatelnosti, protože např. zvýšíme závislost na knihovnách, které můžeme používat pouze raritně.
 		
-		Jako medior spatřuji přínos v návrhových vzorech, a v tom, že se lze dopodrobna doptat na technologie. Informace bych si ale raději stejně ověřil na oficiálních webových stránkách. Na rychlé „zbastlení“ to asi pomůže, ale aplikaci produkční úrovně s tím pravděpodobně nenavrhneme, jelikož se jedná o komplexní propojení celků, které AI nezvládá moc dobře.
+		Jako středně pokročilý vývojář vidím výhody v použití návrhových vzorů a možnosti důkladného dotazování se na technologie. Přesto bych si raději ověřil informace na oficiálních webových stránkách, kvůli aktuálnosti trénovacích dat modelů. I když to může pomoci při rychlém prototypování, pravděpodobně s tímto přístupem nedosáhneme aplikace na produkční úrovni, protože se jedná o komplexní propojení prvků, které umělá inteligence nedokáže příliš dobře zvládnout.
 		
 		\section{Implementace s pomocí AI}
-		Pro tuto kapitolu jsem se rozhodl omezit počet modelů pouze na Copilot Chat. Důvodů je k tomu více, hlavní však spočívá v tom, že testování všech předem zmíněných modelů by vedlo k nadměrnému rozšíření obsahu práce. Navíc je na webu již dostatek porovnání modelů v různých programovacích úlohách. Copilot Chat byl vybrán zejména proto, že je natrénován převážně na programovacích datech a je přímo integrován do vývojového prostředí Visual Studio Code, které bylo použito při vývoji aplikace. Dále nemá omezené množství zpráv a disponuje několika speciálními prvky. Užitečné jsou také doporučené otázky. I když ne vždy dokážou modelu poskytnout přesnou odpověď, naznačují možný směr, jakým by mohl být zadán vstup, aby ho model co nejlépe pochopil \cite{gitCopilot}.
+		Pro tuto kapitolu jsem se rozhodl omezit počet modelů pouze na Copilot Chat. Důvodů je k tomu více, hlavní však spočívá v tom, že testování všech předem zmíněných modelů by vedlo k nadměrnému rozšíření obsahu práce. Navíc je na webu již dostatek porovnání modelů v různých programovacích úlohách. Copilot Chat byl vybrán zejména proto, že je natrénován převážně na programovacích datech a je přímo integrován do vývojového prostředí Visual Studio Code (VSCode), které bylo použito při vývoji aplikace. Dále nemá omezené množství zpráv a disponuje několika speciálními prvky. Užitečné jsou také doporučené otázky. I když ne vždy dokážou modelu poskytnout přesnou odpověď, naznačují možný směr, jakým by mohl být zadán vstup, aby ho model co nejlépe pochopil \cite{gitCopilot}.
 		
 		Copilot Chat však není jedinou výhodou prostředí Visual Studio Code. Jako hlavní přednost je možné vnímat samotný Copilot, který funguje podobně jako automatické doplňování slov u chytrého telefonu. Copilot však dokáže doplnit řádek, vygenerovat zbytek funkce, nebo ji i vytvořit na základě jejího názvu s krátkým komentářem. Navíc se trénuje na základě napsaného kódu, což vede k tomu, že po určité době dokáže psát ve stejném stylu jako programátor, který ho využívá \cite{gitCopilot}. 
 		
@@ -956,9 +995,9 @@ Pokud si ale problém rozdělíme do menších celků, a ty individuálně vypo�
 			\end{lstlisting}
 		\end{tcolorbox}
 		
-		Znalost knihoven je však „pokus omyl“. U knihoven, které již nějakou dobu existují, je to podobné jako s jazykem samotným, například u knihovny \verb|FastAPI| \cite{fastapi}. Při snaze o zajištění bezpečnosti proti CSRF pomocí middleware jsem však nenarazil na úspěch, což mě vedlo k prohledávání internetu a následnému zjištění, že model vůbec nerozumí způsobu fungování CSRF \cite{csrf} \cite{csrf_web}. Tento problém souvisí s další nedokonalostí umělé inteligence, a tou je skutečnost, že pokud není v textovém vstupu explicitně uvedeno „pokud nevíš, tak řekni 'Nevím'“, pokusí se odpovědět za každou cenu, i když to bude naprostý nesmysl. Dochází tedy k vymýšlení metod, které v knihovně neexistují.
+		Znalost knihoven je však „pokus omyl“. U knihoven, které již nějakou dobu existují, je to podobné jako s jazykem samotným, například u knihovny \verb|FastAPI| \cite{fastapi}. Při snaze o zajištění bezpečnosti proti CSRF pomocí middleware jsem však nenarazil na úspěch, což mě vedlo k prohledávání internetu a následnému zjištění, že model vůbec nerozumí způsobu fungování CSRF \cite{csrf} \cite{csrf_web}.
 		
-		Tato situace je opět dána poměrem dat použitých při tréninku. Nové nebo méně známé knihovny nemají dostatečný objem v trénovacích datech, což může vést k situaci, kdy model při předpovědi následujícího klíčového slova pro kód dospěje k závěru, že by měla být použita úplně jiná knihovna, a tím vytváří podivný hybrid, který v realitě neexistuje. V takových případech je tedy vhodné se spíše spoléhat na dokumentaci.
+		Tato situace je z části dána poměrem dat použitých při tréninku. Nové nebo méně známé knihovny nemají dostatečný objem v trénovacích datech, což může vést k situaci, kdy model při předpovědi následujícího klíčového slova pro kód dospěje k závěru, že by měla být použita úplně jiná knihovna, a tím vytváří podivný hybrid, který v realitě neexistuje. V takových případech je tedy vhodné se spíše spoléhat na dokumentaci \cite{chinchilla}.
 		
 		\vspace{0.6em}
 		\begin{tcolorbox}[colback=white,colframe=black,title=Efektivnější metody zpracování dat v JavaScriptu]
@@ -1020,13 +1059,13 @@ Pokud si ale problém rozdělíme do menších celků, a ty individuálně vypo�
 		
 		Hlavním přínosem byla asistence na frontendu, neboť mám málo zkušeností s JavaScriptovým ekosystémem ve srovnání s Pythonem. Copilot Chat významně přispěl k řešení problémů na frontendu. Jako příklad lze uvést zpracování dat z API pomocí funkcionálních metod \verb|map| a \verb|reduce|. Pokud jde o knihovny, pomohl mi například přidat do knihovny \verb|Tailwind| podporu pro responzivní design \cite{map_reduce} \cite{tailwind}.
 		
-		Automatická dokumentace kódu představuje příjemný doplňující prvek. Avšak je až příliš mechanická v tom, že sice popisuje co, avšak nevysvětluje proč, ani jaké hodnoty mohou proměnné nabývat. Poskytnutá dokumentace je tak spíše pouhou formalitou, která dokládá existenci kódu, nikoli užitečným zdrojem pro budoucí práci. Toto může být způsobeno nedostatkem širšího kontextu celého projektu, který by umožnil lepší pochopení způsobu řešení problémů.
+		Automatická dokumentace kódu představuje příjemný doplňující prvek. Avšak je až příliš mechanická v tom, že sice popisuje co, avšak nevysvětluje proč, ani jaké hodnoty mohou proměnné nabývat. Poskytnutá dokumentace je tak spíše pouhou formalitou, která dokládá existenci kódu, nikoli užitečným zdrojem pro budoucí práci. Toto může být způsobeno nedostatkem širšího kontextu celého projektu, který by umožnil lepší pochopení způsobu řešení problémů, protože kontextové okno je omezené a nelze do něj načíst podrobnosti o všech souborech.
 		
 		Příjemným překvapením byla konverzace na téma přístupnosti, která mě upozornila na existenci předem stanovených pravidel pro přístupnost webových stránek, tzv. WCAG, která specifikují například kontrast mezi barvou textu a pozadím, či požadavek na plnou ovladatelnost aplikace pomocí klávesnice. Konverzace byla vedena na základě doporučených otázek a obecně jsem obdržel uspokojivé odpovědi \cite{aria}.
 		
 		\subsection{Agenti}
 		
-		Dalším zajímavým prvkem jsou „agenti“, kteří májí přístup k různým nástrojům. V době psaní lze využít tři nástroje. Nejzajímavějším z nich pro nás je agent, který využívá RAG pro hledání v kontextu celé složky \cite{gh_agents}.
+		Dalším zajímavým prvkem jsou „agenti“, kteří mají přístup k různým nástrojům. V době psaní lze využít tři nástroje. Nejzajímavějším z nich pro nás je agent, který využívá RAG pro hledání v kontextu celé složky \cite{gh_agents}.
 		
 		\vspace{0.6em}
 		\begin{tcolorbox}[colback=white,colframe=black]
@@ -1094,7 +1133,7 @@ Pokud si ale problém rozdělíme do menších celků, a ty individuálně vypo�
 			... \cite{refactoring_simple}
 		\end{tcolorbox} 
 		
-		Odpovědi, i když kvalitní, nedosahovaly takové hloubky, jakou jsem si představoval. Řešily pouze nejvýraznější problémy při psaní kódu. Po dokončení první fáze refaktorování jsem se rozhodl přejít ke druhé fázi, kde jsem sestavil komplexnější řetězec, obdobně jako v analýze nebo návrhu. Každý řetězec se mírně lišil v závislosti na použitém programovacím jazyku a konkrétním kontextu kódu. Obecněji vypadal takto:
+		Odpovědi, i když kvalitní, nedosahovaly takové hloubky, jakou jsem si představoval. Řešily pouze nejvýraznější problémy při psaní kódu. Po dokončení první fáze refaktorování jsem se rozhodl přejít ke druhé fázi, kde jsem sestavil komplexnější řetězec, obdobně jako v analýze nebo návrhu. Každý řetězec se mírně liší v závislosti na použitém programovacím jazyku a konkrétním kontextu kódu. Obecněji vypadal takto:
 		\vspace{0.6em}
 		\begin{tcolorbox}[colback=white,colframe=black]
 			\paragraph{Prompt}
@@ -1150,7 +1189,7 @@ Pokud si ale problém rozdělíme do menších celků, a ty individuálně vypo�
 		\end{tcolorbox}
 		
 		
-		Objevily se však i metody, které jsem dosud neznal, například použití virtualizace seznamu na frontendu pro extrakci pouze prvních pěti položek. Nicméně, tato rada se ukázala jako málo užitečná, protože velikost posílaného seznamu jsem mohl ovládat na úrovni backendu. Bohužel Copilot Chat ve své odpovědi nebral v úvahu kontext celého projektu, pomocí agenta, což způsobilo, že jeho odpověď byla méně relevantní.
+		Objevily se však i metody, které jsem dosud neznal, například použití virtualizace seznamu na frontendu pro extrakci pouze prvních pěti položek. Nicméně, tato rada se ukázala jako málo užitečná, protože velikost zaslaného seznamu jsem mohl ovládat na úrovni backendu. Bohužel Copilot Chat ve své odpovědi nebral v úvahu kontext celého projektu, pomocí agenta, což způsobilo, že jeho odpověď byla méně relevantní.
 		
 		\cite{enum}.
 		\vspace{0.6em}
@@ -1253,15 +1292,17 @@ Pokud si ale problém rozdělíme do menších celků, a ty individuálně vypo�
 		
 		
 		\subsection{Hodnocení dle seniority}
-		U junioru a medioru se můžeme ptát jakkoliv složitě pro svoji úroveň, a stejně model dokáže určité chyby vytknout, případně ukázat, jak je opravit nebo rovnou upravenou verzi. Junior by se mohl ptát pouze na jednoduché tipy na refactoring, medior na řetězec podobný mému. V obou případech ale dostane kritiku adekvátní jeho úrovni, a je schopen se z ní poučit pro další projekt, a opět v případě nejasností obdržet vysvětlení problematiky. 
+		U juniorů a mediorů se můžeme ptát jakkoliv složitě pro svoji úroveň, a stejně model dokáže určité chyby vytknout, případně ukázat, jak je opravit nebo rovnou upravenou verzi. Junior by se mohl ptát pouze na jednoduché tipy na refactoring, medior na řetězec podobný mému. V obou případech ale dostane kritiku adekvátní jeho úrovni, a je schopen se z ní poučit pro další projekt, a opět v případě nejasností obdržet vysvětlení problematiky. 
 		
-		Pro vývoj do další úrovně, obzvlášť u mediora, je důležité řešit aspekty čistého a výkonného kódu, kde se právě hodí mít někoho, kdo je na stejné, nebo vyšší úrovni. U seniorů bude asi s rozsahem znalostí přínos menší, protože je možné, že hloubka otázek by byla mimo pochopení samotného modelu. Stále se ale může jednat o dobrého parťáka pro recenzi kódu.
+		Pro postup na vyšší úroveň, zejména pro mediory, je důležité zdůraznit aspekty čistého a efektivního kódu, kde se hodí mít někoho, kdo je buď na stejné úrovni nebo má vyšší znalosti.
 		
-		Ve svém pocitu že Copilot pomáhá při ověření kvality kódu nejsem sám, dle článku od GitHub se velké množství vývojářů cití jistěji ve svém kódu pokud používají pro recenzi kódu umělou inteligenci, v tomto případě právě Copilot. Na druhou stranu ale také vyšel článek, který si stěžuje na fakt, že AI nástroje jako Copilot zhoršují kvalitu samotného kódu a zvyšují množství nepotřebného kódu. Osobně si myslím, že pravda je někde na pomezí, a to, že by kód vždy měl projít určitým auditem, než se dostane do produkce. Ať už ze strany člověka, kontrolujícího kvalitu kódu poskytnutého od AI, nebo AI kontrolující kvalitu kódu napsaného člověkem \cite{copilot:code_churn} \cite{copilot:benefits}
+		Ve svém pocitu že Copilot pomáhá při ověření kvality kódu nejsem sám. Podle článku od GitHubu se mnoho vývojářů cítí sebejistější ve svém kódu, pokud používají umělou inteligenci, konkrétně Copilota, pro jeho revizi. Na druhou stranu však existují i názory, které se stěžují na skutečnost, že nástroje AI jako Copilot mohou zhoršit kvalitu výsledného kódu a zvýšit jeho objem. 
+		
+		Osobně se domnívám, že pravda leží někde uprostřed a že kód by měl vždy podstoupit určitou formu auditu před tím, než bude nasazen do produkce, ať už jde o kontrolu kvality ze strany člověka, který provádí audit kódu generovaného pomocí AI, nebo o kontrolu kvality kódu napsaného člověkem za pomoci AI \cite{copilot:code_churn} \cite{copilot:benefits}.
 		
 		
 		\section{Testování}
-		Máme obecně 3 typy testů. Unit testy neboli také jednotkové testy, testují samotnou funkcionalitu malé jednotky kódu, například funkce, nebo třídy. Měli by být spolehlivé, rychlé a co nejvíce izolované od zbytku kódu \cite{testing}. Integrační testování se zabývá komunikací modulů a komponent uvnitř projektu, může se jednat o testování interakce backendu a databáze, nebou dvou tříd mezi sebou. Efektivní je hlavně ve velkých projektech, kde jsou jednotlivé komponent vyvijeny nezávisle na sobě, ale musí fungovat jako jeden celek \cite{testing}. End-to-end testing se zabývá testováním funkcionality, která zahrnuje několik částí systému, například vložení zboží do košíku v internetovém obchodě. Tyto testy jsou nejnáročnější, nebývá jich tedy mnoho \cite{testing}.
+		Máme obecně 3 typy testů. Unit testy, neboli také jednotkové testy, testují samotnou funkcionalitu malé jednotky kódu, například funkce, nebo třídy. Měli by být spolehlivé, rychlé a co nejvíce izolované od zbytku kódu \cite{testing}. Integrační testování se zabývá komunikací modulů a komponent uvnitř projektu, může se jednat o testování interakce backendu a databáze, nebo dvou tříd mezi sebou. Efektivní je hlavně ve velkých projektech, kde jsou jednotlivé komponenty vyvíjeny nezávisle na sobě, ale musí fungovat jako jeden celek \cite{testing}. End-to-end testing se zabývá testováním funkcionality, která zahrnuje několik částí systému, například vložení zboží do košíku v internetovém obchodě. Tyto testy jsou nejnáročnější, nebývá jich tedy mnoho \cite{testing}.
 		
 		\section{Testování s pomocí AI}
 		
@@ -1316,11 +1357,13 @@ Pokud si ale problém rozdělíme do menších celků, a ty individuálně vypo�
 		
 		V případě potřeby složitějších testů, které zahrnují falešné implementace, Copilot Chat obvykle nedokáže napsat kód, který by fungoval na první pokus. Tím pádem uživatel často musí ladit testy a případně je upravovat, pokud chce dosáhnout vysokého pokrytí testů \cite{codecov}. Výhodou je schopnost ověřit, obecně nebo specificky, že jsou různé testovací scénáře pro danou funkci pokryty \cite{TDD} \cite{mocking} \cite{mocking_fail}.
 		
-		Stále ale je lepší mít základní testy než žádné testy. To ilustruje fakt, že pokud uživatel nemá tušení, co píše, ani s pomocí AI se přes určité překážky nedostane \cite{canvas} \cite{firebase_auth} \cite{firebase}. Příkladem toho jsou frontendové testy, ať už unit nebo end-to-end testy, se kterými jsem měl skoro nulovou zkušenost, a u složitějších testů jsem se i s pomocí AI zasekl a stejně byl odkázán na prohlížeč.
+		Stále ale je lepší mít základní testy než žádné testy. To ilustruje fakt, že pokud uživatel nemá tušení, co píše, ani s pomocí AI se přes určité překážky nedostane \cite{canvas} \cite{firebase_auth} \cite{firebase}. Příkladem toho jsou frontendové testy, ať už unit nebo end-to-end testy, se kterými jsem měl skoro nulovou zkušenost, u složitějších testů jsem se i s pomocí AI zasekl a stejně byl odkázán na prohlížeč.
 		
 		S tím souvisí další pozorování, že AI buď poskytne odpověď, která funguje, nebo žádnou odpověď. Málokdy se mi stalo, že bych se zeptal na opravu odpovědi kvůli problému, a nedostal ten samý kód. V tom případě jsem raději použil vyhledávač. To může být známkou toho, že Copilot skutečně neví, kde je chyba, ale pokud to explicitně neoznámí, je obtížné určit, zda je to pravda. Jediným způsobem, jak se vymanit z tohoto cyklu, je restartovat konverzaci. To však není ideální, protože tím ztrácíme předchozí kontext a také povědomí o problému \cite{mocking_fail}.
 		
-		Vychází to z architektury transformerů, protože jde o předpověď následujícího slova, a pravděpodobnost slova „nevím“ bude dosti menší než slova týkajícího se tematiky v promptu. Kontext aktuálního promptu je přeci jen podobný, jak u promptu předtím, a celá konverzace nenaznačuje, že by měl napsat, že neví, proč nenapsat tedy velice podobnou odpověď? Jedním ze způsobu, jak toto omezit, je právě explicitně zmínit, že pokud model neví, tak nemá nic psát. To ale není zdaleka jistá cesta, jak se vyhnout opakování odpovědi, protože se sice stane tato věta součástí kontextu, kterého je ale v promptu podstatně více. Omezení halucinací je něco, co se v oblasti velkých jazykových modelů stále aktivně řeší \cite{jing2024fgaif}.
+		Vychází to z architektury transformerů, protože jde o předpověď následujícího slova, a pravděpodobnost slova „nevím“ bude dosti menší než slova týkajícího se tematiky v promptu. Kontext aktuálního promptu je přeci jen podobný, jak u promptu předtím, a celá konverzace nenaznačuje, že by měl napsat, že neví, proč nenapsat tedy velice podobnou odpověď \cite{context_understand}? 
+		
+		Jedním ze způsobů, jak toto omezit, je právě explicitně zmínit, že pokud model neví, tak nemá nic psát. To ale není zdaleka jistá cesta, jak se vyhnout opakování odpovědi, protože se sice stane tato věta součástí kontextu, kterého je ale v promptu podstatně více. Omezení halucinací je něco, co se v oblasti velkých jazykových modelů stále aktivně řeší \cite{jing2024fgaif} .
 		
 		Odpovědi ale nešly dostatečně „do hloubky“. Například falešné implementace API nemusí být relevantní, pokud čas na získání odpovědi ze serveru není příliš dlouhý, což snižuje pokrytí testů. Namísto toho, aby Copilot položil otázku, zda je použití falešných implementací vhodné, nebo aby požadoval délku trvání odpovědi ze serveru, AI pouze vykoná pokyn \cite{mocking_fail}. Dalo by se to připodobnit k stavebnicím LEGO, AI za Vás vcelku bezproblémově postaví jednotlivé bloky, může třeba i poskytnout návod, ale je již na člověku co si stavebnici koupí ji složit dohromady \cite{testing} \cite{mocking} \cite{mocking_fail}.
 		
@@ -1329,9 +1372,9 @@ Pokud si ale problém rozdělíme do menších celků, a ty individuálně vypo�
 		V ostatních projektech jsem ale přišel na to, že lze dokumentaci kopírovat přímo do kontextového okna modelu a zeptat se na specifický detail, úspěšnost je pak podstatně vyšší, protože zakládáme na reálných a aktuálních datech. Vzhledem ke kontextovým oknům v rámci statisíců tokenů lze čerpat i ze vcelku rozsáhlé dokumentace. Nebo využít právě hledání v dokumentech, najít nejrelevantnější kus dokumentace, a ten shrnout pomocí AI. Model tak donutíme uvažovat aktuální data. Bohužel mne ale toto při psaní aplikace nenapadlo \cite{PEG}.
 		
 		\subsection{Hodnocení dle seniority}
-		Vidím přínos hlavně u juniorů, kteří si díky jednoduchosti psaní testů, které nevyužívají pokročilé koncepty, jako třeba falešné implementace, mohou na testy více zvyknout již od začátku své kariéry v softwarovém inženýrství, a tím pádem psát dříve kód, který disponuje udržitelností, protože je jeho základní funkcionalita pokryta testy. Ve složitějších testech je ale člověk odkázán na dokumentaci a vlastní rozum.
+		Vidím přínos zejména pro začínající vývojáře, kteří se díky jednoduchosti psaní testů, které nevyžadují použití pokročilých konceptů, jako jsou například falešné implementace, mohou lépe seznamovat s testováním již od počátku své kariéry v softwarovém inženýrství. Tím pádem mohou psát kód s vyšší udržitelností, protože základní funkcionalita je pokryta testy. V případě složitějších testů se však člověk musí spoléhat na dokumentaci a vlastní chápání problematiky.
 		
-		Pro medorní úroveň je Copilot šikovný pro vytvoření boilerplate kódu pro složitější testy, zlepšování čitelnosti testů a jednoduché testy. Nebo v trénování jiných přístupů k vývoji, například extrémní programování, kdy se snažíme nejdříve vytvořit testy pro náš kód, vytvořit minimální implementaci, a opakovat \cite{TDD}.
+		Pro středně pokročilou úroveň je Copilot užitečný při generování kostry kódu pro složitější testy, zlepšování čitelnosti testovacího kódu a psaní jednoduchých testů. Dále může sloužit k trénování různých přístupů k vývoji, jako je například, kdy se nejprve píší testy a poté se implementuje minimální funkčnost, která testy projde, a tento proces se opakuje \cite{TDD}.
 		
 		\section{Alternativní kopiloti}
 		Vzhledem k placené povaze služby Copilot Chat se tato práce krátce zabývá alternativami, které jsou k dispozici zcela zdarma nebo po omezenou dobu během konkrétních implementačních fází. Mezi kopie patří například Amazon CodeWhisperer \cite{codewhisperer}. 
@@ -1379,18 +1422,24 @@ Pokud si ale problém rozdělíme do menších celků, a ty individuálně vypo�
 		\end{tcolorbox}
 		\vspace{0.6em}
 		
-		Zkusil jsem i využít agenta, který má přístup ke kontextu celé složky, s tím, jestli nebude efektivnější. Ačkoliv jsem na první pohled byl odpovědí mile, používal již zastaralou verzi Python 3.8. Takto zastaralá verze nemusí mít nejnovější aktualizace, což je v nejlepším případě akorát nešikovné, ale může způsobovat i bezpečnostního rizika \cite{agent_deploy}.
+		Zkusil jsem i využít agenta, který má přístup do kontextu celé složky, s tím, jestli nebude efektivnější. Ačkoliv jsem na první pohled byl odpovědí mile, používal již zastaralou verzi Python 3.8. Takto zastaralá verze nemusí mít nejnovější aktualizace, což je v nejlepším případě akorát nešikovné, ale může způsobovat i bezpečnostního rizika \cite{agent_deploy}.
 		
 		\subsection{Hodnocení dle seniority}
-		Dle mého zde budou profitovat všechny úrovně podobně, protože o nasazení do produkce se většinou v rámci firmy stará DevOps tým. Je tedy dobré mít AI, které má základní znalosti DevOps, a dokáže vytvořit konfigurační soubor pro nasazení ať už na CI/CD platformy jako GitHub Actions nebo do cloudového prostředí, případě skripty pro řešení ad-hoc problémů a automatizaci procesů. U cloudových služeb bych se ale raději odkázal na dokumentaci, může se totiž stát, že je dokumentace API v trénovacích datech je již zastaralá, což se mi několikrát stalo právě s platformou Firebase a přiloženou knihovnou \cite{firebase} \cite{cicd} \cite{cicd2}.
+		Dle mého zde budou profitovat všechny úrovně podobně, protože o nasazení do produkce se většinou v rámci firmy stará DevOps tým. Je proto výhodné mít umělou inteligenci, která má základní znalosti v oblasti DevOps a dokáže vytvořit konfigurační soubory pro nasazení, ať už na platformy pro kontinuální integraci a nasazení (CI/CD) jako GitHub Actions, nebo do cloudového prostředí, a případně i skripty pro řešení ad-hoc problémů a automatizaci procesů. 
 		
-		Jediné, co mne lehce zaráží, jsou neaktualizované verze skriptů, které sice dávají smysl vzhledem k časovým omezením trénovacích dat modelů, ale na juniorní úrovni by mohli poskytnout nemalé potíže, protože třeba ani daný junior netuší, že existuje novější verze. Na vyšších úrovních to může vyvolat potíže s kompatibilitou, když programátor nainstaluje nejnovější verze knihoven, které ale vyžadují nejnovější verze závislých knihoven na této, a těžko řešitelná chyba je na světě.  Je tedy potřeba raději ověřit verze použitých služeb, aplikací a knihoven, a zkontrolovat, že se jedná o ty nejnovější, a né slepě spoléhat na doporučení AI modelu.
+		Při práci s cloudovými službami bych však spíše doporučil konzultovat dokumentaci, protože se může stát, že dokumentace API v trénovacích datech modelů bude již zastaralá, což se mi již několikrát stalo právě s platformou Firebase a přidruženou knihovnou \cite{firebase} \cite{cicd} \cite{cicd2}.
+		
+		Jediné, co mě lehce znepokojuje, jsou neaktualizované verze skriptů, které sice dávají smysl vzhledem k časovým omezením trénovacích dat modelů, ale na juniorské úrovni by mohly představovat potíže, protože například daný junior nemusí být informován o existenci novější verze. 
+		
+		Na pokročilejších úrovních to může vést k problémům s kompatibilitou, když programátor nainstaluje nejnovější verze knihoven, které však vyžadují nejnovější verze závislých knihoven, a tím vznikne těžko řešitelná chyba. 
+		
+		Proto je důležité ověřit verze použitých služeb, aplikací a knihoven a zajistit, že jsou vždy nejnovější, a ne slepě se spoléhat na doporučení umělé inteligence. Zároveň vytváříme nepotřebné bezpečnostní riziko při použití zastaralých verzí knihoven.
 		
 		
 		\chapter{Závěr} 
 		Přestože práce zmiňuje několik negativních aspektů, stále hodnotím přínos umělé inteligence (AI) při tvorbě softwarových projektů jako kladný. Bez ohledu na to, zda se jedná o generování boilerplate kódu, vyhledávání příkazů v existujících knihovnách nebo tvorbu základní struktury kódu, tyto činnosti často zaberou významnou část času při vývoji softwaru. To platí i pro testování a vylepšování kódu. I když umělá inteligence může pomoci s návrhem a analýzou, stále je zapotřebí mít znalost oblasti, ve které pracujeme, a představu o architektuře aplikace. Umělá inteligence může být užitečným pomocníkem při diskuzích o aplikaci s ostatními zainteresovanými stranami. Při nasazení do produkce však model umělé inteligence neposkytuje významnou podporu, neboť se jedná o soubor technologií propojených dohromady, jejichž dokumentace je vždy aktuálnější online.
 		
-		Většina kódu byla napsána bez mého zásahu. I když jsem ušetřil čas při návrhu, občas jsem přesto musel sáhnout po vyhledávači. Důležitá otázka se také týká toho, jak mnoho nových věcí se díky tomu člověk naučí. Je tedy vhodné používat umělou inteligenci opatrně, zvláště v junorní roli. Programování v podstatě spočívá v řešení problémů pomocí technologií, a pokud umělá inteligence řeší problémy za nás, nezvýšíme tím své dovednosti. Proto je vhodné delegovat úkoly umělé inteligenci až v okamžiku, kdy je základní princip jejich řešení plně pochopen a máme s nimi dostatečné praktické zkušenosti.
+		Většina kódu byla napsána bez mého zásahu. I když jsem ušetřil čas při návrhu, občas jsem přesto musel sáhnout po vyhledávači. Důležitá otázka se také týká toho, jak mnoho nových věcí se díky tomu člověk naučí. Je tedy vhodné používat umělou inteligenci opatrně, zvláště v junorní roli. Programování v podstatě spočívá v řešení problémů pomocí technologií, a pokud umělá inteligence řeší problémy za nás, nezvýšíme tím své dovednosti. Proto je vhodné delegovat úkoly umělé inteligenci až v okamžiku, kdy je základní princip jejich řešení plně pochopen, a máme s nimi dostatečné praktické zkušenosti.
 		
 		Zajímavým aspektem je, že spolupráce s umělou inteligencí může zlepšit naši schopnost formulovat a vysvětlit problémy, například juniorům v týmu. I když se možná nenaučíme psát kód sami, zlepšíme svou schopnost komunikovat o kódu, což přispívá k rozvoji naší technické a netechnické komunikace, což může posílit naši kariéru v oblasti programování.
 		
@@ -1404,6 +1453,9 @@ Pokud si ale problém rozdělíme do menších celků, a ty individuálně vypo�
 		% \addcontentsline{toc}{chapter}{References} 
 		%%
 	\end{document}
+	
+	
+	
 	
 	
 	
