@@ -343,7 +343,7 @@
 		Jak by probíhala tokenizace na řetězci „aaabdaaabac“? BPE nejprve detekuje první dvojici znaků, „aa“, který nahradíme tokenem „T“. Řetězec se zmenší pouze na „TabdTabac“. Proces opakovaně proběhne pro „ab“, nahrazeno tokenem „Q“, dostáváme „TQdTQac“. Poslední dvojicí tokenů je „TQ“, kterou lze nahradit tokenem „Z“, výsledek je tedy „ZdZac“. Tímto procesem snížíme počet tokenů, které jsou vstupem do modelu, tím pádem dochází ke kompresi vstupu, která umožňuje lepší efektivitu modelu \cite{rothman2021transformers}.
 		
 		\section{Embedding modely}
-		Cílem je dostat text do formy srozumitelné pro LLM, a to za pomoci embedding modelů, které převádějí text na tenzory. Tenzory zachycují jak sémantický, tak syntaktický význam vět. Syntaktika se zabývá stavbou samotné věty a sémantika se zabývá jejím významem. Tím pádem podobné věty budou mít podobné tenzory, pokud byly vytvořeny stejným modelem.
+		Cílem je dostat text do formy srozumitelné pro LLM, a to za pomoci embedding modelů, které převádějí text na vektory, které zachycují jak sémantický, tak syntaktický význam vět. Syntaktika se zabývá stavbou samotné věty a sémantika se zabývá jejím významem. Tím pádem podobné věty budou mít podobné vektory, pokud byly vytvořeny stejným modelem \cite{embeddings} \cite{embeddings2}.
 		
 		Pomocí vzdálenosti tenzorů lze určit podobná slova. Slovo „král“ a „muž“ mají podobnou vzdálenost po zakódování do vektorů jako slova „žena“ a „královna“. To je dáno právě tím, že vektory zachycují význam slov, tím pádem vzdálenost mezi vektory, ať už kosinová, nebo euklidovská, poskytuje informaci o rozdílu významů slov, kterou lze přenést i na jinou slovní dvojici. Velké jazykové modely používají pro převod ze slov do tenzorů právě embedding modely \cite{embeddings} \cite{embeddings2}.
 		
@@ -356,7 +356,7 @@
 		
 		Úkolem neuronové sítě je předpovědět slovo na základě jeho okolí. Znalost slov je dána slovníkem. Slovník obsahuje všechna známá slova pro neuronovou síť, také speciální tokeny, např. \verb|</EOS>|, který určuje konec textového řetězce \cite{embeddings2}. 
 		
-		Jak ale takový model funguje? Nejdříve je text předzpracován. To zahrnuje převedení na malá nebo velká písmena, vyloučení nepotřebné interpunkce a tokenizaci. Cílem neuronové sítě je na základě kontextového okna tokenů velikosti $w$ předpovědět slovo uprostřed kontextového okna. Vstup je převeden na počáteční vektory tak, že z každého slova vznikne vektor o velikosti slovníku, který má pouze jednu jedničku a samé nuly, jedničku právě na pozici daného slova ve slovníku.
+		Jak ale takový model funguje? Nejdříve je text předzpracován. To zahrnuje převedení na malá nebo velká písmena, vyloučení nepotřebné interpunkce a tokenizaci. Cílem neuronové sítě je na základě kontextového okna tokenů velikosti $w$ předpovědět slovo uprostřed kontextového okna. Vstup je převeden na počáteční vektory tak, že z každého slova vznikne vektor o velikosti slovníku, který má pouze jednu jedničku, právě na pozici daného slova ve slovníku a jinak samé nuly.
 		
 		\begin{figure}[H]
 			\centering
@@ -365,30 +365,24 @@
 			\label{fig:e2}
 		\end{figure}
 		
-		Vstup prochází skrze ReLU vrstvu, dále putuje do skryté vrstvy, následně přejde do funkce $softmax$, která určí pravděpodobnostní distribuci výsledků. Na výstupu dostáváme pravděpodobnost slova ve středu daného kontextového okna, opět v rámci velikosti celého slovníku. Skrze trénování modelu se skryté vrstvy naučí vektorovou reprezentaci slov v okolí. Ty pak tvoří náš významový tenzor pro jednotlivá slova \cite{paper:word2vec} \cite{tokenization}. Pro vizuální ukázku procesu se doporučuji podívat na následující videa \cite{ytb:embeddings} \cite{ytb:word2vec}.
+		Vstup prochází skrze ReLU vrstvu, dále putuje do skryté vrstvy, následně přejde do funkce softmax, která určí pravděpodobnostní distribuci výsledků. Skrze trénování modelu se skryté vrstvy naučí vektorovou reprezentaci slov v okolí. Ty pak tvoří náš významový tenzor pro jednotlivá slova \cite{paper:word2vec} \cite{tokenization}. Pro vizuální ukázku procesu se doporučuji podívat na následující videa \cite{ytb:embeddings} \cite{ytb:word2vec}.
 		
 		\section{Transformer modely} \label{transformers}
 		Velké jazykové modely jsou založeny na architektuře tzv. „transformerů“. Transformer obsahuje dvě hlavní části, enkodér a dekodér. LLM ale obsahují pouze dekodér \cite{rothman2021transformers}. Proces průchodu vstupem skrze transformer je následující.
 		
 		\subsection{Kódování pozice}
-		Vstupem je význam slov, zakódován ve vektoru o určitých rozměrech $W$. Prvním krokem je zakódovat pozici slov. Jak ale zachytíme pozici slova? Opět pomocí vektoru. Pozicový vektor se skládá z hodnot $y$ přiřazených funkcí $sin$ nebo $cos$, hodnotu $x$ tvoří aktuální pozice $p$ slova v textu. Výsledkem $P$ je součet pozicového a vstupního vektoru. 
-		
-		\begin{equation}
-			PE_{(pos2_i)} = sin(\frac{pos}{10000^{\frac{2i}{d_{model}}}})
-		\end{equation}
+		Vstupem je význam slov, zakódován ve vektoru o určitých rozměrech $W$. Prvním krokem je zakódovat pozici slov. Jak ale zachytíme pozici slova? Opět pomocí vektoru. Pozicový vektor se skládá z hodnot $y$ přiřazených funkcí $sin$ nebo $cos$, hodnotu $x$ tvoří aktuální pozice $p$ slova v textu. Výsledkem $P$ je součet pozicového a vstupního vektoru \cite{rothman2021transformers}.
 		
 		Například pokud bychom měli rozměr vstupního vektoru $5 \times 1$, měli bychom pět unikátních funkcí $sin$. Z každé bychom extrahovali hodnotu $y$ pro pozici aktuálního slova ve větě $p$, což by byl také vektor $5 \times 1$, ten bychom přičetli k původnímu vstupnímu vektoru $W$. Tento proces se opakuje pro všechna slova ve větě \cite{rothman2021transformers}. 
 		
-		Hodnoty pozičního vektoru se dále přičtou zpět k embedding vektoru, tím získáváme poziční kódování slova.
-		
 		\subsection{Masked self-attention}
-		Centrálním konceptem pro architekturu transformerů je pozornost (self-attention). Její princip spočívá v tom, že každé slovo v textu je porovnáváno se všemi ostatními slovy v textu, aby byla určena jejich vzájemná podobnost. Tento proces se opakuje pro každé slovo v textu. Varianta maskované pozornosti (masked self-attention) se zaměřuje pouze na předcházející slova v posloupnosti. Model tak může reprezentovat vazby v textu a tím pádem zlepšit jeho pochopení.
+		Centrálním konceptem pro architekturu transformerů je pozornost (self-attention). Její princip spočívá v tom, že slovo v textu je porovnáváno se všemi ostatními slovy v textu, aby byla určena jejich vzájemná podobnost. Tento proces se opakuje pro každé slovo v textu. Varianta maskované pozornosti (masked self-attention) se zaměřuje pouze na předcházející slova. Model tak může reprezentovat vazby v textu a tím pádem zlepšit jeho pochopení.
 		
-		Pro lepší pochopení můžeme uvést příklad. Mějme dvě otázky: „What is the newest Apple phone?“ a „Is an apple a fruit?“.  V obou případech se ve větě vyskytuje slovo „apple“, avšak s odlišným významem. Standardní embedding modely jako Word2Vec nedokážou tento kontext zachytit, neboť berou v potaz pouze jednotlivá slova bez okolního kontextu. Pro zahrnutí kontextu je třeba použít právě techniku pozornosti. Ta přetransformuje vektory slova „apple“ dle okolního kontextu, a následně pracuje s těmito modifikovanými vektory. Lze tak bez problému rozlišit „apple“ jako technologického giganta a „apple“ jako ovoce \cite{vaswani2023attention}.
+		Pro lepší pochopení můžeme uvést příklad. Mějme dvě otázky: „What is the newest Apple phone?“ a „Is an apple a fruit?“.  V obou případech se ve větě vyskytuje slovo „apple“, avšak s odlišným významem. Standardní embedding modely jako Word2Vec nedokážou rozdíl zachytit, neboť berou v potaz pouze jednotlivá slova bez okolního kontextu. Pro zahrnutí kontextu je třeba použít právě techniku pozornosti. Ta přetransformuje vektory slova „apple“ dle okolního kontextu, a následně pracuje s těmito modifikovanými vektory. Lze tak bez problému rozlišit „apple“ jako technologického giganta a „apple“ jako ovoce \cite{vaswani2023attention}.
 		
 		Matematická formulace by mohla být následující. Řekněme že máme dána dvě slova $W_x$ a $W_y$. Nejdříve naše nové poziční hodnoty vynásobíme dalšími vahami $w_1$. Vzniknou nám tři nové vektory, pro každé slovo, se stejnými rozměry, jako vektory původní. Klíč $K$, dotaz $Q$ a hodnota $V$. Dotaz $Q$ slouží pro vyhledávání podobných slov podle klíče $K$ \cite{vaswani2023attention} \cite{rothman2021transformers}. 
 		
-		Podobnost klíče $K_x$ a dotazu $Q_y$ vypočítáme pomocí skalárního součinu. Pro výpočet ale použijeme tenzoru hodnoty $V_y$, která prostoupí funkcí softmax a dostáváme, jenž značí, jak moc bude dané slovo $W_y$ ovlivňovat celkovou pozornost $A_x$ slova $W_x$. Poté vynásobíme všechny hodnoty slov $V_i$ s koeficienty danými funkcí softmax a sečteme, získáváme tak hodnotu pozornosti $A_x$ pro slovo $W_x$. \cite{vaswani2023attention} \cite{rothman2021transformers}.
+		Podobnost klíče $K_x$ a dotazu $Q_y$ vypočítáme pomocí skalárního součinu. Pro výpočet ale použijeme tenzoru hodnoty $V_y$, která prostoupí funkcí softmax a získáváme pravděpodobnostní distribuci toho, jak moc budou daná slova, včetně $W_y$, ovlivňovat celkovou pozornost $A_x$ slova $W_x$. Poté vynásobíme všechny hodnoty slov $V_i$ s koeficienty danými funkcí softmax a sečteme, získáváme tak hodnotu pozornosti $A_x$ pro slovo $W_x$. \cite{vaswani2023attention} \cite{rothman2021transformers}.
 		
 		\begin{equation}
 			A(Q, K, V) = softmax(\frac{QK^T}{\sqrt{d_k}})*V
@@ -432,7 +426,7 @@
 			\item Do vstupu $P$ dosadíme $T_{best}$ na místo $X$ a uživatelský dotaz na místo $Y$.
 		\end{enumerate}
 		
-		Stále se zatím jedná o jednu z nejméně náročných cest, jak odladit LLM pro náš případ užití. Označuje se také jako „učení v kontextu“. Halucinace jsou minimalizovány jak poskytnutím kontextu, který by měl odpovídat otázce, tak omezením modelu samotným textovým vstupem, protože pokud informace nenajde, má odpovědět „Nevím“. Stále se ale mohou objevit. Navíc se objevují nové problémy, např jak najedeme nejrelevantnější kus dokumentu \cite{paper:RAG}?
+		Stále se zatím jedná o jednu z nejméně náročných cest, jak odladit LLM pro náš případ užití. Označuje se také jako „učení v kontextu“. Halucinace jsou minimalizovány jak poskytnutím kontextu, který by měl odpovídat otázce, tak omezením modelu samotným textovým vstupem, protože pokud informace nenajde, má odpovědět „Nevím“. Stále se ale mohou objevit. Navíc se objevují nové problémy, např. jak najedeme nejrelevantnější kus dokumentu \cite{paper:RAG}?
 		
 		\chapter{Vytvoření projektu s AI}
 		\section{Úvodem...}
